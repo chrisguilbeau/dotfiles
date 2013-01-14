@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+cd ~/Documents/vi-projects/$1
+ctags -R
+vi
