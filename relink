@@ -6,8 +6,8 @@ dir=`pwd`
 # make a dir for the old backups
 mkdir -p ../dotfiles.bak
 
-for file in "`find . -name ".*" -type f`"
-do
+while read file; do
     mv ../$file ../dotfiles.bak/$file
     ln -s $dir/$file ~/$file
-done
+done < "$1.list"
+

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]
+then
+  echo "You must provide the repo you'd like to review"
+  exit
+fi
+
+dev=~/z/hg/$1
+prist=~/z/hg-prist/$1
+
+for dir in "$prist" "$dev"
+do
+	echo updating $dir...
+	pushd $dir > /dev/null
+	hg pull
+	hg update
+	popd > /dev/null
+done
+
+echo launching diff utility...
+opendiff $prist $dev

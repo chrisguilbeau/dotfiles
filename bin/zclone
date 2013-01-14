@@ -1,0 +1,2 @@
+#!/bin/bash
+hg clone ssh://cg@dev.zogotech.com/hg/$1 $2
