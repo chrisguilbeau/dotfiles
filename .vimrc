@@ -1,18 +1,14 @@
-syntax on
-set tags=./tags,tags; " look for tags in current dir then move up till you
-set whichwrap+=<,>,h,l,[,] " wrap edged when navigating with arrows
-"set cc=79 " draw a ruler at col 79
-set title " auto update with the title of the file
-match Todo /\t\+/ "highlight tabs
+syntax on "syntax highlighting
+set tags=tags;/ "search for a tags file up the tree
+set cc=72,79 "put a line for comments and end of code
+au Filetype python setl et ts=4 sw=4 "define python tab rules
+autocmd BufWritePre *.py :%s/\s\+$//e "remove whitespace on save
+set nobackup "turn off backup
+set noswapfile
+match Todo /\s\+$/ "highlight trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
-set expandtab " no more tabs!
-set tabstop=4
-set shiftwidth=4
-set incsearch
-set hlsearch
-set ruler
-set autoindent
-set smartindent
-set nobackup
-set cindent
-set nowrap
+
+" powerline
+"python from powerline.vim import setup as powerline_setup
+"python powerline_setup()
+"python del powerline_setup
