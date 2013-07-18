@@ -20,12 +20,15 @@ set noswapfile
 match Todo /\s\+$/ "highlight trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
 set t_Co=256 " set colors to 256 for better color scheme support
+set number "always show line numbers
 
 " Powerline Setup
 "let g:Powerline_symbols = "fancy"
 set laststatus=2 " always show statusbar
 "set encoding=utf-8 " Necessary to show Unicode glyphs
-set guifont=Source\ Code\ Pro\ for\ Powerline
+"set guifont=Source\ Code\ Pro\ for\ Powerline
+"set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+set noshowmode " dont show the double insert
 
 "NERD Commenter Setup
 filetype plugin on "needs this for some reason
@@ -38,3 +41,6 @@ set wildignore+=*/.git/*,*/.hg/*,*.pyc "don't pick up certain things
 
 " solarized setup
 colorscheme solarized
+
+" indent guides setup
+let g:indent_guides_enable_on_vim_startup = 1
