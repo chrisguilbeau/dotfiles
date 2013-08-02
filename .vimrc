@@ -3,7 +3,7 @@ execute pathogen#infect()
 Helptags
 
 syntax on "syntax highlighting
-set cursorline "highlight the current line
+"set cursorline "highlight the current line
 "set hlsearch "highlight all matches while searching
 set incsearch "jump to first match when searching
 "set autoindent "indent to the previous level
@@ -40,7 +40,7 @@ let g:ctrlp_extensions = ['tag'] "enable searching of tags (slow)
 set wildignore+=*/.git/*,*/.hg/*,*.pyc "don't pick up certain things
 
 " solarized setup
-colorscheme solarized
+"colorscheme solarized
 
 " indent guides setup
-let g:indent_guides_enable_on_vim_startup = 1
+"let g:indent_guides_enable_on_vim_startup = 1
