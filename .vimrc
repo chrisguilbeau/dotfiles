@@ -19,8 +19,9 @@ set nobackup "turn off backup
 set noswapfile
 match Todo /\s\+$/ "highlight trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
-set t_Co=256 " set colors to 256 for better color scheme support
+"set t_Co=256 " set colors to 256 for better color scheme support
 set number "always show line numbers
+set whichwrap+=<,>,h,l,[,]
 
 " Powerline Setup
 "let g:Powerline_symbols = "fancy"
