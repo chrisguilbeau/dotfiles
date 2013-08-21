@@ -3,6 +3,7 @@ execute pathogen#infect()
 Helptags
 
 syntax on "syntax highlighting
+set nowrap "put everything on one line!
 "set cursorline "highlight the current line
 "set hlsearch "highlight all matches while searching
 set incsearch "jump to first match when searching
@@ -20,7 +21,7 @@ set noswapfile
 match Todo /\s\+$/ "highlight trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
 "set t_Co=256 " set colors to 256 for better color scheme support
-set number "always show line numbers
+"set number "always show line numbers
 set whichwrap+=<,>,h,l,[,]
 
 " Powerline Setup
@@ -45,3 +46,9 @@ set wildignore+=*/.git/*,*/.hg/*,*.pyc "don't pick up certain things
 
 " indent guides setup
 "let g:indent_guides_enable_on_vim_startup = 1
+
+" do things if in gui mode
+if has('gui_running')
+  set guifont=Source Code Pro
+  colorscheme solarized
+endif

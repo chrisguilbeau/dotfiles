@@ -6,6 +6,7 @@ declare -a repos=(
     https://github.com/nathanaelkane/vim-indent-guides.git
     https://github.com/terryma/vim-multiple-cursors.git
     https://github.com/Lokaltog/vim-powerline.git
+    https://github.com/mileszs/ack.vim.git
     )
 
 # delete all directories
