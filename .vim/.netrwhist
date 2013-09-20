@@ -1,4 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =6
 let g:netrw_dirhist_1='/Users/cg'
 let g:netrw_dirhist_2='/Users/cg/z/proj/ccc-cleanup'
+let g:netrw_dirhist_3='/Users/cg/z/proj/amo-fix2'
+let g:netrw_dirhist_4='/Users/cg/z/proj/amo-fix3'
+let g:netrw_dirhist_5='/Users/cg/z/proj/amo-fix2'
+let g:netrw_dirhist_6='/Users/cg/z/proj/amo-fix10'

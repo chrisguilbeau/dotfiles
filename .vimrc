@@ -3,7 +3,7 @@ execute pathogen#infect()
 Helptags
 
 syntax on "syntax highlighting
-set nowrap "put everything on one line!
+"set nowrap "put everything on one line!
 "set cursorline "highlight the current line
 "set hlsearch "highlight all matches while searching
 set incsearch "jump to first match when searching
@@ -23,6 +23,8 @@ autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
 "set t_Co=256 " set colors to 256 for better color scheme support
 "set number "always show line numbers
 set whichwrap+=<,>,h,l,[,]
+set nonumber " turn off numbers
+set relativenumber " relative line numbers
 
 " Powerline Setup
 "let g:Powerline_symbols = "fancy"
@@ -46,6 +48,11 @@ set wildignore+=*/.git/*,*/.hg/*,*.pyc "don't pick up certain things
 
 " indent guides setup
 "let g:indent_guides_enable_on_vim_startup = 1
+
+" syntastic setup
+ let g:syntastic_check_on_open = 1
+ let g:syntastic_python_checkers = ["pep8"]
+ let g:syntastic_python_pep8_args = "--ignore=E272,E221,E302"
 
 " do things if in gui mode
 if has('gui_running')

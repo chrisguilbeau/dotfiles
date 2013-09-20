@@ -5,8 +5,11 @@ declare -a repos=(
     https://github.com/scrooloose/nerdcommenter.git
     https://github.com/nathanaelkane/vim-indent-guides.git
     https://github.com/terryma/vim-multiple-cursors.git
-    https://github.com/Lokaltog/vim-powerline.git
+    https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
     https://github.com/mileszs/ack.vim.git
+    https://github.com/scrooloose/syntastic.git
+    git://repo.or.cz/vcscommand
+    https://github.com/scrooloose/nerdtree.git
     )
 
 # delete all directories
