@@ -7,12 +7,16 @@ declare -a repos=(
     https://github.com/terryma/vim-multiple-cursors.git
     https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
     https://github.com/mileszs/ack.vim.git
-    https://github.com/scrooloose/syntastic.git
+    _https://github.com/scrooloose/syntastic.git
     git://repo.or.cz/vcscommand
-    https://github.com/scrooloose/nerdtree.git
+    https://github.com/vim-scripts/DirDiff.vim.git
+    https://github.com/flazz/vim-colorschemes
+    https://github.com/msanders/snipmate.vim.git
+    https://github.com/tpope/vim-surround.git
     )
 
 # delete all directories
+cd ~/.vim/bundle
 rm -rf */
 
 # reclone everything

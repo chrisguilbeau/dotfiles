@@ -1,0 +1,4 @@
+(provide 'settings-ui)
+(if (display-graphic-p)
+    (load-GUI-theme)
+  (load-Terminal-theme)

@@ -1,4 +1,4 @@
-" setup pathogen for installing plugins with ease
+"""" setup pathogen for installing plugins with ease
 execute pathogen#infect()
 Helptags
 
@@ -15,16 +15,22 @@ set tags=tags;/ "search for a tags file up the tree
 set cc=72,79 "put a line for comments and end of code
 "au Filetype python setl et ts=4 sw=4 "define python tab rules
 set expandtab shiftwidth=4 softtabstop=4
+set tabstop=4
 autocmd BufWritePre *.py :%s/\s\+$//e "remove whitespace on save
 set nobackup "turn off backup
 set noswapfile
 match Todo /\s\+$/ "highlight trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
-"set t_Co=256 " set colors to 256 for better color scheme support
-"set number "always show line numbers
+set t_Co=256 " set colors to 256 for better color scheme support
+set number "always show line numbers
 set whichwrap+=<,>,h,l,[,]
-set nonumber " turn off numbers
 set relativenumber " relative line numbers
+set autoread " automatically read files when changed by another editor
+set hidden " just hide the buffer till I come back to it
+set ignorecase " ignore case while searching
+
+" Color theme setup
+colorscheme emacs
 
 " Powerline Setup
 "let g:Powerline_symbols = "fancy"
@@ -42,20 +48,50 @@ set noautochdir "don't change directory when opening new files
 let g:ctrlp_follow_symlinks = 1 "follow symlinks into the darkness
 let g:ctrlp_extensions = ['tag'] "enable searching of tags (slow)
 set wildignore+=*/.git/*,*/.hg/*,*.pyc "don't pick up certain things
+let g:ctrlp_working_path_mode = 0
 
 " solarized setup
+let g:solarized_termcolors=256
 "colorscheme solarized
 
 " indent guides setup
 "let g:indent_guides_enable_on_vim_startup = 1
 
 " syntastic setup
- let g:syntastic_check_on_open = 1
+ let g:syntastic_check_on_open = 0
  let g:syntastic_python_checkers = ["pep8"]
- let g:syntastic_python_pep8_args = "--ignore=E272,E221,E302"
+ let g:syntastic_python_pep8_args = "--ignore=E272,E221,E302,E123"
 
-" do things if in gui mode
-if has('gui_running')
-  set guifont=Source Code Pro
-  colorscheme solarized
-endif
+ " dirdiff setup
+ let g:DirDiffExcludes = ".hg,tags,*.pyc,.*.swp"
+
+" custom functions...
+"function! NumberToggle()
+  "if(&relativenumber == 1)
+    "set number
+  "elseif(&number == 1)
+    "set nonumber
+  "else
+    "set relativenumber
+  "endif
+"endfunc
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber
+    set number
+  elseif (&number == 1)
+    set norelativenumber
+    set nonumber
+  else
+    set number
+    set relativenumber
+  endif
+endfunc
+
+nnoremap <C-n> :call NumberToggle()<cr>
+ " custom keymaps for great things
+ nmap <TAB><TAB>b :CtrlPBufTag<CR>
+ nmap <TAB><TAB>d :VCSVimDiff<CR>
+ nmap <TAB><TAB>t :tab sball<CR>
+ nmap <TAB><TAB>n :call NumberToggle()<CR>
+ nmap <TAB><TAB>p :w !python<CR>
