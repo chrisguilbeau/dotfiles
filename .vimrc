@@ -21,23 +21,20 @@ set nobackup "turn off backup
 set noswapfile
 match Todo /\s\+$/ "highlight trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
-set t_Co=256 " set colors to 256 for better color scheme support
-set number "always show line numbers
+"set number "always show line numbers
 set whichwrap+=<,>,h,l,[,]
-set relativenumber " relative line numbers
+"set relativenumber " relative line numbers
 set autoread " automatically read files when changed by another editor
 set hidden " just hide the buffer till I come back to it
 set ignorecase " ignore case while searching
+set nonumber
 
 " Color theme setup
-colorscheme emacs
+set t_Co=256 " set colors to 256 for better color scheme support
+"colorscheme emacs
 
 " Powerline Setup
-"let g:Powerline_symbols = "fancy"
 set laststatus=2 " always show statusbar
-"set encoding=utf-8 " Necessary to show Unicode glyphs
-"set guifont=Source\ Code\ Pro\ for\ Powerline
-"set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 set noshowmode " dont show the double insert
 
 "NERD Commenter Setup
@@ -51,7 +48,7 @@ set wildignore+=*/.git/*,*/.hg/*,*.pyc "don't pick up certain things
 let g:ctrlp_working_path_mode = 0
 
 " solarized setup
-let g:solarized_termcolors=256
+"let g:solarized_termcolors=256
 "colorscheme solarized
 
 " indent guides setup
@@ -95,3 +92,4 @@ nnoremap <C-n> :call NumberToggle()<cr>
  nmap <TAB><TAB>t :tab sball<CR>
  nmap <TAB><TAB>n :call NumberToggle()<CR>
  nmap <TAB><TAB>p :w !python<CR>
+ imap <NUL> <Space>

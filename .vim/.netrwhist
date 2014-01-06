@@ -1,4 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/Users/cg/Documents/meteor/testparty/client'
-let g:netrw_dirhist_2='/Users/cg/z/proj/alpha-list-editor'
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/Users/cg/z/proj/alpha-student-info-nav-buttons'
+let g:netrw_dirhist_2='/Users/cg/z/current'
+let g:netrw_dirhist_3='/Users/cg/z/proj/alpha-student-info-nav-buttons'
+let g:netrw_dirhist_4='/Users/cg/z/proj/beta-wysiwyg'
+let g:netrw_dirhist_5='/Users/cg/z/proj/alpha-provisional-ui'
+let g:netrw_dirhist_6='/Users/cg'
+let g:netrw_dirhist_7='/Users/cg/z/proj/alpha-provisional-ui'
+let g:netrw_dirhist_8='/Users/cg/z/current'
+let g:netrw_dirhist_9='/Users/cg/z/proj/alpha-provisional-ui'
