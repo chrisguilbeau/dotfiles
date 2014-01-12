@@ -14,6 +14,7 @@ declare -a repos=(
     https://github.com/tpope/vim-surround.git
     https://github.com/ludovicchabant/vim-lawrencium.git
     https://github.com/tpope/vim-fugitive.git
+    https://github.com/mkitt/tabline.vim.git
     )
 
 # delete all directories

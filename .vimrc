@@ -33,9 +33,11 @@ set nonumber
 set t_Co=256 " set colors to 256 for better color scheme support
 "colorscheme emacs
 
-" Powerline Setup
+" airline setup
 set laststatus=2 " always show statusbar
 set noshowmode " dont show the double insert
+let g:airline#extensions#tabline#enabled = 2
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 "NERD Commenter Setup
 filetype plugin on "needs this for some reason
