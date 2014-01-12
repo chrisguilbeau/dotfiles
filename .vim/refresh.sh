@@ -17,12 +17,13 @@ declare -a repos=(
     )
 
 # delete all directories
-cd ~/.vim/bundle
-rm -rf */
+rm -rf ./bundle/*
 
 # reclone everything
+pushd ./bundle
 for repo in ${repos[@]}
     do
         echo "cloning $repo..."
         git clone $repo
         done
+popd
