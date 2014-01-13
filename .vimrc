@@ -3,6 +3,8 @@ execute pathogen#infect()
 Helptags
 
 syntax on "syntax highlighting
+set clipboard=unnamed " set clipboard to system clipboard (gui compile req)
+set backspace=2 " make backspace behave correctly!
 "set nowrap "put everything on one line!
 "set cursorline "highlight the current line
 "set hlsearch "highlight all matches while searching
@@ -31,12 +33,13 @@ set nonumber
 
 " Color theme setup
 set t_Co=256 " set colors to 256 for better color scheme support
-"colorscheme emacs
 
 " airline setup
 set laststatus=2 " always show statusbar
 set noshowmode " dont show the double insert
-let g:airline#extensions#tabline#enabled = 2
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
 "NERD Commenter Setup
