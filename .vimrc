@@ -23,13 +23,13 @@ set nobackup "turn off backup
 set noswapfile
 match Todo /\s\+$/ "highlight trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
-"set number "always show line numbers
+set number "always show line numbers
 set whichwrap+=<,>,h,l,[,]
-"set relativenumber " relative line numbers
 set autoread " automatically read files when changed by another editor
 set hidden " just hide the buffer till I come back to it
 set ignorecase " ignore case while searching
-set nonumber
+set spell " check spelling in strings
+set infercase " use the case that makes sense
 
 " Color theme setup
 set t_Co=256 " set colors to 256 for better color scheme support
@@ -51,6 +51,7 @@ let g:ctrlp_follow_symlinks = 1 "follow symlinks into the darkness
 let g:ctrlp_extensions = ['tag'] "enable searching of tags (slow)
 set wildignore+=*/.git/*,*/.hg/*,*.pyc "don't pick up certain things
 let g:ctrlp_working_path_mode = 0
+" let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:30,results:30'
 
 " solarized setup
 "let g:solarized_termcolors=256
@@ -68,27 +69,52 @@ let g:ctrlp_working_path_mode = 0
  let g:DirDiffExcludes = ".hg,tags,*.pyc,.*.swp"
 
 " custom functions...
-"function! NumberToggle()
-  "if(&relativenumber == 1)
-    "set number
-  "elseif(&number == 1)
-    "set nonumber
-  "else
-    "set relativenumber
-  "endif
-"endfunc
 function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber
-    set number
-  elseif (&number == 1)
-    set norelativenumber
-    set nonumber
-  else
-    set number
-    set relativenumber
-  endif
+    if (&relativenumber == 1)
+        set norelativenumber
+        set nonumber
+    elseif(&number == 0)
+        set number
+    else
+        set relativenumber
+    endif
+" V    if(&number == 1)
+"         set relativenumber
+"         set number
+"     elseif(&relativenumber == 1)
+"         set norelativenumber
+"         set nonumber
+"     else
+"         set number
+"         set norelativenumber
+"     endif
 endfunc
+
+" highlight sql inside of python
+function! TextEnableCodeSnip(filetype,start,end,textSnipHl) abort
+  let ft=toupper(a:filetype)
+  let group='textGroup'.ft
+  if exists('b:current_syntax')
+    let s:current_syntax=b:current_syntax
+    " Remove current syntax definition, as some syntax files (e.g. cpp.vim)
+    " do nothing if b:current_syntax is defined.
+    unlet b:current_syntax
+  endif
+  execute 'syntax include @'.group.' syntax/'.a:filetype.'.vim'
+  try
+    execute 'syntax include @'.group.' after/syntax/'.a:filetype.'.vim'
+  catch
+  endtry
+  if exists('s:current_syntax')
+    let b:current_syntax=s:current_syntax
+  else
+    unlet b:current_syntax
+  endif
+  execute 'syntax region textSnip'.ft.'
+  \ matchgroup='.a:textSnipHl.'
+  \ start="'.a:start.'" end="'.a:end.'"
+  \ contains=@'.group
+endfunction
 
 nnoremap <C-n> :call NumberToggle()<cr>
  " custom keymaps for great things
