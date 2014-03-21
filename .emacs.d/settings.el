@@ -13,8 +13,17 @@
 (setq auto-save-default nil)            ; Disable autosave
 (setq make-backup-files nil)            ; Disable backupfiles
 (which-function-mode 1)                 ; Show current function
+(evil-mode 1)                           ; Turn on vi keybindings
 
-(require 'ido)
-(ido-mode 1)				; turn ido on
-(setq ido-enable-flex-matching t)	; enable flex matching
-(setq ido-everywhere t)			; enable for buffers and files
+;; (require 'ido)
+;; (ido-mode 1)				; turn ido on
+;; (setq ido-enable-flex-matching t)	; enable flex matching
+;; (setq ido-everywhere t)			; enable for buffers and files
+
+;; set fill column things
+(add-hook 'python-mode-hook
+          (lambda ()
+            (set-fill-column 72)))
+
+;; setup org mode
+(setq org-log-done 'time)

@@ -12,7 +12,7 @@ set incsearch "jump to first match when searching
 "set autoindent "indent to the previous level
 set smartindent " indent one level next
 "set cindent "smart indent for c programs
-"filetype plugin indent on "indent files automagically
+filetype plugin on "indent files automagically
 set tags=tags;/ "search for a tags file up the tree
 set cc=72,79 "put a line for comments and end of code
 "au Filetype python setl et ts=4 sw=4 "define python tab rules
@@ -21,18 +21,25 @@ set tabstop=4
 autocmd BufWritePre *.py :%s/\s\+$//e "remove whitespace on save
 set nobackup "turn off backup
 set noswapfile
-match Todo /\s\+$/ "highlight trailing whitespace
+" match Todo /\s\+$/ "highlight trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
-set number "always show line numbers
-set whichwrap+=<,>,h,l,[,]
+set number " show line numbers
+set relativenumber " show the relative numbers
+" set whichwrap+=<,>,h,l,[,]
 set autoread " automatically read files when changed by another editor
 set hidden " just hide the buffer till I come back to it
 set ignorecase " ignore case while searching
-set spell " check spelling in strings
-set infercase " use the case that makes sense
+" set spell " check spelling in strings
+" set infercase " use the case that makes sense
+set complete-=i " don't scann all included files for autocomplete!
 
 " Color theme setup
 set t_Co=256 " set colors to 256 for better color scheme support
+
+" commentary
+autocmd FileType vim set commentstring=\"\ %s
+autocmd FileType python set commentstring=#\ %s
+autocmd FileType javascript set commentstring=//\ %s
 
 " airline setup
 set laststatus=2 " always show statusbar
@@ -42,31 +49,19 @@ let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
-"NERD Commenter Setup
-filetype plugin on "needs this for some reason
-
 " CtrlP setup
-set noautochdir "don't change directory when opening new files
 let g:ctrlp_follow_symlinks = 1 "follow symlinks into the darkness
 let g:ctrlp_extensions = ['tag'] "enable searching of tags (slow)
 set wildignore+=*/.git/*,*/.hg/*,*.pyc "don't pick up certain things
 let g:ctrlp_working_path_mode = 0
-" let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:30,results:30'
-
-" solarized setup
-"let g:solarized_termcolors=256
-"colorscheme solarized
-
-" indent guides setup
-"let g:indent_guides_enable_on_vim_startup = 1
-
-" syntastic setup
- let g:syntastic_check_on_open = 0
- let g:syntastic_python_checkers = ["pep8"]
- let g:syntastic_python_pep8_args = "--ignore=E272,E221,E302,E123"
 
  " dirdiff setup
  let g:DirDiffExcludes = ".hg,tags,*.pyc,.*.swp"
+
+" 2html
+let g:html_font = 'Menlo'
+" let g:html_number_lines = 0
+let g:html_use_css = 0
 
 " custom functions...
 function! NumberToggle()
@@ -78,49 +73,14 @@ function! NumberToggle()
     else
         set relativenumber
     endif
-" V    if(&number == 1)
-"         set relativenumber
-"         set number
-"     elseif(&relativenumber == 1)
-"         set norelativenumber
-"         set nonumber
-"     else
-"         set number
-"         set norelativenumber
-"     endif
 endfunc
-
-" highlight sql inside of python
-function! TextEnableCodeSnip(filetype,start,end,textSnipHl) abort
-  let ft=toupper(a:filetype)
-  let group='textGroup'.ft
-  if exists('b:current_syntax')
-    let s:current_syntax=b:current_syntax
-    " Remove current syntax definition, as some syntax files (e.g. cpp.vim)
-    " do nothing if b:current_syntax is defined.
-    unlet b:current_syntax
-  endif
-  execute 'syntax include @'.group.' syntax/'.a:filetype.'.vim'
-  try
-    execute 'syntax include @'.group.' after/syntax/'.a:filetype.'.vim'
-  catch
-  endtry
-  if exists('s:current_syntax')
-    let b:current_syntax=s:current_syntax
-  else
-    unlet b:current_syntax
-  endif
-  execute 'syntax region textSnip'.ft.'
-  \ matchgroup='.a:textSnipHl.'
-  \ start="'.a:start.'" end="'.a:end.'"
-  \ contains=@'.group
-endfunction
 
 nnoremap <C-n> :call NumberToggle()<cr>
  " custom keymaps for great things
- nmap <TAB><TAB>b :CtrlPBufTag<CR>
- nmap <TAB><TAB>d :VCSVimDiff<CR>
- nmap <TAB><TAB>t :tab sball<CR>
- nmap <TAB><TAB>n :call NumberToggle()<CR>
- nmap <TAB><TAB>p :w !python<CR>
+ nmap <tab><tab>b :CtrlPBufTag<CR>
+ nmap <tab><tab>t :CtrlPTag<CR>
+ nmap <tab><tab>s :setlocal spell! spell?<CR>
+ nmap <tab><tab>n :call NumberToggle()<CR>
+ nmap <tab><tab>p :w !python<CR>
+ nmap <tab><tab>h :wincmd k <BAR> :TOhtml <BAR> w! ~/Desktop/out.html <BAR> bdelete! <BAR> :wincmd j<CR>
  imap <NUL> <Space>
