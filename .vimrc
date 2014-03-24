@@ -11,32 +11,27 @@ set backspace=2 " make backspace behave correctly!
 set incsearch "jump to first match when searching
 "set autoindent "indent to the previous level
 set smartindent " indent one level next
-"set cindent "smart indent for c programs
-filetype plugin on "indent files automagically
-set tags=tags;/ "search for a tags file up the tree
-set cc=72,79 "put a line for comments and end of code
-"au Filetype python setl et ts=4 sw=4 "define python tab rules
+"set cindent "smart indent for c languages
+filetype plugin on "make commands smarter for your file ]m and the like
+set tags=tags;/ "search for a tags file recursively till it finds one
+set cc=72,79 "put a line for comments and end of code pep8
 set expandtab shiftwidth=4 softtabstop=4
 set tabstop=4
-autocmd BufWritePre *.py :%s/\s\+$//e "remove whitespace on save
 set nobackup "turn off backup
 set noswapfile
-" match Todo /\s\+$/ "highlight trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
 set number " show line numbers
 set relativenumber " show the relative numbers
-" set whichwrap+=<,>,h,l,[,]
 set autoread " automatically read files when changed by another editor
 set hidden " just hide the buffer till I come back to it
 set ignorecase " ignore case while searching
 " set spell " check spelling in strings
-" set infercase " use the case that makes sense
-set complete-=i " don't scann all included files for autocomplete!
+set complete-=i " don't scan all included files for autocomplete!
 
 " Color theme setup
 set t_Co=256 " set colors to 256 for better color scheme support
 
-" commentary
+" commentary - set commenter for certain filetypes
 autocmd FileType vim set commentstring=\"\ %s
 autocmd FileType python set commentstring=#\ %s
 autocmd FileType javascript set commentstring=//\ %s
@@ -44,14 +39,14 @@ autocmd FileType javascript set commentstring=//\ %s
 " airline setup
 set laststatus=2 " always show statusbar
 set noshowmode " dont show the double insert
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline#extensions#tabline#enabled = 1 "turn on tabs
+let g:airline#extensions#tabline#tab_min_count = 2 "only show when 2 or more
 let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " CtrlP setup
 let g:ctrlp_follow_symlinks = 1 "follow symlinks into the darkness
-let g:ctrlp_extensions = ['tag'] "enable searching of tags (slow)
+let g:ctrlp_extensions = ['tag'] "enable searching of tags
 set wildignore+=*/.git/*,*/.hg/*,*.pyc "don't pick up certain things
 let g:ctrlp_working_path_mode = 0
 
@@ -75,10 +70,15 @@ function! NumberToggle()
     endif
 endfunc
 
+" gui related things
+if has("gui_running")
+    set guifont=Monaco:h14
+    colors solarized
+endif
+
 nnoremap <C-n> :call NumberToggle()<cr>
  " custom keymaps for great things
- nmap <tab><tab>b :CtrlPBufTag<CR>
- nmap <tab><tab>t :CtrlPTag<CR>
+ nmap <tab><tab>t :CtrlPBufTag<CR>
  nmap <tab><tab>s :setlocal spell! spell?<CR>
  nmap <tab><tab>n :call NumberToggle()<CR>
  nmap <tab><tab>p :w !python<CR>
