@@ -77,8 +77,120 @@ if has("gui_running")
 endif
 
 nnoremap <C-n> :call NumberToggle()<cr>
+ " custom keymaps for
+
+" CtrlP setup
+let g:ctrlp_follow_symlinks = 1 "follow symlinks into the darkness
+let g:ctrlp_extensions = ['tag'] "enable searching of tags
+set wildignore+=*/.git/*,*/.hg/*,*.pyc "don't pick up certain things
+let g:ctrlp_working_path_mode = 0
+
+ " dirdiff setup
+ let g:DirDiffExcludes = ".hg,tags,*.pyc,.*.swp"
+
+" 2html
+let g:html_font = 'Menlo'
+" let g:html_number_lines = 0
+let g:html_use_css = 0
+
+" custom functions...
+function! NumberToggle()
+    if (&relativenumber == 1)
+        set norelativenumber
+        set nonumber
+    elseif(&number == 0)
+        set number
+    else
+        set relativenumber
+    endif
+endfunc
+
+" gui related things
+if has("gui_running")
+    set guifont=Monaco:h14
+    colors solarized
+endif
+
+nnoremap <C-n> :call NumberToggle()<cr>
+ " custom keymaps for
+
+" CtrlP setup
+let g:ctrlp_follow_symlinks = 1 "follow symlinks into the darkness
+let g:ctrlp_extensions = ['tag'] "enable searching of tags
+set wildignore+=*/.git/*,*/.hg/*,*.pyc "don't pick up certain things
+let g:ctrlp_working_path_mode = 0
+
+ " dirdiff setup
+ let g:DirDiffExcludes = ".hg,tags,*.pyc,.*.swp"
+
+" 2html
+let g:html_font = 'Menlo'
+" let g:html_number_lines = 0
+let g:html_use_css = 0
+
+" custom functions...
+function! NumberToggle()
+    if (&relativenumber == 1)
+        set norelativenumber
+        set nonumber
+    elseif(&number == 0)
+        set number
+    else
+        set relativenumber
+    endif
+endfunc
+
+" gui related things
+if has("gui_running")
+    set guifont=Monaco:h14
+    colors solarized
+endif
+
+nnoremap <C-n> :call NumberToggle()<cr>
+ " custom keymaps for
+
+" CtrlP setup
+let g:ctrlp_follow_symlinks = 1 "follow symlinks into the darkness
+let g:ctrlp_extensions = ['tag'] "enable searching of tags
+set wildignore+=*/.git/*,*/.hg/*,*.pyc "don't pick up certain things
+let g:ctrlp_working_path_mode = 0
+
+" syntastic
+let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [], 'passive_filetypes': [] }
+let g:syntastic_python_checkers = ['pyflakes']
+
+" dirdiff setup
+let g:DirDiffExcludes = ".hg,tags,*.pyc,.*.swp"
+
+" 2html
+let g:html_font = 'Menlo'
+" let g:html_number_lines = 0
+let g:html_use_css = 0
+
+" custom functions...
+function! NumberToggle()
+    if (&relativenumber == 1)
+        set norelativenumber
+        set nonumber
+    elseif(&number == 0)
+        set number
+    else
+        set relativenumber
+    endif
+endfunc
+
+" gui related things
+if has("gui_running")
+    set guifont=Monaco:h14
+    colors solarized
+endif
+
+nnoremap <C-n> :call NumberToggle()<cr>
  " custom keymaps for great things
- nmap <tab><tab>t :CtrlPBufTag<CR>
+ nmap <tab><tab>! :SyntasticCheck<CR>
+ nmap <tab><tab>b :CtrlPBufTag<CR>
+ nmap <tab><tab>t :tselect
  nmap <tab><tab>s :setlocal spell! spell?<CR>
  nmap <tab><tab>n :call NumberToggle()<CR>
  nmap <tab><tab>p :w !python<CR>
