@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+
+from os import system
+
+RDP_PORT = 3389
+BASE_LOCAL_PORT = 33890
+
+def getServers():
+    return (
+        'regr',
+        'qa-alpha',
+        'qa-beta',
+        'zsql',
+        'support',
+        'ie9',
+        'ie10',
+        )
+
+def getTunnelParams():
+    for i, server in enumerate(getServers()):
+        yield server, BASE_LOCAL_PORT + i
+
+def getCommand():
+    return 'ssh -qN cg@austin.zogotech.com {}'.format(
+        ' '.join('-L {}:{}.ztaustin.local:3389'.format(port, server)
+            for server, port in getTunnelParams())
+        )
+
+def printInfo():
+    for port, server in getTunnelParams():
+        print server, port
+
+def main():
+    printInfo()
+    system(getCommand())
+
+if __name__ == '__main__':
+    main()

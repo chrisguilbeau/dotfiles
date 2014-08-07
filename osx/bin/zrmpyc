@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+import os
+import fnmatch
+
+def getPaths(folder='.', pattern='*'):
+    walk = os.walk
+    _filter = fnmatch.filter
+    for root, folders, files in walk(folder):
+        for f in _filter(files, pattern):
+            yield os.path.join(root, f)
+
+def zrmpyc():
+    count = 0
+    for path in getPaths(pattern='*.pyc'):
+        os.remove(path)
+        count += 1
+    print "Removed {} pyc files!".format(count)
+
+if __name__ == '__main__':
+    zrmpyc()

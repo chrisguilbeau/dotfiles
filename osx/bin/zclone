@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+if [ $# -lt 1 ]
+  then
+    echo "usage: $0 path/to/project <destination>"
+    exit 1
+fi
+
+hg clone ssh://cg@austin.zogotech.com/hg-repo/$1 $2

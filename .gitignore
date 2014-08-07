@@ -2,3 +2,4 @@
 !.vim/bundle/refresh.sh
 .netrwhist
 *~
+.vim/backups

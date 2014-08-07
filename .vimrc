@@ -17,8 +17,8 @@ set tags=tags;/ "search for a tags file recursively till it finds one
 set cc=72,79 "put a line for comments and end of code pep8
 set expandtab shiftwidth=4 softtabstop=4
 set tabstop=4
-set nobackup "turn off backup
-set noswapfile
+set backupdir-=. "remove cwd from backups list
+set backupdir^=~/.vim/backups "set backups to this folder
 autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
 set number " show line numbers
 set relativenumber " show the relative numbers

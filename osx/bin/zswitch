@@ -1,0 +1,6 @@
+#!/bin/bash
+pushd ~/z/proj
+rm current
+ln -s $1 current
+ls -la
+popd

@@ -1,0 +1,14 @@
+#!/bin/bash
+[ "$#" -gt 0 ] || echo "Usage: zhg options"
+[ "$#" -gt 0 ] || exit 1
+
+
+for dir in ./*
+do
+    if [ -d "$dir" ]; then
+        pushd $dir > /dev/null
+        echo $dir
+        hg "$@"
+        popd > /dev/null
+    fi
+done

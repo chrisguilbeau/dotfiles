@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+if [ $# -ne 2 ]
+  then
+    echo "usage: $0 level name"
+    exit 1
+fi
+
+set -e
+src=~/z/hg/$1
+dest=~/z/proj/$1_$2
+
+mkdir $dest
+pushd $src && zhg pull -u && popd
+cp -R $src/* $dest
+zswitch $dest
+z?

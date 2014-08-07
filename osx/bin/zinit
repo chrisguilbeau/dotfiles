@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+if [ $# -ne 0 ]
+  then
+    echo "usage: $0"
+fi
+
+levels=( alpha beta stable )
+projects=( server appserver webserver )
+mkdir hg proj
+for level in "${levels[@]}"
+    do
+        for project in "${projects[@]}"
+            do
+                zclone "$level/$project" "hg/$level/$project"
+                # zclone level/project
+            done
+    done
