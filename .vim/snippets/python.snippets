@@ -1,15 +1,4 @@
 snippet pdb
 	import pdb; pdb.set_trace()
-snippet ForeignKeySpec
-	ForeignKeySpec('${1:cols}', '${2:otherTable}', '${3:otherCols}', ${4:doCascadeUpdate, doCascadeDelete})
-snippet TableSpec
-	TableSpec(
-		name='dbo.tbl_${1:<table name>}',
-		colSpecs=[],
-		indexSpecs=[],
-		foreignKeySpecs=[],
-		updateSpecs=[],
-		readWrite=${2:False},
-		)
-snippet ColSpec
-	ColSpec('${1:<column name>}', ${2:<domain>}, ${3:isNotNull,} ${4:default=None}),
+snippet #!
+	#!/usr/bin/env python

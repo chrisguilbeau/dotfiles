@@ -11,4 +11,5 @@ set autoread " automatically read files when changed by another editor
 set hidden " just hide the buffer till I come back to it
 set ignorecase " ignore case while searching
 set complete-=i " don't scan all included files for autocomplete!
+set t_Co=256 " set colors to 256 for better color scheme support
 

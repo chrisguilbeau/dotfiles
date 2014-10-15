@@ -1,0 +1,1 @@
+/Applications/MacFreeRDP.app/Contents/MacOS/MacFreeRDP /v:cg-win.local /cert-ignore /u:cg /p:js:gt4amdo@n > /dev/null &

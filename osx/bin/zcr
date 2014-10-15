@@ -3,6 +3,10 @@
 level=$(cat ~/z/proj/current/server/.hg/hgrc | grep hg-repo | cut -d "/" -f 5)
 echo $level
 
+pushd ~/z/proj/current
+zeol
+popd
+
 pushd ~/z
 pushd hg/$level
 zhg pull -u

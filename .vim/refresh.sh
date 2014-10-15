@@ -2,14 +2,15 @@
 declare -a repos=(
     git://github.com/scrooloose/syntastic.git
     # git://github.com/tpope/vim-fugitive.git
+    https://github.com/flazz/vim-colorschemes.git
     git://github.com/altercation/vim-colors-solarized.git
+    git://github.com/toyamarinyon/vim-swift.git
     git://github.com/bling/vim-airline
     git://github.com/kien/ctrlp.vim.git
     git://github.com/ludovicchabant/vim-lawrencium.git
     git://github.com/mileszs/ack.vim.git
-    git://github.com/mkitt/tabline.vim.git
+    # git://github.com/mkitt/tabline.vim.git
     git://github.com/SirVer/ultisnips.git
-    # git://github.com/msanders/snipmate.vim.git
     git://github.com/terryma/vim-multiple-cursors.git
     git://github.com/tpope/vim-commentary.git
     git://github.com/tpope/vim-surround.git

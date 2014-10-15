@@ -3,4 +3,4 @@ pushd ~/z/proj/current
 current=`pwd -P`
 cd $current
 ztag
-vi --cmd "set path=$current/**"
+vim --cmd "set path=$current/**"
