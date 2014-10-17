@@ -46,6 +46,7 @@
 ;; Load soloarized theme
 (load-theme 'solarized-light t)
 (set-cursor-color "MediumSlateBlue")
+(set-face-italic-p 'italic nil) ;; no italics
 
 ;; IDO Things
 (ido-mode t)

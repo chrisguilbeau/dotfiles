@@ -1,5 +1,6 @@
 #!/bin/bash
 declare -a repos=(
+    # https://github.com/davidhalter/jedi-vim.git
     git://github.com/scrooloose/syntastic.git
     # git://github.com/tpope/vim-fugitive.git
     https://github.com/flazz/vim-colorschemes.git

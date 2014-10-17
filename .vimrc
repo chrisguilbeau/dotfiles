@@ -34,7 +34,9 @@ set nobackup
 " Color theme setup
 set t_Co=256 " set colors to 256 for better color scheme support
 
-" colors solarized
+" configure solarized
+colors solarized
+let g:solarized_italic=0
 
 " syntastic
 " let g:syntastic_check_on_wq = 0
