@@ -10,6 +10,3 @@ alias zz="cd ~/z/proj/"\`z?\`
 # if [ -f $(brew --prefix)/etc/bash_completion ]; then
 # . $(brew --prefix)/etc/bash_completion
 # fi
-
-# added by Anaconda 2.0.1 installer
-export PATH="/Users/cg/anaconda/bin:$PATH"
