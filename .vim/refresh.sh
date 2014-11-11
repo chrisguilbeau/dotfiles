@@ -1,5 +1,7 @@
 #!/bin/bash
 declare -a repos=(
+    https://github.com/bkad/CamelCaseMotion.git
+    https://github.com/jceb/vim-orgmode.git
     # https://github.com/davidhalter/jedi-vim.git
     git://github.com/scrooloose/syntastic.git
     # git://github.com/tpope/vim-fugitive.git

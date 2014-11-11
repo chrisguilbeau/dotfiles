@@ -2,6 +2,7 @@
 
 [ui]
 username = Chris Guilbeau <cguilbeau@zogotech.com>
+# merge = meld
 merge = Kaleidoscope
 # merge = vimdiff
 
@@ -15,6 +16,9 @@ Kaleidoscope.args = --merge --output $output --base $base -- $local $other
 vimdiff.executable = vim
 #vimdiff.args = -d $base $local $output $other +close +close
 vimdiff.args = -d $base $local $output $other -c "wincmd J"
+meld.args = $local $base $other $output
+
 [extdiff]
+cmd.mdiff = meld
 cmd.ksdiff = /usr/local/bin/ksdiff
 opts.ksdiff = --changeset --wait --filelist

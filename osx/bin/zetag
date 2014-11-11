@@ -1,0 +1,1 @@
+ctags -e --recurse --python-kinds=-i --python-kinds=+cfmv --exclude=*/.hg/* --exclude=*/tiny_mce/* --exclude=*.min.*js --javascript-kinds=+fcm --javascript-kinds=-pv --exclude=*/flexmonster/*

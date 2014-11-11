@@ -1,3 +1,4 @@
+.emacs.d/elpa/*
 .vim/bundle/*
 !.vim/bundle/refresh.sh
 .netrwhist

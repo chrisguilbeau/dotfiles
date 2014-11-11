@@ -7,8 +7,8 @@ set clipboard=unnamed " set clipboard to system clipboard (gui compile req)
 set backspace=2 " make backspace behave correctly!
 " set hlsearch "highlight all matches while searching
 set incsearch "jump to first match when searching
-"set autoindent "indent to the previous level
-set smartindent " indent one level next
+set autoindent "indent to the previous level
+" set smartindent " indent one level next
 "set cindent "smart indent for c languages
 filetype plugin on "make commands smarter for your file ]m and the like
 set tags=tags;/ "search for a tags file recursively till it finds one
@@ -18,18 +18,19 @@ set tabstop=4
 " set backupdir-=. "remove cwd from backups list
 " set backupdir^=~/.vim/backups "set backups to this folder
 autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
-" set number " show line numbers
-" set relativenumber " show the relative numbers
+set number " show line numbers
+set relativenumber " show the relative numbers
 set autoread " automatically read files when changed by another editor
 set hidden " just hide the buffer till I come back to it
 set ignorecase " ignore case while searching
 " set spell " check spelling in strings
-set complete-=i " don't scan all included files for autocomplete!
 set wildignore+=*/.git/*,*/.hg/*,*.pyc,*.DS_Store "don't pick up certain things
 set nofoldenable " no code folding ever!!!
 set path=*/**
 set noswapfile
 set nobackup
+set complete=.,w,b,u,t "removed 'i' which scans all files in path
+set completeopt=
 
 " Color theme setup
 set t_Co=256 " set colors to 256 for better color scheme support
@@ -74,10 +75,12 @@ set diffopt+=context:99999
 function! NumberToggle()
     if (&relativenumber == 1)
         set norelativenumber
-        set nonumber
-    elseif(&number == 0)
         set number
+    elseif(&number == 1)
+        set norelativenumber
+        set nonumber
     else
+        set number
         set relativenumber
     endif
 endfunc
@@ -90,6 +93,12 @@ endfunction
 
 " dirdiff setup
 let g:DirDiffExcludes = ".hg,tags,*.pyc,.*.swp"
+
+" " hard mode
+" noremap <Up> <NOP>
+" noremap <Down> <NOP>
+" noremap <Left> <NOP>
+" noremap <Right> <NOP>
 
 " custom keymaps for great things
 nmap <tab><tab>p :call InsertPdbLine()<CR>
