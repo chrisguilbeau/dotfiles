@@ -52,6 +52,7 @@ autocmd FileType javascript set commentstring=//\ %s
 " airline setup
 set laststatus=2 " always show statusbar
 set noshowmode " dont show the double insert
+let g:airline_section_z = "%{winnr()}"
 " let g:airline#extensions#tabline#enabled = 1 "turn on tabs
 " let g:airline#extensions#tabline#tab_min_count = 2 "only show when 2 or more
 " let g:airline#extensions#tabline#buffer_min_count = 2
@@ -101,6 +102,7 @@ let g:DirDiffExcludes = ".hg,tags,*.pyc,.*.swp"
 " noremap <Right> <NOP>
 
 " custom keymaps for great things
+nmap <tab><tab>c 2<C-W>w]c
 nmap <tab><tab>p :call InsertPdbLine()<CR>
 nmap <tab><tab>r :vertical resize 90<CR>
 nmap <tab><tab>b :CtrlPBufTag<CR>

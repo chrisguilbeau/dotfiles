@@ -17,4 +17,5 @@ popd
 #diffmerge --nosplash --title1="hg" --title2="proj" hg/$level current
 vim -f '+next' '+execute "DirDiff" fnameescape(argv(0)) fnameescape(argv(1))' "hg/$level" "proj/current"
 # meld "hg/$level" "proj/current"
+# kdiff3 "hg/$level" "proj/current"
 popd

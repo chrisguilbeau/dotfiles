@@ -3,4 +3,5 @@ pushd ~/z/proj/current
 current=`pwd -P`
 cd $current
 zetag
-/Applications/Emacs.app/Contents/MacOS/Emacs .
+# emacs .
+/Applications/Emacs.app/Contents/MacOS/Emacs -fs .

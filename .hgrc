@@ -1,24 +1,18 @@
-# example config (see "hg help config" for more info)
-
 [ui]
 username = Chris Guilbeau <cguilbeau@zogotech.com>
-# merge = meld
-merge = Kaleidoscope
-# merge = vimdiff
+merge = kdiff3
+#merge = ksmerge
 
 [extensions]
 purge=
 hgext.extdiff =
 
 [merge-tools]
-Kaleidoscope.executable = /usr/local/bin/ksdiff
-Kaleidoscope.args = --merge --output $output --base $base -- $local $other
-vimdiff.executable = vim
-#vimdiff.args = -d $base $local $output $other +close +close
-vimdiff.args = -d $base $local $output $other -c "wincmd J"
-meld.args = $local $base $other $output
+ksmerge.executable = /usr/local/bin/ksdiff
+ksmerge.args = --merge --output $output --base $base -- $other $local
+kdiff3.args = $base $other $local -o $output
 
 [extdiff]
-cmd.mdiff = meld
-cmd.ksdiff = /usr/local/bin/ksdiff
+cmd.kdiff3 =
+cmd.ksdiff =
 opts.ksdiff = --changeset --wait --filelist

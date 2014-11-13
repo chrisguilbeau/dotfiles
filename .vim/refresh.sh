@@ -1,13 +1,14 @@
 #!/bin/bash
 declare -a repos=(
     https://github.com/bkad/CamelCaseMotion.git
-    https://github.com/jceb/vim-orgmode.git
+    # https://github.com/jceb/vim-orgmode.git
     # https://github.com/davidhalter/jedi-vim.git
-    git://github.com/scrooloose/syntastic.git
+    # git://github.com/scrooloose/syntastic.git
     # git://github.com/tpope/vim-fugitive.git
-    https://github.com/flazz/vim-colorschemes.git
+    # https://github.com/flazz/vim-colorschemes.git
     git://github.com/altercation/vim-colors-solarized.git
-    git://github.com/toyamarinyon/vim-swift.git
+    # git://github.com/toyamarinyon/vim-swift.git
+    # https://github.com/itchyny/lightline.vim.git
     git://github.com/bling/vim-airline
     git://github.com/kien/ctrlp.vim.git
     git://github.com/ludovicchabant/vim-lawrencium.git

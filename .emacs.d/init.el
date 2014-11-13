@@ -25,6 +25,10 @@
 (setq require-final-newline t) ;; newline at end of file
 (setq-default indent-tabs-mode nil) ;; spaces not tabs
 
+;; ediff
+(setq ediff-split-window-function 'split-window-horizontally)
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
 ;; ido mode
 (ido-mode 1)
 (setq ido-use-filename-at-point 'guess)
@@ -67,6 +71,7 @@
    "e" 'ido-find-file-in-tag-files
    "b" 'idomenu
    "o" 'organize-frames
+   "d" 'ediff-revision
    )
   )
 
