@@ -4,4 +4,4 @@ current=`pwd -P`
 cd $current
 zetag
 # emacs .
-/Applications/Emacs.app/Contents/MacOS/Emacs -fs .
+open -a Emacs .

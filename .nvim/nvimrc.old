@@ -1,0 +1,39 @@
+set nocompatible
+filetype off
+set rtp+=~/.nvim/bundle/vundle/
+call vundle#rc()
+
+syntax on "syntax highlighting
+filetype plugin on "make commands smarter for your file ]m and the like
+set clipboard=unnamed " set clipboard to system clipboard (gui compile req)
+set backspace=2 " make backspace behave correctly!
+" set hlsearch "highlight all matches while searching
+set incsearch "jump to first match when searching
+set autoindent "indent to the previous level
+" set smartindent " indent one level next
+"set cindent "smart indent for c languages
+" filetype plugin indent on
+set tags=tags;/ "search for a tags file recursively till it finds one
+set cc=72,79 "put a line for comments and end of code pep8
+set expandtab shiftwidth=4 softtabstop=4
+set tabstop=4
+" set backupdir-=. "remove cwd from backups list
+" set backupdir^=~/.vim/backups "set backups to this folder
+autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
+set number " show line numbers
+set relativenumber " show the relative numbers
+set autoread " automatically read files when changed by another editor
+set hidden " just hide the buffer till I come back to it
+set ignorecase " ignore case while searching
+" set spell " check spelling in strings
+set wildignore+=*/.git/*,*/.hg/*,*.pyc,*.DS_Store "don't pick up certain things
+set nofoldenable " no code folding ever!!!
+set path=*/**
+set noswapfile
+set nobackup
+set complete=.,w,b,u,t "removed 'i' which scans all files in path
+set completeopt=
+set t_Co=256
+
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-surround'

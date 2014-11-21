@@ -17,13 +17,17 @@
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/Users/cg/dotfiles/.emacs.d/" (21601 13100 0 0) "init.el" "ido.last" "elpa/" "elisp/" "auto-save-list/" "#init.el#" "../" "./")
+ ("/Users/cg/z/proj/alpha_json/" (21615 26054 0 0) "webserver/" "tags" "server/" "appserver/" ".projectile" "../" "./")
+
+ ("/Users/cg/Documents/Development/proj/alpha_int/appserver/" (21611 30805 0 0) "v/" "s/" "m/" "c/" "bin/" ".hgtags" ".hgignore" ".hg/" "../" "./")
+
+ ("/Users/cg/dotfiles/.emacs.d/" (21612 51048 0 0) "init.el.bak" "init.el" "ido.last" "elpa/" "elisp/" "auto-save-list/" ".mc-lists.el" "#init.el#" "../" "./")
+
+ ("/Users/cg/" (21606 36949 0 0) "zcur/" "z/" "VirtualBox VMs/" "todo.org" "testparty.org" "Public/" "Pictures/" "Music/" "Movies/" "mops.tex" "Library/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "changes" "bin/" "Applications/" ".Xauthority" ".viminfo" ".vim/" ".Trash/" ".ssh/" ".rnd" ".recentf" ".npm/" ".mongorc.js" ".meteorsession" ".meteor/" ".local/" ".kdiff3rc" ".hgrc" ".gitconfig" ".emacs.d/" ".DS_Store" ".dbshell" ".config/" ".CFUserTextEncoding" ".cache/" ".bash_profile" ".bash_history" "../" "./")
 
  ("/Users/cg/.emacs.d/elisp/" (21577 6566 0 0) "cg-package-manager.el~" "cg-package-manager.el" "cg-orgframes.el" "cg-ido.el" "cg-evil.el~" "cg-evil.el" "../" "./")
 
  ("/Users/cg/.emacs.d/" (21601 12865 0 0) "init.el" "elpa/" "elisp/" "auto-save-list/" ".#init.el" "#init.el#" "../" "./")
-
- ("/Users/cg/" (21601 12715 0 0) "zcur/" "z/" "todo.org" "testparty.org" "Public/" "Pictures/" "Music/" "Movies/" "mops.tex" "Library/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "changes" "bin/" "Applications/" ".Xauthority" ".vimrc" ".viminfo" ".vim/" ".Trash/" ".ssh/" ".rnd" ".recentf" ".npm/" ".mongorc.js" ".meteorsession" ".meteor/" ".local/" ".hgrc" ".gitconfig" ".emacs.d/" ".DS_Store" ".dbshell" ".config/" ".CFUserTextEncoding" ".cache/" ".bash_profile" ".bash_history" "../" "./")
 
  ("/Users/cg/dotfiles/" (21601 6037 0 0) "README.md" "osx/" ".vimrc" ".vim/" ".profile" ".nvimrc" ".hgrc" ".gitrc" ".gitignore" ".git/" ".emacs.d/" "../" "./")
 

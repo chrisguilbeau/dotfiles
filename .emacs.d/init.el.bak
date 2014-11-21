@@ -29,23 +29,8 @@
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
-;; help with path
-(defun cg-set-path ()
-  (interactive)
-  (let ((default-directory
-          (read-directory-name "set path to:")))
-    (normal-top-level-add-subdirs-to-load-path))
-  )
-
-;; highlight long lines
-(require 'whitespace)
-(setq whitespace-line-column 80) ;; limit line length
-(setq whitespace-style '(face lines-tail))
-(add-hook 'prog-mode-hook 'whitespace-mode)
-
 ;; ido mode
 (ido-mode 1)
-(setq ido-enable-flex-matching t)
 (setq ido-use-filename-at-point 'guess)
 (defun ido-find-file-in-tag-files ()
   (interactive)
@@ -56,9 +41,18 @@
      (expand-file-name
       (ido-completing-read
        "File in tags:: " (tags-table-files) nil t)))))
-(defun list-tags-current-file ()
-  (interactive)
-  (list-tags (buffer-file-name (window-buffer (minibuffer-selected-window)))))
+(setq ido-decorations
+      (quote ("\n-> "
+              ""
+              "\n   "
+              "\n   ..."
+              "[" "]"
+              " [No match]"
+              " [Matched]"
+              " [Not readable]"
+              " [Too big]"
+              " [Confirm]"
+              )))
 
 ;; package manager magic
 ;; load the package registry
@@ -66,42 +60,19 @@
 (push '("melpa" . "http://melpa.milkbox.net/packages/") package-archives)
 
 (defun my-after-init-hook ()
-  (projectile-global-mode)
-  (setq projectile-globally-ignored-files
-        (append '("*.pyc") projectile-globally-ignored-files))
-  (yas-global-mode 1)
-  (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
-  (ido-vertical-mode 1)
   (load-theme 'solarized-light t)
   (set-cursor-color "MediumSlateBlue")
   (set-face-italic-p 'italic nil) ;; no italics
-  ;; configure multiple cursors
   ;; configure evil stuff
   (evil-mode 1)
   (global-evil-leader-mode 1)
   (evil-leader/set-key
-    "n" 'linum-mode
-    "m" 'mc/mark-next-like-this
-    "M" 'mc/mark-all-like-this
-    "c" 'comment-or-uncomment-region
-    "e" 'projectile-find-file
-    "b" 'idomenu
-    "o" 'organize-frames
-    "d" 'ediff-revision
-    "p" 'cg-set-path
-    )
+   "\\" 'comment-or-uncomment-region
+   "e" 'ido-find-file-in-tag-files
+   "b" 'idomenu
+   "o" 'organize-frames
+   "d" 'ediff-revision
+   )
   )
 
 (add-hook 'after-init-hook 'my-after-init-hook)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#fdf6e3" :foreground "#657b83" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "nil" :family "Menlo")))))

@@ -5,19 +5,21 @@ import time
 projPath = '/Users/cg/z/proj'
 
 class ProjDir(object):
-    def __init__(self, name, path, sortTime, displayTime):
+    def __init__(self, name, path):
         self.name = name
         self.path = path
-        self.sortTime = sortTime
-        self.displayTime = displayTime
+        # self.sortTime = sortTime
+        # self.displayTime = displayTime
+        self.sortTime = max(map(
+            lambda x: os.path.getmtime(x[0]), os.walk(path)))
+        self.displayTime = time.ctime(self.sortTime)
 
 def getDirs(path=projPath):
     for o in os.listdir(path):
         opath = os.path.join(path, o)
         if os.path.isdir(opath):
             if o not in ['current']:
-                otime = os.path.getmtime(opath)
-                yield ProjDir(o, opath, otime, time.ctime(otime))
+                yield ProjDir(o, opath)
 
 def main():
     dirs = list(reversed(sorted(getDirs(), key=lambda a: a.sortTime)))
