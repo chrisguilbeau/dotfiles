@@ -3,5 +3,5 @@ pushd ~/z/proj/current
 current=`pwd -P`
 cd $current
 zetag
-# emacs .
-open -a Emacs .
+emacs .
+# open -a Emacs .

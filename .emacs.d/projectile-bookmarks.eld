@@ -1,1 +1,1 @@
-("~/dotfiles/" "~/Documents/Development/proj/alpha_json/" "~/Documents/Development/proj/alpha_json/appserver/")
+("~/dotfiles/" "/usr/local/" "~/Documents/Development/proj/alpha_json/" "~/Documents/Development/proj/alpha_json/appserver/")

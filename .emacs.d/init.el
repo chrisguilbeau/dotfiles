@@ -29,13 +29,15 @@
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
-;; help with path
-(defun cg-set-path ()
-  (interactive)
-  (let ((default-directory
-          (read-directory-name "set path to:")))
-    (normal-top-level-add-subdirs-to-load-path))
-  )
+;; list the repositories containing them
+(setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")))
+
+;; activate all the packages (in particular autoloads)
+(package-initialize)
+
+;; fetch the list of packages available
+(unless package-archive-contents
+  (package-refresh-contents))
 
 ;; highlight long lines
 (require 'whitespace)
@@ -43,10 +45,21 @@
 (setq whitespace-style '(face lines-tail))
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
-;; ido mode
-(ido-mode 1)
-(setq ido-enable-flex-matching t)
-(setq ido-use-filename-at-point 'guess)
+;; list the packages you want
+(setq package-list '(
+                     evil
+                     evil-leader
+                     ido-vertical-mode
+                     multiple-cursors
+                     yasnippet
+                     ))
+
+;; install the missing packages
+(dolist (package package-list)
+  (unless (package-installed-p package)
+        (package-install package)))
+
+;; list all files below where your tags file resides
 (defun ido-find-file-in-tag-files ()
   (interactive)
   (save-excursion
@@ -56,52 +69,27 @@
      (expand-file-name
       (ido-completing-read
        "File in tags:: " (tags-table-files) nil t)))))
-(defun list-tags-current-file ()
-  (interactive)
-  (list-tags (buffer-file-name (window-buffer (minibuffer-selected-window)))))
 
-;; package manager magic
-;; load the package registry
-(require 'package)
-(push '("melpa" . "http://melpa.milkbox.net/packages/") package-archives)
 
-(defun my-after-init-hook ()
-  (projectile-global-mode)
-  (setq projectile-globally-ignored-files
-        (append '("*.pyc") projectile-globally-ignored-files))
-  (yas-global-mode 1)
-  (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
-  (ido-vertical-mode 1)
-  (load-theme 'solarized-light t)
-  (set-cursor-color "MediumSlateBlue")
-  (set-face-italic-p 'italic nil) ;; no italics
-  ;; configure multiple cursors
-  ;; configure evil stuff
-  (evil-mode 1)
-  (global-evil-leader-mode 1)
-  (evil-leader/set-key
-    "n" 'linum-mode
-    "m" 'mc/mark-next-like-this
-    "M" 'mc/mark-all-like-this
-    "c" 'comment-or-uncomment-region
-    "e" 'projectile-find-file
-    "b" 'idomenu
-    "o" 'organize-frames
-    "d" 'ediff-revision
-    "p" 'cg-set-path
-    )
+;; turn on and configure packages
+(evil-mode 1)
+(global-evil-leader-mode 1)
+(evil-leader/set-key
+  "e" 'ido-find-file-in-tag-files
+  "\\" 'comment-or-uncomment-region
+  "f" 'projectile-find-file
+  "n" 'linum-mode
+  "m" 'mc/mark-next-like-this
+  "M" 'mc/mark-all-like-this
   )
-
-(add-hook 'after-init-hook 'my-after-init-hook)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#fdf6e3" :foreground "#657b83" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "nil" :family "Menlo")))))
+(yas-global-mode 1)
+(setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+(projectile-global-mode)
+(setq projectile-globally-ignored-files
+      (append '("*.pyc") projectile-globally-ignored-files))
+(require 'flx-ido)
+(ido-mode 1)
+(ido-everywhere 1)
+(ido-vertical-mode 1)
+(flx-ido-mode 1)
+;; (setq projectile-indexing-method 'native)
