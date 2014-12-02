@@ -1,6 +1,5 @@
 set nocompatible
 filetype off
-set rtp+=~/.vim/Vundle.vim
 call vundle#begin()
 " Bundle 'justinmk/vim-sneak'
 " Bundle 'Lokaltog/vim-easymotion'
