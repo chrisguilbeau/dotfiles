@@ -2,36 +2,68 @@
 
 ;; ----- ido-last-directory-list -----
 (
- ("/Users/cg/" . ".emacs.d/")
+ ("/Users/cg/Documents/Development/proj/" . "current/")
+ ("/Users/cg/Documents/Development/proj/cg_nav2/server/lib/" . "core/")
+ ("/Users/cg/Documents/Development/proj/cg_nav2/server/" . "lib/")
+ ("/Users/" . "cg/")
+ ("/Users/cg/z/proj/current/appserver/" . "c/")
+ ("/Users/cg/z/" . "proj/")
+ ("/Users/cg/z/proj/current/" . "appserver/")
+ ("/Users/cg/z/proj/" . "current/")
+ ("/Users/cg/" . "z/")
 )
 
 ;; ----- ido-work-directory-list -----
 (
- "/Users/cg/.emacs.d/elisp/"
+ "/Users/cg/Documents/Development/proj/cg_nav2/server/lib/core/"
+ "/Users/cg/z/proj/current/appserver/c/"
+ "/Users/cg/.emacs.d/"
 )
 
 ;; ----- ido-work-file-list -----
 (
- "cg-evil.el"
+ "navschema.py"
+ "datasheets.py"
+ "init.el"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/Users/cg/" (21619 50510 0 0) "zcur/" "z/" "VirtualBox VMs/" "todo.org" "testparty.org" "Public/" "Pictures/" "Music/" "Movies/" "mops.tex" "Library/" "key.pem" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "csr.pem" "changes!" "changes" "bin/" "Applications/" ".Xauthority" ".viminfo" ".vim/" ".Trash/" ".ssh/" ".rnd" ".recentf" ".nvimlog" ".nviminfo" ".nvim/" ".npm/" ".mongorc.js" ".meteorsession" ".meteor/" ".local/" ".kdiff3rc" ".hgrc" ".gitconfig" ".emacs.d/" ".DS_Store" ".dbshell" ".config/" ".CFUserTextEncoding" ".cache/" ".bash_profile" ".bash_history" ".android/" "../" "./")
+ ("/Users/cg/Documents/Development/proj/current/" (21628 57633 0 0) "webserver/" "tags" "server/" "appserver/" "../" "./")
 
- ("/Users/cg/z/proj/alpha_json/" (21615 26054 0 0) "webserver/" "tags" "server/" "appserver/" ".projectile" "../" "./")
+ ("/Users/cg/Documents/Development/proj/" (21638 15149 0 0) "stable_tm/" "stable_orderbug/" "current/" "cg_nav2/" "cg_nav/" "beta_wiki/" "beta_kiosk/" "beta_int3/" "beta_int2/" "beta_int/" "beta_contacts-bug/" "beta_bug-typo/" "alpha_user-module-state/" "alpha_the-little-things/" "alpha_rc6/" "alpha_rc1/" "alpha_rc/" "alpha_pm/" "alpha_nav2/" "alpha_login/" "alpha_lb-queues/" "alpha_lb/" "alpha_kiosk2/" "alpha_kiosk/" "alpha_jsontest/" "alpha_json/" "alpha_int/" "alpha_flex-prototype/" "alpha_flex/" "alpha_custs/" "alpha_contact-reasons-and-types/" "alpha_ccc-columns/" "alpha_bug-dsheets/" "alpha_bigidea/" ".DS_Store" "../" "./")
 
- ("/Users/cg/Documents/Development/proj/alpha_int/appserver/" (21611 30805 0 0) "v/" "s/" "m/" "c/" "bin/" ".hgtags" ".hgignore" ".hg/" "../" "./")
+ ("/Users/cg/Documents/Development/proj/cg_nav2/server/" (21639 14426 0 0) "lib/" "doc/" "data/" "config/" "bin/" ".hgtags" ".hgignore" ".hg/" "../" "./")
 
- ("/Users/cg/dotfiles/.emacs.d/" (21612 51048 0 0) "init.el.bak" "init.el" "ido.last" "elpa/" "elisp/" "auto-save-list/" ".mc-lists.el" "#init.el#" "../" "./")
+ ("/Users/cg/.emacs.d/" (21639 14417 0 0) "snippets/" "init.el" "ido.last" "elpa/" "auto-save-list/" "ac-comphist.dat" ".mc-lists.el" "../" "./")
 
- ("/Users/cg/.emacs.d/elisp/" (21577 6566 0 0) "cg-package-manager.el~" "cg-package-manager.el" "cg-orgframes.el" "cg-ido.el" "cg-evil.el~" "cg-evil.el" "../" "./")
+ ("/Users/cg/Documents/Development/proj/cg_nav2/server/lib/core/" (21639 14348 0 0) "wtcschema.py" "webschema.pyc" "webschema.py" "weblogsolapschema.py" "weblogschema.pyc" "weblogschema.py" "wccschema.py" "utsaschema.py" "uiwschema.py" "tutorschema.pyc" "tutorschema.py" "tstcwschema.py" "trioschema.pyc" "trioschema.py" "timeseriesschema.pyc" "timeseriesschema.py" "tcschema.pyc" "tcschema.py" "swtjcschema.pyc" "swtjcschema.py" "switchboard.py" "studentschema.pyc" "studentschema.py" "stipendschema.pyc" "stipendschema.py" "snapshotschema.py" "snapshotmdbschema.py" "schema.pyc" "schema.py" "savedgroupschema.pyc" "savedgroupschema.py" "resourceschema.pyc" "resourceschema.py" "redlandsschema.py" "rccschema.py" "racesschema.pyc" "racesschema.py" "racesolapSchema.pyc" "racesolapSchema.py" "pulaskischema.py" "ptcschema.py" "perkinsschema.pyc" "perkinsschema.py" "parisschema.py" "ollusaschema.py" "olapSchema.pyc" "olapSchema.py" "nscschema.pyc" "nscschema.py" "normscoreschema.pyc" "normscoreschema.py" "navschema.pyc" "navschema.py" "mprogschema.pyc" "mprogschema.py" "mprogmdbschema.py" "mprogfctschema.pyc" "mprogfctschema.py" "midcschema.py" "metaschema.py" "mdbschema.pyc" "mdbschema.py" "mclennschema.py" "mbccschema.py" "lscschema.py" "llccschema.py" "importidschema.pyc" "importidschema.py" "hrschema.pyc" "hrschema.py" "hrolapSchema.pyc" "hrolapSchema.py" "hrfctschema.pyc" "hrfctschema.py" "howardschema.py" "fctschema.pyc" "fctschema.py" "fcoschema.pyc" "fcoschema.py" "eventschema.pyc" "eventschema.py" "erschema.pyc" "erschema.py" "eocschema.pyc" "eocschema.py" "enrollmentschema.pyc" "enrollmentschema.py" "enrollmentolapSchema.pyc" "enrollmentolapSchema.py" "efcschema.py" "dscschema.py" "dropaddschema.py" "csccschema.py" "cowcschema.py" "contactschema.pyc" "contactschema.py" "clcischema.py" "classassmtschema.pyc" "classassmtschema.py" "classassmtolapschema.pyc" "classassmtolapschema.py" "classassmtmdbschema.py" "classassmtfctschema.pyc" "classassmtfctschema.py" "checklistschema.pyc" "checklistschema.py" "cccschema.py" "cbcschema.py" "campschema.pyc" "campschema.py" "brazosschema.py" "bhcschema.py" "bhccschema.py" "adoxshim.py" "addressschema.pyc" "addressschema.py" "__init__.pyc" "__init__.py" "../" "./")
 
- ("/Users/cg/.emacs.d/" (21601 12865 0 0) "init.el" "elpa/" "elisp/" "auto-save-list/" ".#init.el" "#init.el#" "../" "./")
+ ("/Users/cg/Documents/Development/proj/cg_nav2/server/lib/" (21628 57521 0 0) "www/" "util/" "etl/" "core/" "__init__.py" "../" "./")
 
- ("/Users/cg/dotfiles/" (21601 6037 0 0) "README.md" "osx/" ".vimrc" ".vim/" ".profile" ".nvimrc" ".hgrc" ".gitrc" ".gitignore" ".git/" ".emacs.d/" "../" "./")
+ ("/Users/cg/" (21638 30766 0 0) "zsql.py" "zcur/" "z/" "VirtualBox VMs/" "v/" "todo.org" "testparty.org" "test.py" "Public/" "Pictures/" "Music/" "Movies/" "mops.tex" "Library/" "key.pem" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "csr.pem" "changes.org" "changes!" "changes" "bin/" "Applications/" ".Xauthority" ".viminfo" ".vim/" ".vagrant.d/" ".Trash/" ".ssh/" ".rnd" ".recentf" ".nvimrc" ".nvimlog" ".nviminfo" ".nvim/" ".npm/" ".mongorc.js" ".meteorsession" ".meteor/" ".local/" ".kdiff3rc" ".hgrc" ".gitconfig" ".emacs.d/" ".DS_Store" ".dbshell" ".config/" ".CFUserTextEncoding" ".cache/" ".bash_profile" ".bash_history" ".android/" "../" "./")
 
- ("/Users/cg/dotfiles/.emacs.d/elpa/" (21601 8771 0 0) "undo-tree-20140509.522/" "solarized-theme-20141103.1605/" "goto-chg-20131228.1459/" "evil-readme.txt" "evil-leader-readme.txt" "evil-leader-20140606.543/" "evil-20141105.106/" "dash-20141106.455/" "archives/" "../" "./")
+ ("/Users/cg/z/proj/current/appserver/c/" (21628 63033 0 0) "webdocs.pyc" "webdocs.py" "webcore.pyc" "webcore.py" "warn.pyc" "warn.py" "vis.pyc" "vis.py" "ui.pyc" "ui.py" "tools.pyc" "tools.py" "student.pyc" "student.py" "security.pyc" "security.py" "reports.pyc" "reports.py" "report.pyc" "report.py" "queue.pyc" "queue.py" "provisional.pyc" "provisional.py" "pa.pyc" "pa.py" "notification.pyc" "notification.py" "navs.pyc" "navs.py" "navigator.pyc" "navigator.py" "nav.pyc" "nav.py" "lib.pyc" "lib.py" "importer.pyc" "importer.py" "i18n.pyc" "i18n.py" "gq.pyc" "gq.py" "filters.pyc" "filters.py" "fco.pyc" "fco.py" "er.pyc" "er.py" "dictionary.pyc" "dictionary.py" "debug.pyc" "debug.py" "datasheets.pyc" "datasheets.py" "datasheet.pyc" "datasheet.py" "cpr.pyc" "cpr.py" "contacts.pyc" "contacts.py" "caes.pyc" "caes.py" "cae.pyc" "cae.py" "basics.pyc" "basics.py" "avery5160.pyc" "avery5160.py" "admin.pyc" "admin.py" "about.pyc" "about.py" "__init__.pyc" "__init__.py" "../" "./")
+
+ ("/Users/cg/z/proj/current/appserver/" (21634 32006 0 0) "v/" "s/" "m/" "c/" "bin/" ".hgtags" ".hgignore" ".hg/" "../" "./")
+
+ ("/Users/cg/dotfiles/" (21630 8495 0 0) "README.md" "osx/" ".vim/" ".profile" ".nvimrc" ".nvim/" ".hgrc" ".gitrc" ".gitignore" ".git/" ".emacs.d/" "../" "./")
+
+ ("/Users/cg/dotfiles/.emacs.d/" (21638 29250 0 0) "snippets/" "init.el" "ido.last" "elpa/" "auto-save-list/" ".mc-lists.el" "../" "./")
+
+ ("/Users/cg/z/proj/current/" (21628 57633 0 0) "webserver/" "tags" "server/" "appserver/" "../" "./")
+
+ ("/Users/cg/z/proj/" (21638 15149 0 0) "stable_tm/" "stable_orderbug/" "current/" "cg_nav2/" "cg_nav/" "beta_wiki/" "beta_kiosk/" "beta_int3/" "beta_int2/" "beta_int/" "beta_contacts-bug/" "beta_bug-typo/" "alpha_user-module-state/" "alpha_the-little-things/" "alpha_rc6/" "alpha_rc1/" "alpha_rc/" "alpha_pm/" "alpha_nav2/" "alpha_login/" "alpha_lb-queues/" "alpha_lb/" "alpha_kiosk2/" "alpha_kiosk/" "alpha_jsontest/" "alpha_json/" "alpha_int/" "alpha_flex-prototype/" "alpha_flex/" "alpha_custs/" "alpha_contact-reasons-and-types/" "alpha_ccc-columns/" "alpha_bug-dsheets/" "alpha_bigidea/" ".DS_Store" "../" "./")
+
+ ("/Users/" (21569 33935 0 0) "Shared/" "Guest/" "cg/" ".localized" "../" "./")
+
+ ("/Users/cg/z/proj/alpha_int/" (21637 65042 0 0) "webserver/" "server/" "appserver/" "../" "./")
+
+ ("/Users/cg/z/" (21637 55134 0 0) "ZogoTech_Color_Headline.gif" "ws/" "windows installers/" "winbin/" "weblogs/" "Thumbs.db" "test.xlsx" "server.pem" "prototypes/" "proj/" "pip/" "merging/" "mercurial.ini" "interview/" "hg/" "data/" "configuration.txt" "cg-win.ppk" "cg-win.jpg" "appconfig.txt" ".recentf~" ".recentf" ".matplotlib/" ".ido.last" ".idlerc/" ".history" ".emacs.d/" ".DS_Store" ".commitmessage.swp" "../" "./")
+
+ ("/Users/cg/Documents/Development/proj/cg_nav2/" (21628 57633 0 0) "webserver/" "tags" "server/" "appserver/" "../" "./")
+
+ ("/Users/cg/Applications/" (21631 19340 0 0) "GoToMeeting (1831).app/" "GoToMeeting (1468).app/" "Chrome Apps.localized/" "AirspaceApps/" ".localized" ".DS_Store" "../" "./")
 )
 
 ;; ----- ido-unc-hosts-cache -----

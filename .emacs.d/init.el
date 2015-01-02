@@ -1,29 +1,3 @@
-;; Turn off a few things
-(tool-bar-mode -1) ;; turn off toolbar
-(scroll-bar-mode -1) ;; turn off scrollbars
-(setq large-file-warning-threshold nil) ;; no warnings for large tags file
-(setq inhibit-startup-message t) ;; don't show startup message
-(setq backup-inhibited t) ;disable backup
-(setq auto-save-default nil) ;disable auto save
-(setq ring-bell-function (lambda () (message "*beep*"))) ;; show beep instead of bell
-(setq large-file-warning-threshold nil) ;; no more large file warnings
-(blink-cursor-mode 0) ;; no more blinking
-(setq initial-scratch-message "") ;; no text in your initial buffer
-(setq initial-major-mode 'text-mode) ;; don't use lisp in initial buffer
-(menu-bar-mode -1) ;; no menu, ever
-
-;; Turn on a few things
-(recentf-mode 1) ;; show recent files
-(subword-mode 1);; stop on camelcase
-(which-func-mode 1) ;; show function you are in
-(show-paren-mode 1) ;; match parenthesis
-(setq-default show-trailing-whitespace t) ;; show trailing whitespace
-(standard-display-ascii ?\t "^I") ;; show tabs as the weird characters that they are
-
-;; Best practices in coding
-(add-hook 'before-save-hook 'delete-trailing-whitespace);; delete trailing wsp
-(setq require-final-newline t) ;; newline at end of file
-(setq-default indent-tabs-mode nil) ;; spaces not tabs
 
 ;; ediff
 (setq ediff-split-window-function 'split-window-horizontally)
@@ -45,51 +19,126 @@
 (setq whitespace-style '(face lines-tail))
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
-;; list the packages you want
-(setq package-list '(
-                     evil
-                     evil-leader
-                     ido-vertical-mode
-                     multiple-cursors
-                     yasnippet
-                     ))
-
-;; install the missing packages
-(dolist (package package-list)
-  (unless (package-installed-p package)
-        (package-install package)))
-
-;; list all files below where your tags file resides
-(defun ido-find-file-in-tag-files ()
+;; ido stuff
+(defun ido-file-in-tags ()
   (interactive)
   (save-excursion
-    (let ((enable-recursive-minibuffers t))
-      (visit-tags-table-buffer))
-    (find-file
-     (expand-file-name
-      (ido-completing-read
-       "File in tags:: " (tags-table-files) nil t)))))
+    (let ((enable-recursive-minibuffers t)) (visit-tags-table-buffer))
+    (find-file (expand-file-name
+                (ido-completing-read "File in tags: "
+                                     (tags-table-files) nil t)))))
 
+(defun my-ido-find-tag ()
+  "Find a tag using ido"
+  (interactive)
+  (visit-tags-table-buffer)
+  (let (tag-names)
+    (mapatoms (lambda (x)
+                (push (prin1-to-string x t) tag-names))
+              (list-tags (ido-find-files-in-dir)))
+          (find-tag (ido-completing-read "Tag: " tag-names))))
+
+;; better find files
+(defun files-in-below-directory (directory)
+       "List the .el files in DIRECTORY and in its sub-directories."
+       ;; Although the function will be used non-interactively,
+       ;; it will be easier to test if we make it interactive.
+       ;; The directory will have a name such as
+       ;;  "/usr/local/share/emacs/22.1.1/lisp/"
+       (interactive "DDirectory name: ")
+       (let (el-files-list
+             (current-directory-list
+              (directory-files-and-attributes directory t)))
+         ;; while we are in the current directory
+         (while current-directory-list
+           (cond
+            ;; check to see whether filename ends in `.el'
+            ;; and if so, append its name to a list.
+            ((equal ".py" (substring (car (car current-directory-list)) -3))
+             (setq el-files-list
+                   (cons (car (car current-directory-list)) el-files-list)))
+            ;; check whether filename is that of a directory
+            ((eq t (car (cdr (car current-directory-list))))
+             ;; decide whether to skip or recurse
+             (if
+                 (equal "."
+                        (substring (car (car current-directory-list)) -1))
+                 ;; then do nothing since filename is that of
+                 ;;   current directory or parent, "." or ".."
+                 ()
+               ;; else descend into the directory and repeat the process
+               (setq el-files-list
+                     (append
+                      (files-in-below-directory
+                       (car (car current-directory-list)))
+                      el-files-list)))))
+           ;; move to the next filename in the list; this also
+           ;; shortens the list so the while loop eventually comes to an end
+           (setq current-directory-list (cdr current-directory-list)))
+         ;; return the filenames
+         el-files-list))
+
+;; Find files in dir
+(defun ido-find-files-in-dir ()
+  (interactive)
+  (save-excursion
+    (let ((enable-recursive-minibuffers t)) (visit-tags-table-buffer))
+    (find-file (expand-file-name
+                (ido-completing-read "File in tags: "
+                                     (files-in-below-directory (substring (pwd) 10)) nil t)))))
+
+
+;; package stuff
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(package-initialize)
+
+;; list the packages you want
+(defvar package-list
+  '(
+    evil
+    evil-leader
+    multiple-cursors
+    yasnippet
+    etags-select
+    auto-complete-etags
+    ))
+
+(require 'cl)
+
+;; method to check if all packages are installed
+(defun packages-installed-p ()
+  (loop for p in package-list
+        when (not (package-installed-p p)) do (return nil)
+        finally (return t)))
+
+;; install missing packages
+(unless (packages-installed-p)
+  ;; check for new packages (package versions)
+  (message "%s" "Emacs is now refreshing its package database...")
+  (package-refresh-contents)
+  (message "%s" " done.")
+  ;; install the missing packages
+  (dolist (p package-list)
+    (when (not (package-installed-p p))
+      (package-install p))))
 
 ;; turn on and configure packages
 (evil-mode 1)
 (global-evil-leader-mode 1)
 (evil-leader/set-key
-  "e" 'ido-find-file-in-tag-files
+  "e" 'ido-find-file
   "\\" 'comment-or-uncomment-region
-  "f" 'projectile-find-file
   "n" 'linum-mode
   "m" 'mc/mark-next-like-this
   "M" 'mc/mark-all-like-this
   )
 (yas-global-mode 1)
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
-(projectile-global-mode)
-(setq projectile-globally-ignored-files
-      (append '("*.pyc") projectile-globally-ignored-files))
-(require 'flx-ido)
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
 (ido-mode 1)
-(ido-everywhere 1)
-(ido-vertical-mode 1)
-(flx-ido-mode 1)
-;; (setq projectile-indexing-method 'native)
+;; (ido-vertical-mode 1)

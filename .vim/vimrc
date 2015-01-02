@@ -3,13 +3,14 @@ filetype off
 call vundle#begin()
 " Bundle 'justinmk/vim-sneak'
 " Bundle 'Lokaltog/vim-easymotion'
-" Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/syntastic'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bkad/CamelCaseMotion'
 " Bundle 'itchyny/lightline.vim'
-Bundle 'kien/ctrlp.vim'
+" Bundle 'kien/ctrlp.vim'
+Bundle 'rking/ag.vim'
 Bundle 'ludovicchabant/vim-lawrencium'
-Bundle 'mileszs/ack.vim'
+" Bundle 'mileszs/ack.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'tpope/vim-commentary'
@@ -80,6 +81,7 @@ let g:syntastic_python_checkers = ['pyflakes']
 let g:ctrlp_follow_symlinks = 1 "follow symlinks into the darkness
 let g:ctrlp_extensions = ['tag'] "enable searching of tags
 let g:ctrlp_working_path_mode = 0
+let g:ctrlp_use_caching = 0
 
 " dirdiff setup
 let g:DirDiffExcludes = ".hg,tags,*.pyc,.*.swp,.DS_Store"
@@ -99,11 +101,48 @@ function! NumberToggle()
     endif
 endfunc
 
+" syntax highlight sql strings in python
+function! TextEnableCodeSnip(filetype,start,end,textSnipHl) abort
+  let ft=toupper(a:filetype)
+  let group='textGroup'.ft
+  if exists('b:current_syntax')
+    let s:current_syntax=b:current_syntax
+    " Remove current syntax definition, as some syntax files (e.g. cpp.vim)
+    " do nothing if b:current_syntax is defined.
+    unlet b:current_syntax
+  endif
+  execute 'syntax include @'.group.' syntax/'.a:filetype.'.vim'
+  try
+    execute 'syntax include @'.group.' after/syntax/'.a:filetype.'.vim'
+  catch
+  endtry
+  if exists('s:current_syntax')
+    let b:current_syntax=s:current_syntax
+  else
+    unlet b:current_syntax
+  endif
+  execute 'syntax region textSnip'.ft.'
+  \ matchgroup='.a:textSnipHl.'
+  \ start="'.a:start.'" end="'.a:end.'"
+  \ contains=@'.group
+endfunction
+
+autocmd FileType python call Py_config()
+    function Py_config()
+        " call TextEnableCodeSnip('sql', "sql='''", "'''", 'Identifier')
+        " call TextEnableCodeSnip('javascript', "js='''", "'''", 'Identifier')
+    endfunction
+
 " " custom keymaps for great things
-nmap <leader>e :CtrlP<cr>
-nmap <leader>b :CtrlPBufTag<cr>
-nmap <leader>v <c-w>v:vertical resize 90<cr><c-w>w:CtrlP<cr>
+nmap <leader>xe :%!openssl base64<cr>
+nmap <leader>xd :%!openssl base64 -d<cr>
+nmap <leader>j :set textwidth=70<cr>:r !date<cr><s-o><esc><s-o><cr>
+nmap <leader>e :find<space>
+" nmap <leader>b :CtrlPBufTag<cr>
+nmap <leader>v <c-w>v:vertical resize 90<cr><c-w>w:find<space>
 nmap <leader>n :call NumberToggle()<cr>
 nmap <leader>t :echo system("date +'%r'")<cr>
+nmap <leader>dc 2<c-w>w]c
 imap <c-n> <c-p>
 imap <NUL> <Space>
+nmap <leader>p :w !python<cr>

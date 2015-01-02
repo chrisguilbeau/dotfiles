@@ -16,3 +16,14 @@ kdiff3.args = $base $other $local -o $output
 cmd.kdiff3 =
 cmd.ksdiff =
 opts.ksdiff = --changeset --wait --filelist
+
+[paths]
+alpha/appserver = ssh://cg@austin.zogotech.com/hg-repo/alpha/appserver
+alpha/server = ssh://cg@austin.zogotech.com/hg-repo/alpha/server
+alpha/webserver = ssh://cg@austin.zogotech.com/hg-repo/alpha/webserver
+beta/appserver = ssh://cg@austin.zogotech.com/hg-repo/beta/appserver
+beta/server = ssh://cg@austin.zogotech.com/hg-repo/beta/server
+beta/webserver = ssh://cg@austin.zogotech.com/hg-repo/beta/webserver
+stable/appserver = ssh://cg@austin.zogotech.com/hg-repo/stable/appserver
+stable/server = ssh://cg@austin.zogotech.com/hg-repo/stable/server
+stable/webserver = ssh://cg@austin.zogotech.com/hg-repo/stable/webserver

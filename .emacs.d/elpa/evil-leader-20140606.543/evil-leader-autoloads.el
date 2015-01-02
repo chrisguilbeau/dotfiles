@@ -36,7 +36,7 @@ See `evil-leader/set-key'.
 
 ;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/evil-leader-20140606.543/evil-leader-autoloads.el"
 ;;;;;;  "../../../../.emacs.d/elpa/evil-leader-20140606.543/evil-leader.el")
-;;;;;;  (21628 51251 855732 0))
+;;;;;;  (21631 13506 229606 0))
 
 ;;;***
 

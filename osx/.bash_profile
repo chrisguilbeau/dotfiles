@@ -5,6 +5,9 @@ export PS1="\[\e[0;35m\]\u@\h:\[\e[0;34m\]\w\$ \[\e[m\]"
 export EDITOR=vim
 
 alias zz="cd ~/z/proj/"\`z?\`
+alias z="cd ~/z"
+# alias vim=nvim
+# alias gj="google docs edit --title \"journal\" --editor vim"
 
 # bash completion!
 # if [ -f $(brew --prefix)/etc/bash_completion ]; then
