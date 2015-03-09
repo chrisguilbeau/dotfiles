@@ -1,0 +1,2 @@
+pushd ~/Documents/ipython
+ipython notebook

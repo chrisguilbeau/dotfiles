@@ -1,15 +1,18 @@
 set nocompatible
 filetype off
 call vundle#begin()
+" Bundle 'wting/rust.vim'
 " Bundle 'justinmk/vim-sneak'
 " Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/syntastic'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'bkad/CamelCaseMotion'
+" Bundle 'altercation/vim-colors-solarized'
+" Bundle 'bkad/CamelCaseMotion'
 " Bundle 'itchyny/lightline.vim'
-" Bundle 'kien/ctrlp.vim'
+" Bundle 'bling/vim-airline'
+Bundle 'kien/ctrlp.vim'
 Bundle 'rking/ag.vim'
 Bundle 'ludovicchabant/vim-lawrencium'
+" Bundle 'davidhalter/jedi-vim'
 " Bundle 'mileszs/ack.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'terryma/vim-multiple-cursors'
@@ -17,6 +20,7 @@ Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'vim-scripts/DirDiff.vim'
+" Bundle 'chriskempson/tomorrow-theme'
 call vundle#end()
 filetype on
 
@@ -45,19 +49,34 @@ set complete=.,w,b,u,t "removed 'i' which scans all files in path
 set completeopt=
 set t_Co=256
 set laststatus=2 "always show status line
+set iskeyword+=\-
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+    set guioptions-=T
+    set guioptions+=e
+    set t_Co=256
+    set guifont=Monaco:h11
+    set guicursor=a:blinkon0
+    colors solarized
+    let g:solarized_italic=0
+endif
 
 " hi StatusLine ctermbg=8 ctermfg=15
 
 " default the statusline to green when entering Vim
 " hi statusline guibg=green
 " " lightline
-" let g:lightline = {}
-" let g:lightline.colorscheme = 'solarized'
+let g:lightline = {}
+let g:lightline.colorscheme = 'Tomorrow'
 " let g:lightline.separator = { 'left': '>', 'right': '<' }
 
 " solarized
-colors solarized
-let g:solarized_italic=0
+" colors solarized
+" let g:solarized_italic=0
+
+"jedi
+"
 
 " status line
 set statusline=\                                    " start it off
@@ -65,6 +84,9 @@ set statusline+=%f\                                "File+path
 set statusline+=%y\                                   "FileType
 set statusline+=[%{&ff}]\                              "FileFormat (dos/unix..)
 set statusline+=%m%r%w\                      "Modified? Readonly? Top/bot.
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 set statusline +=%=%5l             "current line
 set statusline +=/%L\ \                "total lines
 hi statusline guibg=DarkGrey ctermfg=4 ctermbg=15
@@ -76,6 +98,7 @@ endif
 " syntastic
 let g:syntastic_mode_map = { 'mode': 'passive' }
 let g:syntastic_python_checkers = ['pyflakes']
+let g:syntastic_javascript_checkers = ['jshint']
 
 " CtrlP setup
 let g:ctrlp_follow_symlinks = 1 "follow symlinks into the darkness
@@ -86,6 +109,7 @@ let g:ctrlp_use_caching = 0
 " dirdiff setup
 let g:DirDiffExcludes = ".hg,tags,*.pyc,.*.swp,.DS_Store"
 set diffopt+=context:99999
+let g:DirDiffEnableMappings = 1
 
 " custom functions...
 function! NumberToggle()
@@ -133,16 +157,23 @@ autocmd FileType python call Py_config()
         " call TextEnableCodeSnip('javascript', "js='''", "'''", 'Identifier')
     endfunction
 
+" hard mode
+" noremap <Up> <Nop>
+" noremap <Down> <Nop>
+" noremap <Left> <Nop>
+" noremap <Right> <Nop>
+
 " " custom keymaps for great things
 nmap <leader>xe :%!openssl base64<cr>
 nmap <leader>xd :%!openssl base64 -d<cr>
 nmap <leader>j :set textwidth=70<cr>:r !date<cr><s-o><esc><s-o><cr>
 nmap <leader>e :find<space>
-" nmap <leader>b :CtrlPBufTag<cr>
+nmap <leader>b :CtrlPBufTag<cr>
 nmap <leader>v <c-w>v:vertical resize 90<cr><c-w>w:find<space>
 nmap <leader>n :call NumberToggle()<cr>
 nmap <leader>t :echo system("date +'%r'")<cr>
 nmap <leader>dc 2<c-w>w]c
-imap <c-n> <c-p>
+" imap <c-n> <c-p>
 imap <NUL> <Space>
+map <leader>] :split <CR>:exec("tag ".expand("<cword>"))<CR>
 nmap <leader>p :w !python<cr>

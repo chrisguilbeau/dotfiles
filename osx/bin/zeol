@@ -27,17 +27,7 @@ def getLines(path):
         for line in f:
             yield line
 
-def zeol(path, patterns="*"):
-    printWarn = False
-    for pattern in patterns:
-        for f in filter(getFiles(path), pattern):
-            for line in getLines(f):
-                if not line.endswith('\r\n') and line.endswith('\n'):
-                    printWarn = True
-                    print f
-                    break
-    if printWarn:
-        print r'''
+panda = r'''
                               _,add8ba,
                             ,d888888888b,
                            d8888888888888b                        _,ad8ba,_
@@ -83,6 +73,19 @@ Y88888b         `888888888b,      `""""^                `Y8888888P'       d888I
                                        ^""""""""'
 Creepy Panda says, "You have unix line eee-ndings"
 '''
+
+def zeol(path, patterns="*"):
+    printWarn = False
+    for pattern in patterns:
+        for f in filter(getFiles(path), pattern):
+            for line in getLines(f):
+                if not line.endswith('\r\n') and line.endswith('\n'):
+                    printWarn = True
+                    print f
+                    break
+    if printWarn:
+        print panda
+        sys.exit(1)
 
 if __name__ == '__main__':
     zeol('.', ['*.py', '*.js', '*.css'])
