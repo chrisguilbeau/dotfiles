@@ -3,10 +3,13 @@
 
 (setq mc/cmds-to-run-for-all
       '(
-        evil-change
-        evil-normal-state
-        ))
+	evil-change
+	evil-force-normal-state
+	evil-normal-state
+	org-self-insert-command
+	))
 
 (setq mc/cmds-to-run-once
       '(
-        ))
+	evil-delete-backward-char-and-join
+	))

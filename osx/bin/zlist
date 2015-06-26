@@ -10,8 +10,12 @@ class ProjDir(object):
         self.path = path
         # self.sortTime = sortTime
         # self.displayTime = displayTime
-        self.sortTime = max(map(
-            lambda x: os.path.getmtime(x[0]), os.walk(path)))
+        def getSortTime():
+            try:
+                return os.path.getmtime(os.path.join(path, 'tags'))
+            except:
+                return 0
+        self.sortTime = getSortTime()
         self.displayTime = time.ctime(self.sortTime)
 
 def getDirs(path=projPath):

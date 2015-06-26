@@ -8,7 +8,8 @@ do
     if [ -d "$dir" ]; then
         pushd $dir > /dev/null
         echo $dir
-        hg "$@"
+        hg "$@" &
         popd > /dev/null
     fi
 done
+wait

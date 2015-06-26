@@ -12,5 +12,8 @@ dest=~/z/proj/$1_$2
 mkdir $dest
 pushd $src && zhg pull -u && popd
 cp -R $src/* $dest
+echo $1 > $dest/meta.level
+echo $2 > $dest/meta.name
+touch $dest/meta.time
 zswitch $dest
 z?

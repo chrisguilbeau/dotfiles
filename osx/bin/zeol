@@ -11,6 +11,7 @@ def getFiles(path):
             name = join(root, f)
             find = name.find
             if (
+                find('/support/') == -1 and
                 find('/.hg/') == -1 and
                 find('/tinymce/') == -1 and
                 find('/prettify/') == -1 and
@@ -71,20 +72,28 @@ Y88888b         `888888888b,      `""""^                `Y8888888P'       d888I
                                 "Y8888888888888888P     `""""^
                                   `"YY88888888888P'
                                        ^""""""""'
-Creepy Panda says, "You have unix line eee-ndings"
 '''
 
 def zeol(path, patterns="*"):
-    printWarn = False
+    printUnix = False
+    printTrailing = False
     for pattern in patterns:
         for f in filter(getFiles(path), pattern):
             for line in getLines(f):
                 if not line.endswith('\r\n') and line.endswith('\n'):
-                    printWarn = True
+                    printUnix = True
                     print f
                     break
-    if printWarn:
+            # for line in getLines(f):
+            #     if line.endswith(' \r\n'):
+            #         printTrailing = True
+            #         print f, ':', line
+    if printUnix or printTrailing:
         print panda
+        if printUnix:
+            print 'Creepy Panda says, "You have unix line eee-ndings"'
+        if printTrailing:
+            print 'Creepy Panda says, "You have trailing species?!"'
         sys.exit(1)
 
 if __name__ == '__main__':

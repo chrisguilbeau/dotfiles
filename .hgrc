@@ -16,6 +16,9 @@ kdiff3.args = $base $other $local -o $output
 cmd.kdiff3 =
 cmd.ksdiff =
 opts.ksdiff = --changeset --wait --filelist
+cmd.vdiff = vim
+opts.vdiff = -f '+next' '+execute "DirDiff" fnameescape(argv(0)) fnameescape(argv(1))'
+
 
 [paths]
 alpha/appserver = ssh://cg@austin.zogotech.com/hg-repo/alpha/appserver
@@ -27,3 +30,10 @@ beta/webserver = ssh://cg@austin.zogotech.com/hg-repo/beta/webserver
 stable/appserver = ssh://cg@austin.zogotech.com/hg-repo/stable/appserver
 stable/server = ssh://cg@austin.zogotech.com/hg-repo/stable/server
 stable/webserver = ssh://cg@austin.zogotech.com/hg-repo/stable/webserver
+
+[slack_notify]
+baseurl = http://zlinux.ztaustin.local:8000/hg
+basepath = /Users
+
+[hooks]
+# changegroup.slack= python:/Users/chrisguilbeau/z/hg/slack/postmessage.py:notify

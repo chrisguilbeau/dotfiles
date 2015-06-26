@@ -1,56 +1,60 @@
 set nocompatible
 filetype off
 call vundle#begin()
-" Bundle 'wting/rust.vim'
-" Bundle 'justinmk/vim-sneak'
-" Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/syntastic'
-" Bundle 'altercation/vim-colors-solarized'
-" Bundle 'bkad/CamelCaseMotion'
-" Bundle 'itchyny/lightline.vim'
-" Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'rking/ag.vim'
 Bundle 'ludovicchabant/vim-lawrencium'
-" Bundle 'davidhalter/jedi-vim'
-" Bundle 'mileszs/ack.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'vim-scripts/DirDiff.vim'
-" Bundle 'chriskempson/tomorrow-theme'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'bronson/vim-trailing-whitespace'
+Bundle 'vim-scripts/occur.vim'
 call vundle#end()
 filetype on
 
 syntax on "syntax highlighting
+set nowmnu
+set wildmode=full
+" set hlsearch " highlight search
+set autoindent "indent to the previous level
 filetype plugin on "make commands smarter for your file ]m and the like
 set clipboard=unnamed " set clipboard to system clipboard (gui compile req)
 set backspace=2 " make backspace behave correctly!
 set incsearch "jump to first match when searching
-set autoindent "indent to the previous level
 set tags=tags;/ "search for a tags file recursively till it finds one
 set cc=72,79 "put a line for comments and end of code pep8
 set expandtab shiftwidth=4 softtabstop=4
 set tabstop=4
 autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
 set number " show line numbers
-set relativenumber " show the relative numbers
+" set relativenumber " show the relative numbers
 set autoread " automatically read files when changed by another editor
 set hidden " just hide the buffer till I come back to it
 set ignorecase " ignore case while searching
 set wildignore+=*/.git/*,*/.hg/*,*.pyc,*.DS_Store "don't pick up certain things
 set nofoldenable " no code folding ever!!!
-set path=*/**
+set path=$PWD/**
 set noswapfile
 set nobackup
 set complete=.,w,b,u,t "removed 'i' which scans all files in path
 set completeopt=
 set t_Co=256
+set background=light
 set laststatus=2 "always show status line
 set iskeyword+=\-
 
+" Solarized
+colors solarized
+let g:solarized_italic=0
+let g:solarized_termcolors = 16
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+"
 " Set extra options when running in GUI mode
 if has("gui_running")
     set guioptions-=T
@@ -61,22 +65,6 @@ if has("gui_running")
     colors solarized
     let g:solarized_italic=0
 endif
-
-" hi StatusLine ctermbg=8 ctermfg=15
-
-" default the statusline to green when entering Vim
-" hi statusline guibg=green
-" " lightline
-let g:lightline = {}
-let g:lightline.colorscheme = 'Tomorrow'
-" let g:lightline.separator = { 'left': '>', 'right': '<' }
-
-" solarized
-" colors solarized
-" let g:solarized_italic=0
-
-"jedi
-"
 
 " status line
 set statusline=\                                    " start it off
@@ -89,11 +77,6 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set statusline +=%=%5l             "current line
 set statusline +=/%L\ \                "total lines
-hi statusline guibg=DarkGrey ctermfg=4 ctermbg=15
-if version >= 700
-  au InsertEnter * hi StatusLine ctermbg=15 ctermfg=1
-  au InsertLeave * hi StatusLine ctermbg=15 ctermfg=4
-endif
 
 " syntastic
 let g:syntastic_mode_map = { 'mode': 'passive' }
@@ -125,32 +108,6 @@ function! NumberToggle()
     endif
 endfunc
 
-" syntax highlight sql strings in python
-function! TextEnableCodeSnip(filetype,start,end,textSnipHl) abort
-  let ft=toupper(a:filetype)
-  let group='textGroup'.ft
-  if exists('b:current_syntax')
-    let s:current_syntax=b:current_syntax
-    " Remove current syntax definition, as some syntax files (e.g. cpp.vim)
-    " do nothing if b:current_syntax is defined.
-    unlet b:current_syntax
-  endif
-  execute 'syntax include @'.group.' syntax/'.a:filetype.'.vim'
-  try
-    execute 'syntax include @'.group.' after/syntax/'.a:filetype.'.vim'
-  catch
-  endtry
-  if exists('s:current_syntax')
-    let b:current_syntax=s:current_syntax
-  else
-    unlet b:current_syntax
-  endif
-  execute 'syntax region textSnip'.ft.'
-  \ matchgroup='.a:textSnipHl.'
-  \ start="'.a:start.'" end="'.a:end.'"
-  \ contains=@'.group
-endfunction
-
 autocmd FileType python call Py_config()
     function Py_config()
         " call TextEnableCodeSnip('sql', "sql='''", "'''", 'Identifier')
@@ -163,6 +120,11 @@ autocmd FileType python call Py_config()
 " noremap <Left> <Nop>
 " noremap <Right> <Nop>
 
+" " save time on indenting things
+" vnoremap < <gv
+" vnoremap > >gv
+
+
 " " custom keymaps for great things
 nmap <leader>xe :%!openssl base64<cr>
 nmap <leader>xd :%!openssl base64 -d<cr>
@@ -173,7 +135,6 @@ nmap <leader>v <c-w>v:vertical resize 90<cr><c-w>w:find<space>
 nmap <leader>n :call NumberToggle()<cr>
 nmap <leader>t :echo system("date +'%r'")<cr>
 nmap <leader>dc 2<c-w>w]c
-" imap <c-n> <c-p>
 imap <NUL> <Space>
 map <leader>] :split <CR>:exec("tag ".expand("<cword>"))<CR>
 nmap <leader>p :w !python<cr>

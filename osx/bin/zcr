@@ -6,11 +6,12 @@ echo $level
 
 pushd ~/z
 pushd hg/$level
-zhg pull -u
+zhg pull -u &
 popd
 pushd proj/current
-zhg pull -u
+zhg pull -u &
 popd
+wait
 pushd ~/z/proj/current
 zeol
 popd
