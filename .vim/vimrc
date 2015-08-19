@@ -5,7 +5,8 @@ Bundle 'scrooloose/syntastic'
 Bundle 'kien/ctrlp.vim'
 Bundle 'rking/ag.vim'
 Bundle 'ludovicchabant/vim-lawrencium'
-Bundle 'SirVer/ultisnips'
+" Bundle 'garbas/vim-snipmate'
+" Bundle 'SirVer/ultisnips'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-surround'
@@ -124,6 +125,22 @@ autocmd FileType python call Py_config()
 " vnoremap < <gv
 " vnoremap > >gv
 
+" setup terminal mode in nvim
+" :tnoremap <Esc> <C-\><C-n>
+" :tnoremap <A-h> <C-\><C-n><C-w>h
+" :tnoremap <A-j> <C-\><C-n><C-w>j
+" :tnoremap <A-k> <C-\><C-n><C-w>k
+" :tnoremap <A-l> <C-\><C-n><C-w>l
+" :nnoremap <A-h> <C-w>h
+:nnoremap <A-j> <C-w>j
+:nnoremap <A-k> <C-w>k
+:nnoremap <A-l> <C-w>l
+
+" use a faster grep
+set grepprg=ag\ --nogroup\ --nocolor
+
+" abbreviations
+ab pdb import pdb; pdb.set_trace()
 
 " " custom keymaps for great things
 nmap <leader>xe :%!openssl base64<cr>

@@ -12,6 +12,7 @@ def getFiles(path):
             find = name.find
             if (
                 find('/support/') == -1 and
+                find('/flexmonster/') == -1 and
                 find('/.hg/') == -1 and
                 find('/tinymce/') == -1 and
                 find('/prettify/') == -1 and

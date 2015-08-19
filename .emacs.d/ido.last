@@ -2,10 +2,11 @@
 
 ;; ----- ido-last-directory-list -----
 (
+ ("/Users/chrisguilbeau/" . ".emacs.d/")
  ("/Users/cg/Documents/Development/proj/" . "current/")
  ("/Users/cg/Documents/Development/proj/cg_nav2/server/lib/" . "core/")
  ("/Users/cg/Documents/Development/proj/cg_nav2/server/" . "lib/")
- ("/Users/" . "cg/")
+ ("/Users/" . "chrisguilbeau/")
  ("/Users/cg/z/proj/current/appserver/" . "c/")
  ("/Users/cg/z/" . "proj/")
  ("/Users/cg/z/proj/current/" . "appserver/")
@@ -15,28 +16,39 @@
 
 ;; ----- ido-work-directory-list -----
 (
- "/Users/cg/z/proj/current/appserver/c/"
+ "/Users/chrisguilbeau/.emacs.d/"
+ "/Users/chrisguilbeau/todos/"
  "/Users/chrisguilbeau/"
+ "/Users/cg/z/proj/current/appserver/c/"
  "/Users/cg/Documents/Development/proj/cg_nav2/server/lib/core/"
  "/Users/cg/.emacs.d/"
 )
 
 ;; ----- ido-work-file-list -----
 (
- "datasheet.py"
+ "init.el"
+ "todo1.org"
+ "todo0.org"
  "todo.org"
+ "testparty.org"
+ "datasheet.py"
  "navschema.py"
  "datasheets.py"
- "init.el"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
+ ("/Users/chrisguilbeau/.emacs.d/" (21947 50999 0 0) "snippets/" "init.el~" "init.el" "ido.last~" "ido.last" "elpa/" "auto-save-list/" "ac-comphist.dat" ".mc-lists.el" "#init.el#" "../" "./")
+
+ ("/Users/" (21760 59900 0 0) "Shared/" "Guest/" "chrisguilbeau/" "cg/" ".localized" "../" "./")
+
+ ("/Users/chrisguilbeau/todos/" (21963 44069 0 0) "todo_tp.org" "todo1.org" "todo0.org" "todo.org" ".#todo.org" "#todo.org#" "../" "./")
+
+ ("/Users/chrisguilbeau/" (21945 16921 0 0) "zcro/" "z/" "Untitled.ipynb" "Trash/" "todos/" "testparty.org" "test.py" "tags" "src/" "Public/" "Pictures/" "owc-replacement.org" "Music/" "Movies/" "mac_prefs" "mac.old/" "Library/" "junk/" "icloud/" "hg-webdir.conf" "Google Drive/" "gogs-repositories/" "Downloads/" "dotfiles/" "Documents/" "Desktop Folder/" "Desktop/" "demo-ui.org" "bin/" "beta" "Applications/" "anaconda/" "alpha" "68k/" ".viminfo" ".vim/" ".Trash/" ".ssh/" ".sheepshaver_prefs" ".saves/" ".rnd" ".nvimlog" ".nviminfo" ".nvim/" ".npm/" ".node-gyp/" ".matplotlib/" ".Maelstrom-data" ".kdiff3rc" ".ipython/" ".ipynb_checkpoints/" ".hgrc" ".gitconfig" ".fpp/" ".FontForge/" ".finf/" ".fbPager.sh" ".fbPager.selection.pickle" ".fbPager.pickle" ".fbPager.log" ".emacs.d/" ".DS_Store" ".cups/" ".ctags" ".continuum/" ".config/" ".com.briangonzalez.org.FontPrep.version" ".com.briangonzalez.org.FontPrep.pid" ".CFUserTextEncoding" ".cache/" ".basilisk_ii_xpram" ".basilisk_ii_prefs" ".bash_profile-anaconda.bak" ".bash_profile" ".bash_history" ".#todo1.org" ".#todo0.org" "#todo1.org#" "#todo0.org#" "#demo-ui.org#" "../" "./")
+
  ("/Users/cg/.emacs.d/" (21900 27319 0 0) "snippets/" "init.el~" "init.el" "ido.last~" "ido.last" "elpa/" "auto-save-list/" "ac-comphist.dat" ".mc-lists.el" "#init.el#" "../" "./")
 
  ("/Users/cg/z/proj/current/appserver/c/" (21900 14158 0 0) "webdocs.pyc" "webdocs.py" "webcore.pyc" "webcore.py" "warn.pyc" "warn.py" "vis.pyc" "vis.py" "ui.pyc" "ui.py" "tools.pyc" "tools.py" "tab.pyc" "tab.py" "student.pyc" "student.py" "security.pyc" "security.py" "reports.pyc" "reports.py" "report.pyc" "report.py" "queue.pyc" "queue.py" "provisional.pyc" "provisional.py" "pa.pyc" "pa.py" "notification.pyc" "notification.py" "navigator.pyc" "navigator.py" "nav.pyc" "nav.py" "lib.pyc" "lib.py" "importer.pyc" "importer.py" "i18n.pyc" "i18n.py" "gq.pyc" "gq.py" "filters.pyc" "filters.py" "fco.pyc" "fco.py" "er.pyc" "er.py" "dv.pyc" "dv.py" "dictionary.pyc" "dictionary.py" "debug.pyc" "debug.py" "datasheets.pyc" "datasheets.py" "datasheet.pyc" "datasheet.py" "cpr.pyc" "cpr.py" "contacts.pyc" "contacts.py" "caes.pyc" "caes.py" "cae.pyc" "cae.py" "basics.pyc" "basics.py" "avery5160.pyc" "avery5160.py" "admin.pyc" "admin.py" "about.pyc" "about.py" "__init__.pyc" "__init__.py" "../" "./")
-
- ("/Users/chrisguilbeau/" (21900 27296 0 0) "zcro/" "z/" "VirtualBox VMs/" "Untitled.ipynb" "todo1.org" "todo0.org" "todo.org" "tags" "src/" "Public/" "Pictures/" "Music/" "Movies/" "Library/" "junk/" "icloud/" "hg-webdir.conf" "Google Drive/" "gogs-repositories/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "demo-ui.org" "bin/" "beta" "Applications/" "anaconda/" "alpha" ".viminfo" ".vim/" ".Trash/" ".ssh/" ".saves/" ".rnd" ".nvimlog" ".nviminfo" ".nvim/" ".npm/" ".node-gyp/" ".matplotlib/" ".Maelstrom-data" ".kdiff3rc" ".ipython/" ".ipynb_checkpoints/" ".hgrc" ".gitconfig" ".fpp/" ".FontForge/" ".fbPager.sh" ".fbPager.selection.pickle" ".fbPager.pickle" ".fbPager.log" ".emacs.d/" ".DS_Store" ".cups/" ".ctags" ".continuum/" ".config/" ".com.briangonzalez.org.FontPrep.version" ".com.briangonzalez.org.FontPrep.pid" ".CFUserTextEncoding" ".cache/" ".bash_profile-anaconda.bak" ".bash_profile" ".bash_history" ".#todo1.org" ".#todo0.org" "#todo1.org#" "#todo0.org#" "#todo.org#" "#demo-ui.org#" "../" "./")
 
  ("/Users/chrisguilbeau/Documents/ZogoTech/proj/alpha_perm2/" (21886 63419 0 0) "webserver/" "todo.org" "tags-emacs" "tags" "server/" "meta.time" "meta.name" "meta.level" "appserver/" "#todo.org#" "../" "./")
 
@@ -61,8 +73,6 @@
  ("/Users/cg/z/proj/current/" (21628 57633 0 0) "webserver/" "tags" "server/" "appserver/" "../" "./")
 
  ("/Users/cg/z/proj/" (21638 15149 0 0) "stable_tm/" "stable_orderbug/" "current/" "cg_nav2/" "cg_nav/" "beta_wiki/" "beta_kiosk/" "beta_int3/" "beta_int2/" "beta_int/" "beta_contacts-bug/" "beta_bug-typo/" "alpha_user-module-state/" "alpha_the-little-things/" "alpha_rc6/" "alpha_rc1/" "alpha_rc/" "alpha_pm/" "alpha_nav2/" "alpha_login/" "alpha_lb-queues/" "alpha_lb/" "alpha_kiosk2/" "alpha_kiosk/" "alpha_jsontest/" "alpha_json/" "alpha_int/" "alpha_flex-prototype/" "alpha_flex/" "alpha_custs/" "alpha_contact-reasons-and-types/" "alpha_ccc-columns/" "alpha_bug-dsheets/" "alpha_bigidea/" ".DS_Store" "../" "./")
-
- ("/Users/" (21569 33935 0 0) "Shared/" "Guest/" "cg/" ".localized" "../" "./")
 
  ("/Users/cg/z/proj/alpha_int/" (21637 65042 0 0) "webserver/" "server/" "appserver/" "../" "./")
 

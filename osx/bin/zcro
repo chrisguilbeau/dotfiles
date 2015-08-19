@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+if [ $# -ne 3 ]
+  then
+    echo "usage: $0 level proj rev"
+    exit 1
+fi
+level=$1
+proj=$2
+after_rev=$3
+before_rev=$(($after_rev-1))
+pushd ~/z/cr
+rm -rf before after
+cp -r ../hg/$1/$2 before
+cp -r ../hg/$1/$2 after
+pushd before
+hg update -r $before_rev
+popd
+pushd after
+hg update -r $after_rev
+popd
+vim -f '+next' '+execute "DirDiff" fnameescape(argv(0)) fnameescape(argv(1))' "before" "after"

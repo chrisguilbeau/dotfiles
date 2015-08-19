@@ -12,6 +12,9 @@
  kept-old-versions 2
  version-control t)       ; use versioned backups
 
+;; orgmode stuff
+(setq org-todo-keywords '((type "NOW" "|" "DONE")))
+
 ;; ediff
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -122,6 +125,7 @@
     etags-select
     auto-complete-etags
     python-mode
+    latex-preview-pane
     ))
 
 (require 'cl)
