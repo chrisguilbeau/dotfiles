@@ -1,4 +1,4 @@
-;; turn off some things
+;; Turn off some things
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 
@@ -18,6 +18,9 @@
 ;; ediff
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
+;; set locate to use mdfind
+(setq locate-command "mdfind")
 
 ;; list the repositories containing them
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")))
@@ -126,6 +129,7 @@
     auto-complete-etags
     python-mode
     latex-preview-pane
+    ;; helm
     ))
 
 (require 'cl)
@@ -154,7 +158,7 @@
 (global-evil-leader-mode 1)
 (evil-leader/set-key
   "tj" 'my-ido-find-tag
-  "e" 'ido-find-file
+  "e" 'find-name-dired
   "\\" 'comment-or-uncomment-region
   "n" 'linum-mode
   "m" 'mc/mark-next-like-this
@@ -162,7 +166,10 @@
   )
 (yas-global-mode 1)
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
+;; (setq ido-enable-flex-matching t)
+;; (setq ido-everywhere t)
+;; (ido-mode 1)
 ;; (ido-vertical-mode 1)
+;; (helm-mode 1)
+;; (require 'helm-config)
+;; (helm-mode 1)

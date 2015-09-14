@@ -15,6 +15,10 @@ Bundle 'vim-scripts/DirDiff.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bronson/vim-trailing-whitespace'
 Bundle 'vim-scripts/occur.vim'
+Bundle 'pangloss/vim-javascript'
+Bundle 'tpope/vim-repeat'
+" Bundle 'klen/python-mode'
+" Bundle 'mohitleo9/vim-fidget'
 call vundle#end()
 filetype on
 
@@ -143,6 +147,8 @@ set grepprg=ag\ --nogroup\ --nocolor
 ab pdb import pdb; pdb.set_trace()
 
 " " custom keymaps for great things
+nmap <leader>00 :%s/<c-r>=substitute(substitute(@0,'\n','\\n','g'), '/', '\\/', 'g')<CR>//gc
+nmap <leader>09 :%s/<c-r>=substitute(substitute(substitute(@0, '[0-9]\+', '\[0-9\]\\+', 'g'), '\n','\\n','g'), '/', '\\/', 'g')<CR>//gc
 nmap <leader>xe :%!openssl base64<cr>
 nmap <leader>xd :%!openssl base64 -d<cr>
 nmap <leader>j :set textwidth=70<cr>:r !date<cr><s-o><esc><s-o><cr>
