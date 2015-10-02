@@ -4,6 +4,7 @@
 (setq mc/cmds-to-run-for-all
       '(
 	evil-change
+	evil-delete-char
 	evil-force-normal-state
 	evil-normal-state
 	org-self-insert-command

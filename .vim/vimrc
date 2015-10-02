@@ -17,8 +17,10 @@ Bundle 'bronson/vim-trailing-whitespace'
 Bundle 'vim-scripts/occur.vim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'tpope/vim-repeat'
+" Bundle 'itchyny/lightline.vim'
 " Bundle 'klen/python-mode'
 " Bundle 'mohitleo9/vim-fidget'
+" Bundle 'nefo-mi/nyan-modoki.vim'
 call vundle#end()
 filetype on
 
@@ -59,7 +61,7 @@ let g:solarized_italic=0
 let g:solarized_termcolors = 16
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
-"
+
 " Set extra options when running in GUI mode
 if has("gui_running")
     set guioptions-=T
@@ -70,6 +72,9 @@ if has("gui_running")
     colors solarized
     let g:solarized_italic=0
 endif
+
+" lightline
+let g:lightline={'colorscheme': 'solarized_light'}
 
 " status line
 set statusline=\                                    " start it off
@@ -82,6 +87,10 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set statusline +=%=%5l             "current line
 set statusline +=/%L\ \                "total lines
+" set laststatus=2
+" set statusline=%{g:NyanModoki()}
+" let g:nyan_modoki_select_cat_face_number=2
+" let g:nayn_modoki_animation_enabled=1
 
 " syntastic
 let g:syntastic_mode_map = { 'mode': 'passive' }
@@ -135,7 +144,7 @@ autocmd FileType python call Py_config()
 " :tnoremap <A-j> <C-\><C-n><C-w>j
 " :tnoremap <A-k> <C-\><C-n><C-w>k
 " :tnoremap <A-l> <C-\><C-n><C-w>l
-" :nnoremap <A-h> <C-w>h
+:nnoremap <A-h> <C-w>h
 :nnoremap <A-j> <C-w>j
 :nnoremap <A-k> <C-w>k
 :nnoremap <A-l> <C-w>l

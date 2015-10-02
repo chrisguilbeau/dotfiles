@@ -1,6 +1,11 @@
 ;; Turn off some things
 (tool-bar-mode 0)
 (menu-bar-mode 0)
+(toggle-scroll-bar -1) 
+(setq inhibit-startup-message t)
+
+;; make font bigger
+(set-face-attribute 'default nil :height 140)
 
 ;; configure backups
 (setq
@@ -13,7 +18,7 @@
  version-control t)       ; use versioned backups
 
 ;; orgmode stuff
-(setq org-todo-keywords '((type "NOW" "|" "DONE")))
+(setq org-todo-keywords '((type "NOW" "|" "DONE" "DUD")))
 
 ;; ediff
 (setq ediff-split-window-function 'split-window-horizontally)
@@ -128,7 +133,9 @@
     etags-select
     auto-complete-etags
     python-mode
-    latex-preview-pane
+    solarized-theme
+    nyan-mode
+    ;; latex-preview-pane
     ;; helm
     ))
 
@@ -151,6 +158,16 @@
     (when (not (package-installed-p p))
       (package-install p))))
 
+(defun ido-find-file-in-tag-files ()
+      (interactive)
+      (save-excursion
+        (let ((enable-recursive-minibuffers t))
+          (visit-tags-table-buffer))
+        (find-file
+         (expand-file-name
+          (ido-completing-read
+           "File in tags: " (tags-table-files) nil t)))))
+
 ;; turn on and configure packages
 (require 'edit-server)
 (edit-server-start)
@@ -158,13 +175,15 @@
 (global-evil-leader-mode 1)
 (evil-leader/set-key
   "tj" 'my-ido-find-tag
-  "e" 'find-name-dired
+  "e" 'find-file
   "\\" 'comment-or-uncomment-region
   "n" 'linum-mode
   "m" 'mc/mark-next-like-this
   "M" 'mc/mark-all-like-this
   )
+
 (yas-global-mode 1)
+
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
 ;; (setq ido-enable-flex-matching t)
 ;; (setq ido-everywhere t)
@@ -173,3 +192,30 @@
 ;; (helm-mode 1)
 ;; (require 'helm-config)
 ;; (helm-mode 1)
+(nyan-mode 1)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+;; make the fringe stand out from the background
+(setq solarized-distinct-fringe-background t)
+
+;; Don't change the font for some headings and titles
+(setq solarized-use-variable-pitch nil)
+
+;; Use less bolding
+(setq solarized-use-less-bold t)
+;; Don't change size of org-mode headlines (but keep other size-changes)
+(setq solarized-scale-org-headlines nil)
+(load-theme 'solarized-dark t)
