@@ -3,23 +3,20 @@ export CLICOLOR=1
 export GREP_COLOR="auto"
 export PS1="\[\e[0;35m\]\u@\h:\[\e[0;34m\]\w\$ \[\e[m\]"
 export EDITOR=vim
+export LSCOLORS=ExFxBxDxCxegedabagacad
 
 alias zz="cd ~/z/proj/"\`z?\`
 alias z="cd ~/z"
 alias zoom='osascript ~/bin/zoom.scpt'
+alias ll="ls -la"
+# alias vim='nvim'
+
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
 
 # added by Anaconda 2.2.0 installer
-export PATH="/Users/chrisguilbeau/anaconda/bin:$PATH"
+export PATH="/Users/cg/anaconda/bin:$PATH"
 
-# Added by termtile (https://github.com/apaszke/termtile)
-alias ul='osascript ~/.termtile/tile.scpt up left'
-alias ur='osascript ~/.termtile/tile.scpt up right'
-alias dl='osascript ~/.termtile/tile.scpt down left'
-alias dr='osascript ~/.termtile/tile.scpt down right'
-alias ll='osascript ~/.termtile/tile.scpt left'
-alias rr='osascript ~/.termtile/tile.scpt right'
-alias up='osascript ~/.termtile/tile.scpt up'
-alias down='osascript ~/.termtile/tile.scpt down'
-alias big='osascript ~/.termtile/resize.scpt '
-alias cen='osascript ~/.termtile/center.scpt '
-
+# added by Anaconda2 2.4.0 installer
+export PATH="/Users/cg/anaconda/bin:$PATH"

@@ -1,34 +1,41 @@
 set nocompatible
 filetype off
-call vundle#begin()
-Bundle 'scrooloose/syntastic'
-Bundle 'kien/ctrlp.vim'
-Bundle 'rking/ag.vim'
-Bundle 'ludovicchabant/vim-lawrencium'
-" Bundle 'garbas/vim-snipmate'
-" Bundle 'SirVer/ultisnips'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'vim-scripts/DirDiff.vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'bronson/vim-trailing-whitespace'
-Bundle 'vim-scripts/occur.vim'
-Bundle 'pangloss/vim-javascript'
-Bundle 'tpope/vim-repeat'
-" Bundle 'itchyny/lightline.vim'
-" Bundle 'klen/python-mode'
-" Bundle 'mohitleo9/vim-fidget'
-" Bundle 'nefo-mi/nyan-modoki.vim'
-call vundle#end()
-filetype on
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/syntastic'
+Plug 'kien/ctrlp.vim'
+Plug 'rking/ag.vim'
+Plug 'ludovicchabant/vim-lawrencium'
+" Plug 'bling/vim-airline'
+" Plug 'itchyny/lightline.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-scripts/DirDiff.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'vim-scripts/occur.vim'
+" Plug 'pangloss/vim-javascript'
+Plug 'tpope/vim-repeat'
+call plug#end()
+
+"lightline
+" let g:lightline = {
+"       \ 'colorscheme': 'solarized',
+"       \ 'component_function': {
+"       \   'filename': 'LightLineFilename'
+"       \ }
+"       \ }
+" function! LightLineFilename()
+"   return expand('%')
+" endfunction
 
 syntax on "syntax highlighting
 set nowmnu
 set wildmode=full
 " set hlsearch " highlight search
 set autoindent "indent to the previous level
+filetype indent off
 filetype plugin on "make commands smarter for your file ]m and the like
 set clipboard=unnamed " set clipboard to system clipboard (gui compile req)
 set backspace=2 " make backspace behave correctly!
@@ -45,22 +52,22 @@ set hidden " just hide the buffer till I come back to it
 set ignorecase " ignore case while searching
 set wildignore+=*/.git/*,*/.hg/*,*.pyc,*.DS_Store "don't pick up certain things
 set nofoldenable " no code folding ever!!!
-set path=$PWD/**
+set path=.\**
 set noswapfile
 set nobackup
 set complete=.,w,b,u,t "removed 'i' which scans all files in path
 set completeopt=
 set t_Co=256
-set background=light
 set laststatus=2 "always show status line
 set iskeyword+=\-
 
 " Solarized
 colors solarized
-let g:solarized_italic=0
-let g:solarized_termcolors = 16
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
+" let g:solarized_italic=0
+" let g:solarized_termcolors = 16
+" let g:solarized_visibility = "high"
+" let g:solarized_contrast = "high"
+" set bg=dark
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -87,15 +94,11 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set statusline +=%=%5l             "current line
 set statusline +=/%L\ \                "total lines
-" set laststatus=2
-" set statusline=%{g:NyanModoki()}
-" let g:nyan_modoki_select_cat_face_number=2
-" let g:nayn_modoki_animation_enabled=1
 
 " syntastic
-let g:syntastic_mode_map = { 'mode': 'passive' }
 let g:syntastic_python_checkers = ['pyflakes']
 let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_check_on_open = 1
 
 " CtrlP setup
 let g:ctrlp_follow_symlinks = 1 "follow symlinks into the darkness
@@ -122,12 +125,6 @@ function! NumberToggle()
     endif
 endfunc
 
-autocmd FileType python call Py_config()
-    function Py_config()
-        " call TextEnableCodeSnip('sql', "sql='''", "'''", 'Identifier')
-        " call TextEnableCodeSnip('javascript', "js='''", "'''", 'Identifier')
-    endfunction
-
 " hard mode
 " noremap <Up> <Nop>
 " noremap <Down> <Nop>
@@ -149,21 +146,19 @@ autocmd FileType python call Py_config()
 :nnoremap <A-k> <C-w>k
 :nnoremap <A-l> <C-w>l
 
-" use a faster grep
-set grepprg=ag\ --nogroup\ --nocolor
-
 " abbreviations
 ab pdb import pdb; pdb.set_trace()
 
 " " custom keymaps for great things
 nmap <leader>00 :%s/<c-r>=substitute(substitute(@0,'\n','\\n','g'), '/', '\\/', 'g')<CR>//gc
 nmap <leader>09 :%s/<c-r>=substitute(substitute(substitute(@0, '[0-9]\+', '\[0-9\]\\+', 'g'), '\n','\\n','g'), '/', '\\/', 'g')<CR>//gc
+nmap <leader>08 :%s/<c-r>=substitute(substitute(substitute(substitute(substitute(substitute(@0, '\\', '\\\\', 'g'), '\]', '\\]', 'g'), '\[', '\\[', 'g'), '[0-9]\+', '\[0-9\]\\+', 'g'), '\n','\\n','g'), '/', '\\/', 'g')<CR>//gc
 nmap <leader>xe :%!openssl base64<cr>
 nmap <leader>xd :%!openssl base64 -d<cr>
 nmap <leader>j :set textwidth=70<cr>:r !date<cr><s-o><esc><s-o><cr>
 nmap <leader>e :find<space>
 nmap <leader>b :CtrlPBufTag<cr>
-nmap <leader>v <c-w>v:vertical resize 90<cr><c-w>w:find<space>
+nmap <leader>v <c-w>v:vertical resize 90<cr><c-w>w
 nmap <leader>n :call NumberToggle()<cr>
 nmap <leader>t :echo system("date +'%r'")<cr>
 nmap <leader>dc 2<c-w>w]c
