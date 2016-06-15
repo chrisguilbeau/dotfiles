@@ -1,7 +1,8 @@
 [ui]
 username = Chris Guilbeau <cguilbeau@zogotech.com>
 merge = kdiff3
-#merge = ksmerge
+# merge = Kaleidoscope
+# merge = vimdiff
 ssh = ssh -C
 
 [extensions]
@@ -9,9 +10,12 @@ purge=
 hgext.extdiff =
 
 [merge-tools]
-ksmerge.executable = /usr/local/bin/ksdiff
-ksmerge.args = --merge --output $output --base $base -- $other $local
+Kaleidoscope.executable = /usr/local/bin/ksdiff
+Kaleidoscope.args = --merge --output $output --base $base -- $local $other
 kdiff3.args = $base $other $local -o $output
+vimdiff.executable = vimdiff
+vimdiff.args = -f -d $output -M $local $base $other -c "wincmd J" -c "set modifiable" -c "set write"
+vimdiff.premerge = keep
 
 [extdiff]
 cmd.kdiff3 =
@@ -19,12 +23,18 @@ cmd.ksdiff =
 opts.ksdiff = --changeset --wait --filelist
 cmd.vdiff = vim
 opts.vdiff = -f '+next' '+execute "DirDiff" fnameescape(argv(0)) fnameescape(argv(1))'
+cmd.ksdiff = /usr/local/bin/ksdiff
+opts.ksdiff = --changeset --wait --filelist
 
 
 [paths]
-alpha/appserver = ssh://cg@austin.zogotech.com/hg-repo/alpha/appserver
-alpha/server = ssh://cg@austin.zogotech.com/hg-repo/alpha/server
-alpha/webserver = ssh://cg@austin.zogotech.com/hg-repo/alpha/webserver
+super = ssh://cg@austin.zogotech.com/hg-repo/cg
+cg/appserver = ssh://cg@austin.zogotech.com/hg-repo/cg/appserver
+cg/server = ssh://cg@austin.zogotech.com/hg-repo/cg/server
+cg/webserver = ssh://cg@austin.zogotech.com/hg-repo/cg/webserver
+cg-dsc/appserver = ssh://cg@austin.zogotech.com/hg-repo/cg-dsc/appserver
+cg-dsc/server = ssh://cg@austin.zogotech.com/hg-repo/cg-dsc/server
+cg-dsc/webserver = ssh://cg@austin.zogotech.com/hg-repo/cg-dsc/webserver
 beta/appserver = ssh://cg@austin.zogotech.com/hg-repo/beta/appserver
 beta/server = ssh://cg@austin.zogotech.com/hg-repo/beta/server
 beta/webserver = ssh://cg@austin.zogotech.com/hg-repo/beta/webserver
