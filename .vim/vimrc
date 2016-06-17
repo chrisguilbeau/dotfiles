@@ -123,7 +123,11 @@ let g:ctrlp_use_caching = 0
 let g:DirDiffExcludes = ".hg,tags,*.pyc,.*.swp,.DS_Store"
 set diffopt+=context:99999
 let g:DirDiffEnableMappings = 1
-
+highlight DiffAdd    cterm=bold ctermfg=none ctermbg=194 gui=none guifg=bg guibg=Red
+highlight DiffDelete cterm=bold ctermfg=217 ctermbg=224 gui=none guifg=bg guibg=Red
+highlight DiffChange cterm=bold ctermfg=none ctermbg=189 gui=none guifg=bg guibg=Red
+highlight DiffText   cterm=bold ctermfg=none ctermbg=229 gui=none guifg=bg guibg=Red
+"
 " custom functions...
 function! NumberToggle()
     if (&relativenumber == 1)

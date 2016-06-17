@@ -1,0 +1,1 @@
+("~/dotfiles/" "~/z/proj/cg_rc/" "~/" "~/z/proj/emacs/")

@@ -1,5 +1,4 @@
-.emacs.d/elpa/*
-.emacs.d/old/*
+.emacs.d/elpa
 .vim/bundle/*
 .vim/plugged/*
 !.vim/bundle/refresh.sh

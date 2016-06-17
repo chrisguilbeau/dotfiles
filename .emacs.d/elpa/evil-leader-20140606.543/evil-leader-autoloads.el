@@ -3,9 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads nil "evil-leader" "../../../../.emacs.d/elpa/evil-leader-20140606.543/evil-leader.el"
-;;;;;;  "7d3810afac6fdd5d2a39bdde6ed51217")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/evil-leader-20140606.543/evil-leader.el
+;;;### (autoloads nil "evil-leader" "evil-leader.el" (22366 56575
+;;;;;;  0 0))
+;;; Generated autoloads from evil-leader.el
 
 (autoload 'global-evil-leader-mode "evil-leader" "\
 Global minor mode for <leader> support.
@@ -31,12 +31,6 @@ Create keybindings for major-mode `mode' with `key' bound to command `def'.
 See `evil-leader/set-key'.
 
 \(fn MODE KEY DEF &rest BINDINGS)" t nil)
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/evil-leader-20140606.543/evil-leader-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/evil-leader-20140606.543/evil-leader.el")
-;;;;;;  (21631 13506 229606 0))
 
 ;;;***
 
