@@ -81,7 +81,7 @@ if has("gui_running")
     set guioptions-=T
     set guioptions+=e
     set t_Co=256
-    set guifont=Monaco:h11
+    " set guifont=Vera Sans Mono:h11
     set guicursor=a:blinkon0
     colors solarized
     let g:solarized_italic=0
