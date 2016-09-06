@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+mkdir -p ~/z/proj/$1_$2
+cp -r ~/z/hg/$1/* ~/z/proj/$1_$2
+zswitch $1_$2

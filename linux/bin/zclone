@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+mkdir -p ~/z/hg/$1
+pushd ~/z/hg/$1
+hg clone ssh://cg@austin.zogotech.com/hg-repo/$1/server
+hg clone ssh://cg@austin.zogotech.com/hg-repo/$1/appserver
+hg clone ssh://cg@austin.zogotech.com/hg-repo/$1/webserver
+ln -s ~/z/config
+echo $1 > project.meta
+popd
+

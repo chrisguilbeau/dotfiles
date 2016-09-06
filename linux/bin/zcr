@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+pushd ~/z/proj/current
+level=`cat project.meta`
+popd
+pushd ~/z/hg/$level/server
+hg pull -u &
+pushd ~/z/hg/$level/appserver
+hg pull -u &
+pushd ~/z/hg/$level/webserver
+hg pull -u &
+wait
+popd
+popd
+popd
+vim -f '+next' '+execute "DirDiff" fnameescape(argv(0)) fnameescape(argv(1))' "~/z/hg/$level" "~/z/proj/current"
