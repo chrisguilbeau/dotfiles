@@ -1,2 +1,0 @@
-open vnc://localhost:5901
-ssh -vCNL 5901:127.0.0.1:5900 cg@cg-linux.ztaustin.local

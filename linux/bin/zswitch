@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-pushd ~/z/proj
-rm current
-ln -s $1 current

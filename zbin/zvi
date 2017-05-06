@@ -1,7 +1,0 @@
-#!/bin/bash
-pushd ~/z/proj/current
-touch meta.time
-current=`pwd -P`
-cd $current
-ztag
-vim --cmd "set path=$current/**"

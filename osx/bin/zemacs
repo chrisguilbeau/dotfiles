@@ -1,7 +1,0 @@
-#!/bin/bash
-pushd ~/z/proj/current
-current=`pwd -P`
-cd $current
-zetag
-emacs .
-# open -a Emacs .

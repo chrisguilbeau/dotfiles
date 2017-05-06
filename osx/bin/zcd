@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-pushd ~/z/proj
-if [ $# -eq 0 ]
-    then
-        zlist
-    else
-        zswitch $1
-fi
-popd

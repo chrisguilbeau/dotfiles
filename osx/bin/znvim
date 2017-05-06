@@ -1,6 +1,0 @@
-#!/bin/bash
-pushd ~/z/proj/current
-current=`pwd -P`
-cd $current
-ztag
-nvim --cmd "set path=$current/**"

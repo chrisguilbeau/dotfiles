@@ -1,1 +1,0 @@
-ssh -vN cg@austin.zogotech.com -L 33890:regr.ztaustin.loca:3389 -L 33891:qa-alpha.ztaustin.local:3389 -L 33892:qa-beta.ztaustin.local:3389 -L 33893:zsql.ztaustin.local:3389

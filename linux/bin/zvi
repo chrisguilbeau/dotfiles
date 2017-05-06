@@ -1,3 +1,0 @@
-pushd ~/z/proj/current
-ctags --recurse --python-kinds=cfmv --exclude=*.min.js* --exclude=*/s/flexmonster/*
-vim --cmd "set path=~/z/proj/current/**"

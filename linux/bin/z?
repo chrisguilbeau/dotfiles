@@ -1,1 +1,0 @@
-echo `cd ~/z/proj/current && basename \`pwd -P\``

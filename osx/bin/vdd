@@ -1,2 +1,0 @@
-vim -f '+next' '+execute "DirDiff" fnameescape(argv(0)) fnameescape(argv(1))' "$1" "$2"
-
