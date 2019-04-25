@@ -1,6 +1,6 @@
-.emacs.d/elpa
-.vim/plugged
-!.vim/bundle/refresh.sh
+emacs.d/elpa
+emacs.d/eshell
+vim/plugged
 .netrwhist
 *~
-.vim/backups
+vim/backups

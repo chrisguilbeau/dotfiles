@@ -1,0 +1,199 @@
+;; vanilla emacs config
+(show-paren-mode 1)
+
+;; os specific stuff
+(cond
+ ((string-equal system-type "windows-nt") ; Microsoft Windows
+  (progn
+    (message "Microsoft Windows")
+    (defun show-org-files ()
+    (interactive)
+    (evil-edit "g:/My Drive/org"))
+
+    (custom-set-faces
+     '(default ((t (:family "Consolas" :foundry "outline" :slant normal :weight normal :height 98 :width normal)))))
+    ))
+ ((string-equal system-type "darwin") ; Mac OS X
+  (progn
+    (message "Mac OS X")
+    (defun show-org-files ()
+    (interactive)
+    (evil-edit "~/Google Drive File Stream/My Drive/org"))
+    (custom-set-faces '(default ((t (:family "Menlo")))))
+    ))
+ ((string-equal system-type "gnu/linux") ; linux
+  (progn
+    (defun show-org-files ()
+    (interactive)
+    (evil-edit "~/Google Drive File Stream/My Drive/org"))
+    (message "Linux"))))
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+
+(setq
+ package-selected-packages '(
+			     ;; find-file-in-project
+			     nyan-mode
+			     evil
+			     evil-leader
+			     evil-commentary
+			     evil-ediff
+			     evil-org
+			     evil-mc
+			     evil-unimpaired
+			     helm
+			     ripgrep
+			     ))
+
+(if (eq system-type 'windows-nt)
+    (setq ffip-find-executable "c:/cygwin64/bin/find.exe"))
+
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+(package-install-selected-packages)
+
+'(add-to-list 'load-path "~/.fzf")
+(projectile-global-mode 1)
+(setq projectile-indexing-method 'alien)
+
+;; ripgrep
+(defun cg1 ()
+  (interactive)
+  (helm :sources (helm-build-async-source "project-files"
+		   :candidates-process
+		   (lambda ()
+		     (start-process-shell-command "rg" nil "rg" "--follow --files")))
+  ;; (helm :sources (helm-build-sync-source "test"
+  ;; 				   :candidates '(a b c d e f g h))
+	:buffer "*helm my command*"))
+
+;; ZogoTech init function
+;; change to src directory
+;; tag the files using zetag
+
+(when (string-equal system-type "windows-nt")
+  (let (
+        (mypaths
+         '(
+           "c:/apps/ripgrep"
+           "c:/apps/fzf"
+           ) )
+        )
+
+    (setenv "PATH" (mapconcat 'identity mypaths ";") )
+
+    (setq exec-path (append mypaths (list "." exec-directory)) )
+    ) )
+
+(defun zinit ()
+  (interactive)
+  (cd "~/z/src")
+  ;; (shell-command "zetag")
+  ;; (pwd)
+  ;; (setq ffip-project-root "~/z/src")
+  (evil-edit "/ZogoTech/src")
+  )
+
+(setq fiplr-root-markers '("tags"))
+(setq fiplr-ignored-globs '((directories ("python" ".hg" "cb"))
+                            (files ("*.jpg" "*.png" "*.pyc"))))
+(defun edit-init-file ()
+  (interactive)
+  (evil-edit "~/.emacs.d/init.el"))
+
+;; configure packages
+(nyan-mode 1)
+(evil-mode 1)
+(evil-commentary-mode 1)
+(global-evil-mc-mode 1)
+(global-evil-leader-mode)
+(evil-leader/set-key
+  ;; "e" 'fiplr-find-file
+  "e" 'projectile-find-file
+  "b" 'xref-find-apropos
+  "t" 'tags-apropos
+  "z" 'zinit
+  "i" 'edit-init-file
+  "o" 'show-org-files
+  )
+
+;; adhere to zogotech guidelines
+;; no lines over 80
+(setq-default
+ whitespace-line-column 80
+ whitespace-style       '(face lines-tail))
+(add-hook 'prog-mode-hook #'whitespace-mode)
+;; no trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; (highlight-trailing-whitespace)
+;; spaces not tabs!
+(setq c-basic-indent 2)
+(setq tab-width 4)
+(setq indent-tabs-mode nil)
+;; (highlight-tabs)
+(setq mode-require-final-newline t) ;; newline at end of document
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(line-number-mode nil)
+ '(package-selected-packages
+   (quote
+    (rg fzf find-file-in-project nyan-mode evil evil-leader evil-commentary evil-ediff evil-org evil-mc spacemacs-theme fzf\.el)))
+ '(scroll-bar-mode nil)
+ '(show-paren-mode t)
+ '(tool-bar-mode nil)
+ '(tooltip-mode nil))
+
+;; package related things
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+
+(load-theme 'spacemacs-light t)
+
+
+;; (defun cg-h2 ()
+;;   (interactive)
+;;   (helm :sources (helm-build-async-source "test2"
+;;                    :candidates-process
+;;                    ;; (lambda ()
+;;                    ;;   (start-process "echo" nil "echo" "a\nb\nc\nd\ne")))
+;;                    (lambda ()
+;;                      (shell-command "/apps/ripgrep/rg.exe --files --follow")))
+;;         :buffer "*helm async source*")
+;;   )
+
+;; (helm :sources (helm-build-async-source "test2"
+;;                  :candidates-process
+;;                  (lambda ()
+;;                    (start-file-process "my-process" "foo" "echo test")))
+;;       :buffer "*helm async source*")
+;; (setq my-source (shell-command-to-string "/apps/ripgrep/rg.exe --files --follow"))
+(defun cg-h1 ()
+  (interactive)
+  (helm :sources 'my-source
+	:buffer "*helm my command*"))
+(defun cg-h2 ()
+  (interactive)
+  (helm :sources (helm-build-async-source "test2"
+		   :candidates-process
+		   (lambda () (start-process "echo" nil "echo" "a\nb\nc")))
+	:buffer "*helm my command*"))
+
+;; emacs things
+(setq backup-inhibited t);disable backup
+(setq auto-save-default nil);disable auto save
+(setq large-file-warning-threshold nil) ;; no more large file warnings
+(setq ring-bell-function (lambda() (message "*beep*"))) ;; don't ring bell
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(setq mode-require-final-newline t) ;; newline at end of document
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Consolas" :foundry "outline" :slant normal :weight normal :height 98 :width normal)))))
