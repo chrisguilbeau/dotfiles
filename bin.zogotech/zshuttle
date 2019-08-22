@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+sshuttle --dns -r cg@austin.zogotech.com 0/0

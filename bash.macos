@@ -1,0 +1,16 @@
+#!bash
+export CLICOLOR=1
+export GREP_COLOR="auto"
+export PS1="\[\e[0;35m\]\u@\h:\[\e[0;34m\]\w\$ \[\e[m\]"
+export EDITOR=vim
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+# load some things if they exist
+
+# ssh-agent
+if [ -f /usr/local/bin/keychain ]; then
+keychain
+fi
+
+# bash completion
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
