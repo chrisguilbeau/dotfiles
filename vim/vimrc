@@ -243,7 +243,7 @@ nmap <S-Up> <nop>
 imap <S-Up> <nop>
 imap <S-Down> <nop>
 nmap <S-Down> <nop>
-nmap <leader>i :edit ~/cg.dotfiles/vim.win/vimrc<cr>
+nmap <leader>i :edit $VIMHOME/vim/vimrc<cr>
 nmap <leader>r yiw:,$s/"//gc<left><left><left>
 vmap <leader>r y:,$s/"//gc<left><left><left>
 nmap <leader>hw yiw/"<cr>:set hlsearch<cr>
@@ -260,7 +260,7 @@ tnoremap <leader>s s<cr>print('*' * 72)<cr>pp locals()<cr><C-W>N:sleep 100m<cr>a
 
 " windows specific things
 if has('win32')
-    nmap <leader>i :edit ~/cg.dotfiles/vim.win/vimrc<cr>
+    nmap <leader>i :edit $VIMHOME/vimrc<cr>
     " set noantialias
     " set guifont=Consolas:h10:cANSI:qDRAFT
     " set guifont=Lucida_Consol:h10:cANSI:qDRAFT

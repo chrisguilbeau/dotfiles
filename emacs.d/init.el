@@ -2,7 +2,7 @@
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
-(package-refresh-contents)
+;; (package-refresh-contents)
 
 (setq package-selected-packages '(
                                   rg
@@ -36,6 +36,7 @@
 (setq indent-tabs-mode nil)
 ;; (highlight-tabs)
 (setq mode-require-final-newline t) ;; newline at end of document
+(which-func-mode 1)
 
 ;; Emacs annoyances
 (setq backup-inhibited t);disable backup
@@ -72,7 +73,16 @@
   (interactive)
   (evil-edit "~/icloud/zogotech.txt"))
 
+(defun edit-etsy-org ()
+  (interactive)
+  (evil-edit "~/icloud/etsy.txt"))
+
 (setq completion-case-ignore t)
+
+;; (setq my-project-root "~/")
+(setq my-project-root "~/z/proj/current/")
+(setq my-project-types "-tpy -tjs -tcss -ttxt")
+(setq my-ctags-bin "/usr/local/bin/ctags")
 
 (defun my-ido-buffer-tag-search()
   "Use ido to jump to a tag in the current buffer."
@@ -81,7 +91,7 @@
         (file-lines
          (split-string
           (shell-command-to-string
-           (concat "ctags -x --python-kinds=cfmv -f- " buffer-file-name)) "\n"))
+           (concat my-ctags-bin " -x --python-kinds=cfmv -f- " buffer-file-name)) "\n"))
         (tbl (make-hash-table :test 'equal))
         (ido-list))
     (mapc (lambda (line)
@@ -101,13 +111,17 @@
       (setq project-files
 	    (split-string
 	     (shell-command-to-string
-	      (concat "rg --files --path-separator / -tpy -tjs -tcss /ZogoTech/src-proj"
+	      (concat "(cd "
+                  my-project-root " && "
+                  "rg --files --path-separator / "
+                  my-project-types " "
+                  " )"
 		      )) "\n"))
       ;; populate hash table (display repr => path)
       (setq tbl (make-hash-table :test 'equal))
       (let (ido-list)
-      (mapc (lambda (path)
-	      (puthash path path tbl)
+        (mapc (lambda (path)
+	      (puthash path (concat my-project-root path) tbl)
 	      (push path ido-list)
 	      )
 	    project-files
