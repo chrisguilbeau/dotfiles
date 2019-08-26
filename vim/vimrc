@@ -1,7 +1,7 @@
 set nocompatible
 filetype off
 
-let $VIMHOME=expand('<sfile>:p:h:h')
+let $VIMHOME=expand('~/dotfiles/')
 
 call plug#begin($VIMHOME.'/vim/plugged')
 Plug 'bronson/vim-trailing-whitespace'
