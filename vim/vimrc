@@ -2,8 +2,12 @@ set nocompatible
 filetype off
 
 let $VIMHOME=expand('~/dotfiles/')
+" let $PYTHONPATH='c:\ZogoTech\python'
+set pythonthreehome=c:\ZogoTech\python
+set pythonthreedll=c:\ZogoTech\python\python37.dll
 
 call plug#begin($VIMHOME.'/vim/plugged')
+Plug 'vimjas/vim-python-pep8-indent'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -17,6 +21,15 @@ Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/DirDiff.vim'
 Plug 'vim-syntastic/syntastic'
 call plug#end()
+
+" set spelling for hg commit messages
+autocmd FileType hgcommit setlocal spell
+autocmd FileType gitcommit setlocal spell
+
+" python indend
+let g:python_pep8_indent_multiline_string = -2
+let g:python_pep8_indent_hang_closing = 1
+
 
 " let g:python_highlight_all = 1
 " let g:airline#extensions#tagbar#flags = 'f'
@@ -60,8 +73,7 @@ syntax on "syntax highlighting
 set nowmnu
 set wildmode=longest:full,full
 filetype plugin on "make commands smarter for your file ]m and the like
-filetype indent off
-set autoindent "indent to the previous level
+filetype indent on
 set clipboard=unnamed " set clipboard to system clipboard (gui compile req)
 set backspace=2 " make backspace behave correctly!
 set incsearch "jump to first match when searching
@@ -161,16 +173,14 @@ let $FZF_DEFAULT_COMMAND = 'rg --files --follow --path-separator /'
 let $FZF_DEFAULT_OPTS = '--color=bw'
 let $PYTHONUNBUFFERED = 1
 
-" Python
-set pythonthreedll="c:/ZogoTech/src/python/python3.dll"
-
 " syntastic
 let g:syntastic_python_checkers = ['pyflakes']
 let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_check_on_open = 0
+let g:syntastic_javascript_jshint_args = '$VIMHOME/dotfiles/jshint.config'
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_auto_loc_list = 1
 let g:syntastic_ignore_files = ['/server/lib/core/schema.py', '/server/lib/core/olapschema.py', '\m\c\.min\.js']
 
 " dirdiff setup
@@ -188,18 +198,18 @@ nmap <leader>dc 2<c-w>w]czz
 :noremap <leader>h :set hlsearch! hlsearch?<CR>
 
 " abbreviations
-ab pdb import pdb; pdb.set_trace()
-ab bp breakpoint()
+" ab pdb import pdb; pdb.set_trace()
+ab pdb breakpoint() #TODO: remove this!!!
 ab slp from time import sleep; sleep(2)
 
 function! Zinit()
-    cd c:/ZogoTech/src-proj
-    term ++close c:/ZogoTech/zbin/ztag.cmd
+    cd c:/ZogoTech/src
+    term ++close ctags --totals=yes -Rn --exclude=.hg --exclude=*.min.js --exclude=3p --languages=Python,Javascript --python-kinds=cfmvl appserver server webserver
     let $FZF_DEFAULT_COMMAND = 'rg --files --follow --type=py --type=js --type=txt --type=css --path-separator /'
 endfunc
 
 function! Zimport()
-    term ++close c:/ZogoTech/zbin/clipimport.bat
+    term ++close clipimport.bat
 endfunc
 
 " " custom keymaps for great things
@@ -227,10 +237,10 @@ nmap <leader>zi :call Zimport()<cr>
 nmap <leader>pi P\si\si
 nmap <leader>f zM
 nmap <leader>ff zR
-map <leader>si (/import<cr>V)k:sort i<cr>(/import<cr>V)k:EasyAlign<cr><c-x>import<cr>
+map <leader>si (/import<cr>V)k:EasyAlign<cr><c-x>import<cr>(/import<cr>V)k:sort i<cr>
 vmap <leader>wc <esc>:set textwidth=79<cr>gvgq<esc>:set textwidth=0<cr>gv
 vmap <leader>wt <esc>:set textwidth=72<cr>gvgq<esc>:set textwidth=0<cr>gv
-nmap <leader>zc :tabnew<cr>:DirDiff c:/ZogoTech/src-hg c:/ZogoTech/src-proj<cr>
+nmap <leader>zc :tabnew<cr>:DirDiff c:/ZogoTech/hg/beta c:/ZogoTech/src<cr>
 nmap <leader>zg :grep -tpy -w<Space>
 nmap <leader>gg yiw:grep -m 120 -tpy -tjs -w """<cr>
 nmap <leader>wsd :term<cr><C-W>N:on<cr>awsd -Sidls -m1<cr>
@@ -260,16 +270,11 @@ tnoremap <leader>s s<cr>print('*' * 72)<cr>pp locals()<cr><C-W>N:sleep 100m<cr>a
 
 " windows specific things
 if has('win32')
-    nmap <leader>i :edit $VIMHOME/vimrc<cr>
-    " set noantialias
-    " set guifont=Consolas:h10:cANSI:qDRAFT
-    " set guifont=Lucida_Consol:h10:cANSI:qDRAFT
-    set guifont=Courier_New:h10:cANSI:qDRAFT
-    " set rop=type:directx
-    " set guifont=CourierPrime:h10
-    " set guifont=monofur:h10
-    " set guifont=SF-Mono-Regular:h10
+    if has('gui_running')
+        set guifont=Consolas:h10:cANSI:qDRAFT
+    endif
 endif
+
 if has('macunix')
     set guifont=Monaco:h13
 endif
