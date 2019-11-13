@@ -2,9 +2,6 @@ set nocompatible
 filetype off
 
 let $VIMHOME=expand('~/dotfiles/')
-" let $PYTHONPATH='c:\ZogoTech\python'
-set pythonthreehome=c:\ZogoTech\python
-set pythonthreedll=c:\ZogoTech\python\python37.dll
 
 call plug#begin($VIMHOME.'/vim/plugged')
 Plug 'vimjas/vim-python-pep8-indent'
@@ -200,6 +197,7 @@ nmap <leader>dc 2<c-w>w]czz
 " abbreviations
 " ab pdb import pdb; pdb.set_trace()
 ab pdb breakpoint() #TODO: remove this!!!
+ab br breakpoint() #TODO: remove this!!!
 ab slp from time import sleep; sleep(2)
 
 function! Zinit()
@@ -210,6 +208,12 @@ endfunc
 
 function! Zimport()
     term ++close clipimport.bat
+endfunc
+
+function! Zdiff()
+    let level = input('Enter level: ', '7.')
+    execute 'tabnew'
+    execute 'DirDiff c:/ZogoTech/hg/' . level . ' c:/ZogoTech/src'
 endfunc
 
 " " custom keymaps for great things
@@ -240,10 +244,11 @@ nmap <leader>ff zR
 map <leader>si (/import<cr>V)k:EasyAlign<cr><c-x>import<cr>(/import<cr>V)k:sort i<cr>
 vmap <leader>wc <esc>:set textwidth=79<cr>gvgq<esc>:set textwidth=0<cr>gv
 vmap <leader>wt <esc>:set textwidth=72<cr>gvgq<esc>:set textwidth=0<cr>gv
-nmap <leader>zc :tabnew<cr>:DirDiff c:/ZogoTech/hg/beta c:/ZogoTech/src<cr>
+" nmap <leader>zc :tabnew<cr>:DirDiff c:/ZogoTech/hg/beta-prist c:/ZogoTech/src<cr>
+nmap <leader>zc :call Zdiff()<cr>
 nmap <leader>zg :grep -tpy -w<Space>
 nmap <leader>gg yiw:grep -m 120 -tpy -tjs -w """<cr>
-nmap <leader>wsd :term<cr><C-W>N:on<cr>awsd -Sidls -m1<cr>
+nmap <leader>wsd :term<cr><C-W>N:on<cr>awsd -Sidsls<cr>
 " disable things that accidentally get hit...
 nmap <F1> <nop>
 imap <F1> <nop>
@@ -271,7 +276,7 @@ tnoremap <leader>s s<cr>print('*' * 72)<cr>pp locals()<cr><C-W>N:sleep 100m<cr>a
 " windows specific things
 if has('win32')
     if has('gui_running')
-        set guifont=Consolas:h10:cANSI:qDRAFT
+        set guifont=Courier_New:h10:cANSI:qDRAFT
     endif
 endif
 
