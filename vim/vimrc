@@ -202,7 +202,7 @@ ab slp from time import sleep; sleep(2)
 
 function! Zinit()
     cd c:/ZogoTech/src
-    term ++close ctags --totals=yes -Rn --exclude=.hg --exclude=*.min.js --exclude=3p --languages=Python,Javascript --python-kinds=cfmvl appserver server webserver
+    term ++close ctags --totals=yes -R --exclude=.hg --exclude=*.min.js --exclude=3p --languages=Python,Javascript --python-kinds=cfmvl appserver server webserver
     let $FZF_DEFAULT_COMMAND = 'rg --files --follow --type=py --type=js --type=txt --type=css --path-separator /'
 endfunc
 
