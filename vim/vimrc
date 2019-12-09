@@ -225,6 +225,7 @@ nmap <leader>xe :%!openssl base64<cr>
 nmap <leader>xd :%!openssl base64 -d<cr>
 nmap <leader>e :FZF<cr>
 nmap <leader>b :BTags<cr>
+nmap <leader>t :Tags<cr>
 " vsplit clone and set window to 80 chars
 nmap <leader>90 :vertical resize 90<cr>
 nmap <leader>80 :vertical resize 80<cr>
