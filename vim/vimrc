@@ -4,6 +4,8 @@ filetype off
 let $VIMHOME=expand('~/dotfiles/')
 
 call plug#begin($VIMHOME.'/vim/plugged')
+Plug 'epheien/termdbg'
+Plug 'majutsushi/tagbar'
 Plug 'vimjas/vim-python-pep8-indent'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -18,6 +20,9 @@ Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/DirDiff.vim'
 Plug 'vim-syntastic/syntastic'
 call plug#end()
+
+" pyhthon debugging
+let g:termdbg_pdb_prog = 'c:/ZogoTech/scripts/zd.bat'
 
 " set spelling for hg commit messages
 autocmd FileType hgcommit setlocal spell
@@ -107,25 +112,33 @@ if executable("rg")
     set grepprg=rg\ --vimgrep\ --follow
 endif
 
-" " statusline
+" statusline
+hi TagBarColor ctermbg=8 ctermfg=15 guibg=gray75 guifg=blue gui=None
 set laststatus=2                                "always show status line
 set statusline=\                                " start it off
-" " set statusline+=%{mode()}\                       "current mode
 set statusline+=%f\                             "File+path
+if match(&runtimepath, 'Tagbar') != -1
+    set statusline+=%#TagBarColor#
+    set statusline+=%{tagbar#currenttag('%s','','f')}
+    set statusline+=%#StatusLine#
+else
+    echo "Tagbar Not Installed"
+endif
+set statusline+=%*%=
 set statusline+=%m\ "
 set statusline+=%R%W%Y
-" set statusline+=%m%r%w\                         "Modified? Readonly? Top/bot.
-" set statusline+=-(%Y)-\                             "FileType
-set statusline+=,%{&ff}\                       "FileFormat (dos/unix..)
-set statusline+=%*%=
-
-" " set statusline+=%{fnamemodify(getcwd(),':t')}\  " this is so things will werk
-" " set statusline+=%t\                             "File-path
-" " set statusline+=%#warningmsg#
+set statusline+=,%{&ff}                       "FileFormat (dos/unix..)
 set statusline +=%5l                          "current line
 set statusline +=/%L                         "total lines
-set statusline +=:%c\                          "current char
-set statusline +=%P
+set statusline +=\                              "just a space
+" set statusline +=:%c\                          "current char
+" set statusline +=%P                           " percent through file
+" set statusline+=%{mode()}\                       "current mode
+" set statusline+=%m%r%w\                         "Modified? Readonly? Top/bot.
+" set statusline+=-(%Y)-\                             "FileType
+" set statusline+=%{fnamemodify(getcwd(),':t')}\  " this is so things will werk
+" set statusline+=%t\                             "File-path
+" set statusline+=%#warningmsg#
 
 " status line color change
 hi StatusLine ctermbg=8 ctermfg=15 guibg=gray75 guifg=black gui=None
