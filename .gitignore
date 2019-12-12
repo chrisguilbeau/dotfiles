@@ -1,6 +1,7 @@
 emacs.d/elpa
 emacs.d/eshell
 vim/plugged
+nvim/plugged
 .netrwhist
 *~
 vim/backups

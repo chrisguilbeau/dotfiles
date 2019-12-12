@@ -63,10 +63,8 @@
 (defun zinit ()
   (message "Initing the z...")
   (interactive)
-  (cd "c:/ZogoTech/src-proj")
-  ;; (shell-command (concat "zetag"))
-  ;; (visit-tags-table "/ZogoTech/src/etags")
-  (evil-edit "c:/ZogoTech/src-proj")
+  (cd "c:/ZogoTech/src")
+  (evil-edit "c:/ZogoTech/src")
   )
 
 (defun edit-work-org ()
@@ -80,9 +78,9 @@
 (setq completion-case-ignore t)
 
 ;; (setq my-project-root "~/")
-(setq my-project-root "~/z/proj/current/")
-(setq my-project-types "-tpy -tjs -tcss -ttxt")
-(setq my-ctags-bin "/usr/local/bin/ctags")
+(setq my-project-root "/ZogoTech/src/")
+(setq my-project-types " -tpy -tjs -tcss -ttxt")
+(setq my-ctags-bin "ctags")
 
 (defun my-ido-buffer-tag-search()
   "Use ido to jump to a tag in the current buffer."
@@ -91,7 +89,7 @@
         (file-lines
          (split-string
           (shell-command-to-string
-           (concat my-ctags-bin " -x --python-kinds=cfmv -f- " buffer-file-name)) "\n"))
+           (concat my-ctags-bin " --follow -x --python-kinds=cfmv -f- " buffer-file-name)) "\n"))
         (tbl (make-hash-table :test 'equal))
         (ido-list))
     (mapc (lambda (line)
@@ -113,7 +111,7 @@
 	     (shell-command-to-string
 	      (concat "(cd "
                   my-project-root " && "
-                  "rg --files --path-separator / "
+                  "rg --follow --files --path-separator / "
                   my-project-types " "
                   " )"
 		      )) "\n"))
