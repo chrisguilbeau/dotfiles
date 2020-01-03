@@ -1,24 +1,22 @@
+;; packages
 (require 'package)
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(package-initialize)
-;; (package-refresh-contents)
-
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+;; list packages you need here
 (setq package-selected-packages '(
-                                  rg
-                                  dumb-jump
-                                  nyan-mode
-                                  evil
-                                  evil-leader
-                                  evil-surround
-                                  evil-commentary
-				  fzf
+				  dumb-jump
+				  evil
+				  evil-commentary
+				  evil-leader
+				  evil-surround
 				  flycheck
-                                  ;; flycheck-pyflakes
-                                  ))
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-
+				  nyan-mode
+				  ))
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
 (package-install-selected-packages)
+
+;; inits
 (global-flycheck-mode)
 (nyan-mode)
 (evil-mode)
@@ -58,6 +56,10 @@
 (setq frame-title-format
       (list (format "%s %%S: %%j " (system-name))
             '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+
+;; evil
+(eval-after-load "vc-hooks"
+  '(define-key vc-prefix-map "=" 'vc-ediff))
 
 ;; My functions
 (defun zinit ()
@@ -244,18 +246,3 @@
 
 (define-key evil-normal-state-map (kbd "]t")
   (lambda () (interactive) (find-tag last-tag t)))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (find-file-in-project ffip rg dumb-jump nyan-mode evil flymake-python-pyflakes evil-leader evil-surround evil-commentary monokai-theme))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

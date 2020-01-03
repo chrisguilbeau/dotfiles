@@ -4,22 +4,46 @@ filetype off
 let $VIMHOME=expand('~/dotfiles/')
 
 call plug#begin($VIMHOME.'/vim/plugged')
-Plug 'epheien/termdbg'
-Plug 'majutsushi/tagbar'
-Plug 'vimjas/vim-python-pep8-indent'
+" Plug 'mhinz/vim-signify'
+" Plug 'vim-syntastic/syntastic'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'dense-analysis/ale'
+Plug 'epheien/termdbg'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'ludovicchabant/vim-lawrencium'
+Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/DirDiff.vim'
-Plug 'vim-syntastic/syntastic'
+Plug 'vimjas/vim-python-pep8-indent'
 call plug#end()
+
+set bg=dark
+
+" ale
+let g:ale_linters = { 'python': ['pyflakes'], 'javascript': ['jshint'] }
+lef g:ale_jshint_config_loc = '$VIMHOME/dotfiles/jshint.config'
+let g:python_pyflakes_executable = 'c:/ZogoTech/src/server/bin/zpyflakes'
+" let g:ale_open_list = 1
+
+" syntastic
+let g:syntastic_python_checkers = ['pyflakes']
+let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_jshint_args = '$VIMHOME/dotfiles/jshint.config'
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+let g:syntastic_ignore_files = ['/server/lib/core/schema.py', '/server/lib/core/olapschema.py', '\m\c\.min\.js']
+
+
+" signs
+set updatetime=100
 
 " pyhthon debugging
 let g:termdbg_pdb_prog = 'Termdbg.bat'
@@ -66,6 +90,7 @@ endif
 autocmd! GUIEnter * set vb t_vb=
 
 " diff
+set diffopt=
 if has("patch-8.1.0360")
     set diffopt+=internal,algorithm:histogram,indent-heuristic,iblank
     " set diffopt+=internal,algorithm:minimal,indent-heuristic,iblank
@@ -161,6 +186,7 @@ set lsp=0
 " autocmd BufWritePost * match ErrorMsg '\%>80v.\+'
 
 set cc=80 " put a line at column 80
+
 " python stuff
 au BufNewFile,BufRead *.py
 \ set cc=73,80
@@ -184,16 +210,6 @@ au BufNewFile,BufRead *.py
 let $FZF_DEFAULT_COMMAND = 'rg --files --follow --path-separator /'
 let $FZF_DEFAULT_OPTS = '--color=bw'
 let $PYTHONUNBUFFERED = 1
-
-" syntastic
-let g:syntastic_python_checkers = ['pyflakes']
-let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_javascript_jshint_args = '$VIMHOME/dotfiles/jshint.config'
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-let g:syntastic_ignore_files = ['/server/lib/core/schema.py', '/server/lib/core/olapschema.py', '\m\c\.min\.js']
 
 " dirdiff setup
 " exclude things in DirDiff
@@ -226,7 +242,7 @@ function! Zimport()
 endfunc
 
 function! Zdiff()
-    let level = input('Enter level: ', '7.')
+    let level = input('Version: ', '8.0')
     execute 'tabnew'
     execute 'DirDiff c:/ZogoTech/hg/' . level . ' c:/ZogoTech/src'
 endfunc
@@ -287,6 +303,8 @@ nmap s <Plug>(easymotion-s)
 nmap <leader>jj :%!python -m json.tool<cr>
 nmap <leader>h :on<cr>:Hgstatusvdiff<cr>
 nmap <leader>u :UndotreeToggle<cr>
+nmap <leader>ll :lopen<cr>
+nmap <leader>lc :lclose<cr>
 " terminal mappings
 tnoremap <leader>f print('*' * 72)<cr>pp locals()<CR><C-W>N:on<cr>?c.*adhoc.*.py.*[0-9]\+<cr>/[0-9]\+<cr>yiw?c.*adhoc<cr><C-W>f:"<cr>zz:set cul<cr>:set number<cr><C-W><C-W>a<C-W><C-W>
 tnoremap <leader>d d<cr>print('*' * 72)<cr>pp locals()<cr><C-W>N:sleep 100m<cr>a<C-W>N:on<cr>?c.*adhoc.*.py.*[0-9]\+<cr>/[0-9]\+<cr>yiw?c.*adhoc<cr><C-W>f:"<cr>zz: set cul<cr>:set number<cr><C-W><C-W>a
@@ -297,7 +315,8 @@ tnoremap <leader>s s<cr>print('*' * 72)<cr>pp locals()<cr><C-W>N:sleep 100m<cr>a
 " windows specific things
 if has('win32')
     if has('gui_running')
-        set guifont=Courier_New:h10:cANSI:qDRAFT
+        " set guifont=Consolas:h10
+        " set renderoptions=type:directx,gamma:1.5,contrast:0.5,geom:1,renmode:5,taamode:1,level:0.5
     endif
 endif
 
