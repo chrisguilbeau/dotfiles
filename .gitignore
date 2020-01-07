@@ -1,5 +1,6 @@
 emacs.d/elpa
 emacs.d/eshell
+emacs.d/server
 vim/plugged
 nvim/plugged
 .netrwhist

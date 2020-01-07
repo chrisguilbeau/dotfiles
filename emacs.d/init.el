@@ -9,12 +9,18 @@
 				  evil-leader
 				  evil-surround
 				  flycheck
+				  flycheck-pyflakes
 				  nyan-mode
 				  ))
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
 (package-install-selected-packages)
+
+;; windows stuff
+(if (eq system-type 'windows-nt)
+    (setq find-program "c:\\Users\\cguilbeau.ZTAUSTIN\\scoop\\shims\\find.exe")
+  )
 
 ;; inits
 (global-flycheck-mode)
@@ -91,7 +97,7 @@
         (file-lines
          (split-string
           (shell-command-to-string
-           (concat my-ctags-bin " --follow -x --python-kinds=cfmv -f- " buffer-file-name)) "\n"))
+           (concat my-ctags-bin " -x --python-kinds=cfmv -f- " buffer-file-name)) "\n"))
         (tbl (make-hash-table :test 'equal))
         (ido-list))
     (mapc (lambda (line)

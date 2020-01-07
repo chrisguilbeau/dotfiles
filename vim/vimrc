@@ -8,7 +8,6 @@ call plug#begin($VIMHOME.'/vim/plugged')
 " Plug 'vim-syntastic/syntastic'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'dense-analysis/ale'
-Plug 'epheien/termdbg'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
@@ -233,7 +232,7 @@ ab slp from time import sleep; sleep(2)
 
 function! Zinit()
     cd c:/ZogoTech/src
-    term ++close ctags --totals=yes -R --exclude=.hg --exclude=*.min.js --exclude=3p --languages=Python,Javascript --python-kinds=cfmvl appserver server webserver
+    term ++close ctags --extras=f --totals=yes -R --exclude=.hg --exclude=*.min.js --exclude=3p --languages=Python,Javascript --python-kinds=cfmvl appserver server webserver
     let $FZF_DEFAULT_COMMAND = 'rg --files --follow --type=py --type=js --type=txt --type=css --path-separator /'
 endfunc
 
@@ -312,9 +311,12 @@ tnoremap <leader>u u<cr>print('*' * 72)<cr>pp locals()<cr><C-W>N:sleep 100m<cr>a
 tnoremap <leader>n n<cr>print('*' * 72)<cr>pp locals()<cr><C-W>N:sleep 100m<cr>a<C-W>N:on<cr>?c.*adhoc.*.py.*[0-9]\+<cr>/[0-9]\+<cr>yiw?c.*adhoc<cr><C-W>f:"<cr>zz: set cul<cr>:set number<cr><C-W><C-W>a
 tnoremap <leader>s s<cr>print('*' * 72)<cr>pp locals()<cr><C-W>N:sleep 100m<cr>a<C-W>N:on<cr>?c.*adhoc.*.py.*[0-9]\+<cr>/[0-9]\+<cr>yiw?c.*adhoc<cr><C-W>f:"<cr>zz: set cul<cr>:set number<cr><C-W><C-W>a
 
+" font test oO0 LliI {} () -_= ,.;:
+
 " windows specific things
 if has('win32')
     if has('gui_running')
+        set guifont=Cascadia_Code:h9
         " set guifont=Consolas:h10
         " set renderoptions=type:directx,gamma:1.5,contrast:0.5,geom:1,renmode:5,taamode:1,level:0.5
     endif
