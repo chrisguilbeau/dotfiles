@@ -3,98 +3,52 @@ filetype off
 
 let $VIMHOME=expand('~/dotfiles/')
 
+" plugins
 call plug#begin($VIMHOME.'/vim/plugged')
-" Plug 'mhinz/vim-signify'
-" Plug 'vim-syntastic/syntastic'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
+Plug 'lifepillar/vim-solarized8'
 Plug 'ludovicchabant/vim-lawrencium'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
+Plug 'rakr/vim-one'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'vim-scripts/DirDiff.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'will133/vim-dirdiff'
+" Plug 'vim-scripts/DirDiff.vim'
 Plug 'vimjas/vim-python-pep8-indent'
+Plug 'endel/vim-github-colorscheme'
+Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
 
-set bg=dark
+set bg=light
+
+" airline
+let g:airline#extensions#tagbar#flags = 'f'
 
 " ale
 let g:ale_linters = { 'python': ['pyflakes'], 'javascript': ['jshint'] }
 lef g:ale_jshint_config_loc = '$VIMHOME/dotfiles/jshint.config'
 let g:python_pyflakes_executable = 'c:/ZogoTech/src/server/bin/zpyflakes'
-" let g:ale_open_list = 1
+let g:ale_enabled = 0
+nmap <leader>ll :lopen<cr>
+nmap <leader>lc :lclose<cr>
 
-" syntastic
-let g:syntastic_python_checkers = ['pyflakes']
-let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_javascript_jshint_args = '$VIMHOME/dotfiles/jshint.config'
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-let g:syntastic_ignore_files = ['/server/lib/core/schema.py', '/server/lib/core/olapschema.py', '\m\c\.min\.js']
-
-
-" signs
-set updatetime=100
-
-" pyhthon debugging
-let g:termdbg_pdb_prog = 'Termdbg.bat'
+" lawrencium
+nmap <leader>hg :tabnew %<cr>:Hgvdiff<cr><c-w><c-r>
 
 " set spelling for hg commit messages
 autocmd FileType hgcommit setlocal spell
 autocmd FileType gitcommit setlocal spell
 
-" python indend
-let g:python_pep8_indent_multiline_string = -2
-let g:python_pep8_indent_hang_closing = 1
-
-
-" let g:python_highlight_all = 1
-" let g:airline#extensions#tagbar#flags = 'f'
-" let g:airline#extensions#branch#enabled = 0
-" let g:airline#extensions#tagbar#enabled = 0
-" let g:syntastic_always_populate_loc_list = 1
-" let g:signify_vcs_list = [ 'hg' ]
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set go-=m  "remove menu bar
-    set go-=T  "remove toolbar
-    set go-=r  "remove right-hand scroll bar
-    set go-=L  "remove left-hand scroll bar
-    " colorscheme base16-one-light
-    " fix the diffs, hard to read otherwise
-    hi StatusLine term=None ctermfg=14 ctermbg=15
-    " hi DiffAdd ctermfg=15 guifg=black ctermbg=10 guibg=oliveDrab1
-    hi DiffAdd ctermfg=15 guifg=NONE ctermbg=10 guibg=darkseagreen1
-    hi DiffChange ctermfg=15 guifg=black ctermbg=11 guibg=lightcyan1
-    hi DiffText ctermfg=15 guifg=black ctermbg=1 guibg=cadetblue1
-    hi DiffDelete ctermfg=15 guifg=mistyrose ctermbg=12 guibg=mistyrose
-    " change a few colors
-    hi ColorColumn guifg=NONE guibg=mistyrose
-    hi Visual guifg=NONE guibg=lemonchiffon2
-    hi FoldColumn guibg=gray90 guifg=gray90
-    set foldcolumn=1
-endif
-
-
-" no beeps!
-autocmd! GUIEnter * set vb t_vb=
-
-" diff
-set diffopt=
-if has("patch-8.1.0360")
-    set diffopt+=internal,algorithm:histogram,indent-heuristic,iblank
-    " set diffopt+=internal,algorithm:minimal,indent-heuristic,iblank
-endif
-
+" vim settings
 syntax on "syntax highlighting
 set nowmnu
 set wildmode=longest:full,full
@@ -108,7 +62,7 @@ set expandtab shiftwidth=4 softtabstop=4 " use spaces for tabs and 4 wide
 set tabstop=4 " tabstop every 4 spaces
 autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
 set autoread " automatically read files when changed by another editor
-set hidden " just hide the buffer till I come back to it
+" set hidden " just hide the buffer till I come back to it
 set ignorecase " ignore case while searching
 set wildignore+=*/.git/*,*/.hg/*,*.pyc,*.DS_Store "don't pick up certain things
 set noswapfile
@@ -117,35 +71,50 @@ set complete=.,w,b,u ",t,i
 set completeopt=
 set iskeyword+=\-
 set shellslash " use forward slashes in paths like /ZogoTech/src
-set formatoptions +=j
+" set formatoptions +=j
 set encoding=utf-8
 set splitbelow
-" set showtabline=2
-set bg=light
+" set foldmethod=indent
+" set foldlevelstart=20
+set cc=80 " put a line at column 80
+nmap <leader>h :set hlsearch! hlsearch?<CR>
+nmap <leader>i :edit $VIMHOME/vim/vimrc<cr>
+nmap <leader>ii :so %<cr>
+nmap <leader>n :set number!<cr>
+nmap <leader>r yiw:,$s/"//gc<left><left><left>
+vmap <leader>r y:,$s/"//gc<left><left><left>
+nmap <leader>v <c-w>v:vertical resize 85<cr><c-w>w
+" set fillchars+=vert:┊
+set fillchars+=vert:\  " remove the vert fill char
+" no folding ever
+au BufRead * set nofen
+au BufRead * set nofen
+" persist the undos
+set undodir=~/.vim/undodir
+set undofile
+" just paste it!
+nmap <leader>p "0p
+" you have many colors... use them!
+set termguicolors
 
-set foldmethod=indent
-set foldlevelstart=20
-
-" persist the undo tree for each file
-" set undofile
-" set undodir^=~/.vim/undo//
+set formatoptions+=j " Delete comment character when joining commented lines
 
 " grep
 autocmd QuickFixCmdPost *grep* cwindow
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --follow
 endif
+nmap <leader>g :grep -w<Space>
 
 " statusline
-hi TagBarColor ctermbg=8 ctermfg=15 guibg=gray75 guifg=blue gui=None
 set laststatus=2                                "always show status line
 set statusline=\                                " start it off
 set statusline+=%f\                             "File+path
 if match(&runtimepath, 'Tagbar') != -1
     set statusline+=[
-    set statusline+=%#TagBarColor#
+    " set statusline+=%#TagBarColor#
     set statusline+=%{tagbar#currenttag('%s','','f')}
-    set statusline+=%#StatusLine#
+    " set statusline+=%#StatusLine#
     set statusline+=]
 else
     echo "Tagbar Not Installed"
@@ -157,38 +126,15 @@ set statusline+=,%{&ff}                       "FileFormat (dos/unix..)
 set statusline +=%5l                          "current line
 set statusline +=/%L                         "total lines
 set statusline +=\                              "just a space
-" set statusline +=:%c\                          "current char
-" set statusline +=%P                           " percent through file
-" set statusline+=%{mode()}\                       "current mode
-" set statusline+=%m%r%w\                         "Modified? Readonly? Top/bot.
-" set statusline+=-(%Y)-\                             "FileType
-" set statusline+=%{fnamemodify(getcwd(),':t')}\  " this is so things will werk
-" set statusline+=%t\                             "File-path
-" set statusline+=%#warningmsg#
-
-" status line color change
-hi StatusLine ctermbg=8 ctermfg=15 guibg=gray75 guifg=black gui=None
-hi StatusLineNC ctermbg=8 ctermfg=13 guibg=gray90 guifg=black gui=None
-" hi LineNr term=None ctermfg=14 ctermbg=7
-" hi NonText term=None ctermfg=7 ctermbg=None
-" hi SignColumn term=None ctermfg=None ctermbg=7
-" hi VertSplit ctermfg=15 ctermbg=0
-" hi CursorLine term=NONE ctermfg=NONE ctermbg=8 guibg=Grey40
-" hi CursorColumn ctermfg=8 ctermbg=0
-" hi CursorLine ctermfg=8 ctermbg=0
-hi VertSplit term=None ctermfg=14 ctermbg=15 guibg=black guifg=grey90
-set fillchars+=vert:\│
-" set fillchars=vert:\▐
-set lsp=0
-
-" error over 80 chars
-" autocmd BufWritePost * match ErrorMsg '\%>80v.\+'
-
-set cc=80 " put a line at column 80
 
 " python stuff
-au BufNewFile,BufRead *.py
-\ set cc=73,80
+let g:python_pep8_indent_multiline_string = -2
+let g:python_pep8_indent_hang_closing = 1
+au BufNewFile,BufRead *.py set cc=73,80
+au BufNewFile,BufRead *.py call ale#toggle#Enable()
+ab pdb breakpoint() # TODO: remove this!!!
+vmap <leader>wc <esc>:set textwidth=79<cr>gvgq<esc>:set textwidth=0<cr>gv
+vmap <leader>wt <esc>:set textwidth=72<cr>gvgq<esc>:set textwidth=0<cr>gv
 
 " NO MOUSE ALLOWED!
 " set mouse=
@@ -209,31 +155,28 @@ au BufNewFile,BufRead *.py
 let $FZF_DEFAULT_COMMAND = 'rg --files --follow --path-separator /'
 let $FZF_DEFAULT_OPTS = '--color=bw'
 let $PYTHONUNBUFFERED = 1
+nmap <leader>e :FZF<cr>
+nmap <leader>b :BTags<cr>
+nmap <leader>t :Tags<cr>
 
-" dirdiff setup
-" exclude things in DirDiff
+" DirDiff
 let g:DirDiffExcludes = ".hg,tags,*.pyc,.*.swp,.DS_Store,meta,__pycache__"
-" no code folding ever in DirDiff
-set diffopt+=context:99999
-" next/prev file in list
 nmap <leader>dj :DirDiffNext<cr>
 nmap <leader>dk :DirDiffPrev<cr>
-" goto the next (or first) change in the edited file
 nmap <leader>dc 2<c-w>w]czz
+set diffopt+=context:9999
+hi DiffAdd ctermfg=15 guifg=NONE ctermbg=10 guibg=darkseagreen1
+hi DiffChange ctermfg=15 guifg=black ctermbg=11 guibg=lightcyan1
+hi DiffText ctermfg=15 guifg=black ctermbg=1 guibg=cadetblue1
+hi DiffDelete ctermfg=15 guifg=mistyrose ctermbg=12 guibg=mistyrose
 
-" :nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
-:noremap <leader>h :set hlsearch! hlsearch?<CR>
-
-" abbreviations
-" ab pdb import pdb; pdb.set_trace()
-ab pdb breakpoint() #TODO: remove this!!!
-ab br breakpoint() #TODO: remove this!!!
-ab slp from time import sleep; sleep(2)
-
+" ZogoTech Stuff
 function! Zinit()
+    " change the root directory
     cd c:/ZogoTech/src
-    term ++close ctags --extras=f --totals=yes -R --exclude=.hg --exclude=*.min.js --exclude=3p --languages=Python,Javascript --python-kinds=cfmvl appserver server webserver
-    let $FZF_DEFAULT_COMMAND = 'rg --files --follow --type=py --type=js --type=txt --type=css --path-separator /'
+    " tag project files
+    term ++close ctags -R --exclude=.hg --exclude=*.min.js --exclude=3p --languages=Python,Javascript --python-kinds=cfmvl appserver server webserver
+    let $FZF_DEFAULT_COMMAND = 'rg --files --follow --type=py --type=js --type=txt --type=css --path-separator / appserver server webserver'
 endfunc
 
 function! Zimport()
@@ -242,50 +185,19 @@ endfunc
 
 function! Zdiff()
     let level = input('Version: ', '8.0')
-    execute 'tabnew'
+    execute 'only'
     execute 'DirDiff c:/ZogoTech/hg/' . level . ' c:/ZogoTech/src'
 endfunc
 
-" " custom keymaps for great things
-" majic killer for regresion results
-map <A-.> <C-]>
 nmap <leader>07 :%s/<c-r>=substitute(substitute(substitute(substitute(substitute(substitute(substitute(@0, 'ALVIN', '.*', 'g'), '\\', '\\\\', 'g'), '\]', '\\]', 'g'), '\[', '\\[', 'g'), '[0-9]\+', '\[0-9\]\\+', 'g'), '\n','\\n','g'), '/', '\\/', 'g')<CR>//gc
-" quick encrypt/decrypt a file
-nmap <leader>xe :%!openssl base64<cr>
-nmap <leader>xd :%!openssl base64 -d<cr>
-nmap <leader>e :FZF<cr>
-nmap <leader>b :BTags<cr>
-nmap <leader>>> :TermdbgPdb<space>
-nmap <leader>>n :TNext<cr>
-nmap <leader>>s :TStep<cr>
-nmap <leader>>c :TContinue<cr>
-nmap <leader>>r :TFinish<cr>
-nmap <leader>t :Tags<cr>
-" vsplit clone and set window to 80 chars
-nmap <leader>90 :vertical resize 90<cr>
-nmap <leader>80 :vertical resize 80<cr>
-nmap <leader>v <c-w>v:vertical resize 85<cr><c-w>w
-" toggle line numbers
-nmap <leader>n :set number!<cr>
-" do an hg vdiff on the current file in a new tab
-nmap <leader>hg :tabnew %<cr>:Hgvdiff<cr><c-w><c-r>
-" reload the currenlty open file (for reloading vimrc)
-nmap <leader>ii :so %<cr>
-nmap <leader>zz :call Zinit()<cr>
-imap <NUL> <Space>
-nmap <leader>zi :call Zimport()<cr>
-nmap <leader>pi P\si\si
-nmap <leader>f zM
-nmap <leader>ff zR
-map <leader>si (/import<cr>V)k:EasyAlign<cr><c-x>import<cr>(/import<cr>V)k:sort i<cr>
-vmap <leader>wc <esc>:set textwidth=79<cr>gvgq<esc>:set textwidth=0<cr>gv
-vmap <leader>wt <esc>:set textwidth=72<cr>gvgq<esc>:set textwidth=0<cr>gv
-" nmap <leader>zc :tabnew<cr>:DirDiff c:/ZogoTech/hg/beta-prist c:/ZogoTech/src<cr>
 nmap <leader>zc :call Zdiff()<cr>
-nmap <leader>zg :grep -tpy -w<Space>
-nmap <leader>gg yiw:grep -m 120 -tpy -tjs -w """<cr>
-nmap <leader>wsd :term<cr><C-W>N:on<cr>awsd -Sidsls<cr>
+nmap <leader>zz :call Zinit()<cr>
+nmap <leader>zi :call Zimport()<cr>
+map <leader>si (/import<cr>V)k:EasyAlign<cr><c-x>import<cr>(/import<cr>V)k:sort i<cr>
+nmap <leader>zg :grep -tpy -tjs -w<Space>
+
 " disable things that accidentally get hit...
+imap <NUL> <Space>
 nmap <F1> <nop>
 imap <F1> <nop>
 vmap <S-Up> <nop>
@@ -294,34 +206,3 @@ nmap <S-Up> <nop>
 imap <S-Up> <nop>
 imap <S-Down> <nop>
 nmap <S-Down> <nop>
-nmap <leader>i :edit $VIMHOME/vim/vimrc<cr>
-nmap <leader>r yiw:,$s/"//gc<left><left><left>
-vmap <leader>r y:,$s/"//gc<left><left><left>
-nmap <leader>hw yiw/"<cr>:set hlsearch<cr>
-nmap s <Plug>(easymotion-s)
-nmap <leader>jj :%!python -m json.tool<cr>
-nmap <leader>h :on<cr>:Hgstatusvdiff<cr>
-nmap <leader>u :UndotreeToggle<cr>
-nmap <leader>ll :lopen<cr>
-nmap <leader>lc :lclose<cr>
-" terminal mappings
-tnoremap <leader>f print('*' * 72)<cr>pp locals()<CR><C-W>N:on<cr>?c.*adhoc.*.py.*[0-9]\+<cr>/[0-9]\+<cr>yiw?c.*adhoc<cr><C-W>f:"<cr>zz:set cul<cr>:set number<cr><C-W><C-W>a<C-W><C-W>
-tnoremap <leader>d d<cr>print('*' * 72)<cr>pp locals()<cr><C-W>N:sleep 100m<cr>a<C-W>N:on<cr>?c.*adhoc.*.py.*[0-9]\+<cr>/[0-9]\+<cr>yiw?c.*adhoc<cr><C-W>f:"<cr>zz: set cul<cr>:set number<cr><C-W><C-W>a
-tnoremap <leader>u u<cr>print('*' * 72)<cr>pp locals()<cr><C-W>N:sleep 100m<cr>a<C-W>N:on<cr>?c.*adhoc.*.py.*[0-9]\+<cr>/[0-9]\+<cr>yiw?c.*adhoc<cr><C-W>f:"<cr>zz: set cul<cr>:set number<cr><C-W><C-W>a
-tnoremap <leader>n n<cr>print('*' * 72)<cr>pp locals()<cr><C-W>N:sleep 100m<cr>a<C-W>N:on<cr>?c.*adhoc.*.py.*[0-9]\+<cr>/[0-9]\+<cr>yiw?c.*adhoc<cr><C-W>f:"<cr>zz: set cul<cr>:set number<cr><C-W><C-W>a
-tnoremap <leader>s s<cr>print('*' * 72)<cr>pp locals()<cr><C-W>N:sleep 100m<cr>a<C-W>N:on<cr>?c.*adhoc.*.py.*[0-9]\+<cr>/[0-9]\+<cr>yiw?c.*adhoc<cr><C-W>f:"<cr>zz: set cul<cr>:set number<cr><C-W><C-W>a
-
-" font test oO0 LliI {} () -_= ,.;:
-
-" windows specific things
-if has('win32')
-    if has('gui_running')
-        set guifont=Cascadia_Code:h9
-        " set guifont=Consolas:h10
-        " set renderoptions=type:directx,gamma:1.5,contrast:0.5,geom:1,renmode:5,taamode:1,level:0.5
-    endif
-endif
-
-if has('macunix')
-    set guifont=Monaco:h13
-endif
