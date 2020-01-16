@@ -23,24 +23,13 @@
 
 " font test oO0 LliI {} () -_= ,.;:
 " set guifont=Roboto_Mono_for_Powerline:h9
-set guifont=Anonymice_Powerline:h11
+" set guifont=Anonymice_Powerline:h11
 " set guifont=Source_Code_Pro_for_Powerline:h11
 " set guifont=Inconsolata_for_Powerline:h11
 " set guifont=Monofur_for_Powerline:h11
 " set guifont=Space_Mono_for_Powerline:h9
 " set guifont=Space_Mono_for_Powerline:h9
-" set guifont=Cascadia_Code:h9
-
-
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.dirty='⚡'
+set guifont=Cascadia_Code:h9
 
 set go-=m  "remove menu bar
 set go-=T  "remove toolbar

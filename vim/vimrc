@@ -19,10 +19,10 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'will133/vim-dirdiff'
-" Plug 'vim-scripts/DirDiff.vim'
+" Plug 'will133/vim-dirdiff'
+Plug 'vim-scripts/DirDiff.vim'
 Plug 'vimjas/vim-python-pep8-indent'
 Plug 'endel/vim-github-colorscheme'
 Plug 'NLKNguyen/papercolor-theme'
@@ -62,7 +62,7 @@ set expandtab shiftwidth=4 softtabstop=4 " use spaces for tabs and 4 wide
 set tabstop=4 " tabstop every 4 spaces
 autocmd BufWritePre * :%s/\s\+$//e "delete trailing whitespace on save
 set autoread " automatically read files when changed by another editor
-" set hidden " just hide the buffer till I come back to it
+set hidden " just hide the buffer till I come back to it
 set ignorecase " ignore case while searching
 set wildignore+=*/.git/*,*/.hg/*,*.pyc,*.DS_Store "don't pick up certain things
 set noswapfile
@@ -79,6 +79,7 @@ set splitbelow
 set cc=80 " put a line at column 80
 nmap <leader>h :set hlsearch! hlsearch?<CR>
 nmap <leader>i :edit $VIMHOME/vim/vimrc<cr>
+nmap <leader>ig :edit $VIMHOME/vim/gvimrc<cr>
 nmap <leader>ii :so %<cr>
 nmap <leader>n :set number!<cr>
 nmap <leader>r yiw:,$s/"//gc<left><left><left>
