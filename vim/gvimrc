@@ -4,6 +4,7 @@
 " colorscheme github
 " set bg=light
 " colorscheme papercolor
+hi Visual guibg=LightGoldenrod1 guifg=NONE
 
 " solarized
 " set bg=light

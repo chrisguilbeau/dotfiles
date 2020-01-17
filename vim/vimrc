@@ -21,8 +21,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 " Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'will133/vim-dirdiff'
-Plug 'vim-scripts/DirDiff.vim'
 Plug 'vimjas/vim-python-pep8-indent'
 Plug 'endel/vim-github-colorscheme'
 Plug 'NLKNguyen/papercolor-theme'
@@ -161,15 +159,6 @@ nmap <leader>b :BTags<cr>
 nmap <leader>t :Tags<cr>
 
 " DirDiff
-let g:DirDiffExcludes = ".hg,tags,*.pyc,.*.swp,.DS_Store,meta,__pycache__"
-nmap <leader>dj :DirDiffNext<cr>
-nmap <leader>dk :DirDiffPrev<cr>
-nmap <leader>dc 2<c-w>w]czz
-set diffopt+=context:9999
-hi DiffAdd ctermfg=15 guifg=NONE ctermbg=10 guibg=darkseagreen1
-hi DiffChange ctermfg=15 guifg=black ctermbg=11 guibg=lightcyan1
-hi DiffText ctermfg=15 guifg=black ctermbg=1 guibg=cadetblue1
-hi DiffDelete ctermfg=15 guifg=mistyrose ctermbg=12 guibg=mistyrose
 
 " ZogoTech Stuff
 function! Zinit()
@@ -184,11 +173,32 @@ function! Zimport()
     term ++close clipimport.bat
 endfunc
 
-function! Zdiff()
-    let level = input('Version: ', '8.0')
-    execute 'only'
-    execute 'DirDiff c:/ZogoTech/hg/' . level . ' c:/ZogoTech/src'
+" custom dirdiff
+" function! Zdiff()
+"     execute 'tabnew'
+"     term /ZogoTech/src/python/python.exe /ZogoTech/scripts/zc.py
+"     execute 'setlocal cursorline'
+" endfunc
+
+" DirDiff
+set diffopt+=context:9999
+hi DiffAdd ctermfg=15 guifg=NONE ctermbg=10 guibg=darkseagreen1
+hi DiffChange ctermfg=15 guifg=black ctermbg=11 guibg=lightcyan1
+hi DiffText ctermfg=15 guifg=black ctermbg=1 guibg=cadetblue1
+hi DiffDelete ctermfg=15 guifg=mistyrose ctermbg=12 guibg=mistyrose
+
+function! ZdiffDone(...)
+    execute 'setlocal cursorline'
+    nmap <buffer> <return> :on<cr>0/Z<cr><C-w>f<C-w>r<C-w><C-w>/c:<cr>v/differ<cr>hhy<C-w><C-w>:setlocal number<cr>:vert diffsplit "<cr>:setlocal number<cr><C-w><C-r>
 endfunc
+
+function! Zdiff()
+    execute 'tabnew'
+    call term_start("/ZogoTech/src/python/python.exe /ZogoTech/scripts/zc.py", {'exit_cb':function('ZdiffDone')})
+endfunc
+
+nmap <leader>dj <C-w>jj<return>
+nmap <leader>dk <C-w>jk<return>
 
 nmap <leader>07 :%s/<c-r>=substitute(substitute(substitute(substitute(substitute(substitute(substitute(@0, 'ALVIN', '.*', 'g'), '\\', '\\\\', 'g'), '\]', '\\]', 'g'), '\[', '\\[', 'g'), '[0-9]\+', '\[0-9\]\\+', 'g'), '\n','\\n','g'), '/', '\\/', 'g')<CR>//gc
 nmap <leader>zc :call Zdiff()<cr>
