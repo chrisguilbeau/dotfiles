@@ -180,6 +180,12 @@ endfunc
 "     execute 'setlocal cursorline'
 " endfunc
 
+set diffopt=
+if has("patch-8.1.0360")
+    set diffopt+=internal,algorithm:histogram,indent-heuristic,iblank
+    " set diffopt+=internal,algorithm:minimal,indent-heuristic,iblank
+endif
+
 " DirDiff
 set diffopt+=context:9999
 hi DiffAdd ctermfg=15 guifg=NONE ctermbg=10 guibg=darkseagreen1
@@ -197,8 +203,8 @@ function! Zdiff()
     call term_start("/ZogoTech/src/python/python.exe /ZogoTech/scripts/zc.py", {'exit_cb':function('ZdiffDone')})
 endfunc
 
-nmap <leader>dj <C-w>jj<return>
-nmap <leader>dk <C-w>jk<return>
+nmap <leader>dj :bufdo diffoff<cr><C-w>jj<return>
+nmap <leader>dk :bufdo diffoff<cr><C-w>jk<return>
 
 nmap <leader>07 :%s/<c-r>=substitute(substitute(substitute(substitute(substitute(substitute(substitute(@0, 'ALVIN', '.*', 'g'), '\\', '\\\\', 'g'), '\]', '\\]', 'g'), '\[', '\\[', 'g'), '[0-9]\+', '\[0-9\]\\+', 'g'), '\n','\\n','g'), '/', '\\/', 'g')<CR>//gc
 nmap <leader>zc :call Zdiff()<cr>
