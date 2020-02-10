@@ -1,6 +1,10 @@
 emacs.d/elpa
 emacs.d/eshell
+<<<<<<< Updated upstream
 emacs.d/server
+=======
+emacs.d/tramp
+>>>>>>> Stashed changes
 vim/plugged
 nvim/plugged
 .netrwhist
