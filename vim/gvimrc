@@ -6,6 +6,7 @@
 " colorscheme papercolor
 hi Visual guibg=LightGoldenrod1 guifg=NONE
 
+set guicursor+=a:blinkon0
 " solarized
 " set bg=light
 " colorscheme solarized8_flat
@@ -30,7 +31,8 @@ hi Visual guibg=LightGoldenrod1 guifg=NONE
 " set guifont=Monofur_for_Powerline:h11
 " set guifont=Space_Mono_for_Powerline:h9
 " set guifont=Space_Mono_for_Powerline:h9
-set guifont=Cascadia_Code:h9
+" set guifont=Cascadia_Code:h9
+set guifont=SF_Mono:h10:W500:cANSI:qDRAFT
 
 set go-=m  "remove menu bar
 set go-=T  "remove toolbar

@@ -5,28 +5,38 @@ let $VIMHOME=expand('~/dotfiles/')
 
 " plugins
 call plug#begin($VIMHOME.'/vim/plugged')
+" Plug 'vim-airline/vim-airline'
+Plug 'andymass/vim-matchup'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'lifepillar/vim-solarized8'
+Plug 'liuchengxu/vim-which-key'
 Plug 'ludovicchabant/vim-lawrencium'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
+Plug 'pechorin/any-jump.vim'
 Plug 'rakr/vim-one'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-" Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'vimjas/vim-python-pep8-indent'
-Plug 'endel/vim-github-colorscheme'
-Plug 'NLKNguyen/papercolor-theme'
+Plug 'bounceme/dim-jump'
 call plug#end()
 
 set bg=light
+
+" match-up
+let g:loaded_matchit = 1
+" let g:matchup_matchparen_timeout = 500
+" let g:matchup_matchparen_insert_timeout = 100
+" let g:matchparen_timeout = 500
+" let g:matchup_matchparen_deferred_show_delay = 10000
+" let g:matchup_matchparen_deferred = 2000
 
 " airline
 let g:airline#extensions#tagbar#flags = 'f'
@@ -48,6 +58,8 @@ autocmd FileType gitcommit setlocal spell
 
 " vim settings
 syntax on "syntax highlighting
+set noto " wait forever for leader sequences
+set showcmd " show command as you type it
 set nowmnu
 set wildmode=longest:full,full
 filetype plugin on "make commands smarter for your file ]m and the like
@@ -180,11 +192,11 @@ endfunc
 "     execute 'setlocal cursorline'
 " endfunc
 
-set diffopt=
-if has("patch-8.1.0360")
-    set diffopt+=internal,algorithm:histogram,indent-heuristic,iblank
-    " set diffopt+=internal,algorithm:minimal,indent-heuristic,iblank
-endif
+" set diffopt=
+" if has("patch-8.1.0360")
+"     set diffopt+=internal,algorithm:histogram,indent-heuristic,iblank
+"     " set diffopt+=internal,algorithm:minimal,indent-heuristic,iblank
+" endif
 
 " DirDiff
 set diffopt+=context:9999
@@ -203,14 +215,25 @@ function! Zdiff()
     call term_start("/ZogoTech/src/python/python.exe /ZogoTech/scripts/zc.py", {'exit_cb':function('ZdiffDone')})
 endfunc
 
+function! ZdiffPrompt()
+    let curline = getline('.')
+    call inputsave()
+    let left = input('left: ')
+    let right = input('left: ' . left . '; ' . 'right: ')
+    call inputrestore()
+    execute 'tabnew'
+    call term_start("/ZogoTech/src/python/python.exe /ZogoTech/scripts/zc.py " . left . ' ' . right, {'exit_cb':function('ZdiffDone')})
+endfunc
+
 nmap <leader>dj :bufdo diffoff<cr><C-w>jj<return>
 nmap <leader>dk :bufdo diffoff<cr><C-w>jk<return>
 
 nmap <leader>07 :%s/<c-r>=substitute(substitute(substitute(substitute(substitute(substitute(substitute(@0, 'ALVIN', '.*', 'g'), '\\', '\\\\', 'g'), '\]', '\\]', 'g'), '\[', '\\[', 'g'), '[0-9]\+', '\[0-9\]\\+', 'g'), '\n','\\n','g'), '/', '\\/', 'g')<CR>//gc
 nmap <leader>zc :call Zdiff()<cr>
+nmap <leader>zp :call ZdiffPrompt()<cr>
 nmap <leader>zz :call Zinit()<cr>
 nmap <leader>zi :call Zimport()<cr>
-map <leader>si (/import<cr>V)k:EasyAlign<cr><c-x>import<cr>(/import<cr>V)k:sort i<cr>
+nmap <leader>si (V):EasyAlign /\<import\>/<cr>gvk:sort i<cr>
 nmap <leader>zg :grep -tpy -tjs -w<Space>
 
 " disable things that accidentally get hit...
