@@ -1,5 +1,5 @@
-;; packages
 (require 'package)
+<<<<<<< Updated upstream
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 ;; list packages you need here
 (setq package-selected-packages '(
@@ -12,22 +12,34 @@
 				  flycheck-pyflakes
 				  nyan-mode
 				  ))
+=======
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+>>>>>>> Stashed changes
 (package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
-(package-install-selected-packages)
+(package-refresh-contents)
 
+(setq package-selected-packages '(
+                                  dumb-jump
+                                  nyan-mode
+                                  ))
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
+<<<<<<< Updated upstream
 ;; windows stuff
 (if (eq system-type 'windows-nt)
     (setq find-program "c:\\Users\\cguilbeau.ZTAUSTIN\\scoop\\shims\\find.exe")
   )
 
 ;; inits
+=======
+(package-install-selected-packages)
+>>>>>>> Stashed changes
 (global-flycheck-mode)
 (nyan-mode)
-(evil-mode)
-(evil-commentary-mode)
-(global-evil-surround-mode)
+;; (evil-mode)
+;; (evil-commentary-mode)
+;; (global-evil-surround-mode)
 
 (setq-default
  whitespace-line-column 80
@@ -63,21 +75,16 @@
       (list (format "%s %%S: %%j " (system-name))
             '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
-;; evil
-(eval-after-load "vc-hooks"
-  '(define-key vc-prefix-map "=" 'vc-ediff))
-
 ;; My functions
 (defun zinit ()
   (message "Initing the z...")
   (interactive)
-  (cd "c:/ZogoTech/src")
-  (evil-edit "c:/ZogoTech/src")
+  (cd "~/z")
   )
 
 (defun edit-work-org ()
   (interactive)
-  (evil-edit "~/icloud/zogotech.txt"))
+  (evil-edit "/ssh:cg@austin.zogotech.com:/home/cg/work.org"))
 
 (defun edit-etsy-org ()
   (interactive)
@@ -86,9 +93,9 @@
 (setq completion-case-ignore t)
 
 ;; (setq my-project-root "~/")
-(setq my-project-root "/ZogoTech/src/")
+(setq my-project-root "~/z/")
 (setq my-project-types " -tpy -tjs -tcss -ttxt")
-(setq my-ctags-bin "ctags")
+(setq my-ctags-bin "/usr/local/bin/ctags")
 
 (defun my-ido-buffer-tag-search()
   "Use ido to jump to a tag in the current buffer."
@@ -252,3 +259,18 @@
 
 (define-key evil-normal-state-map (kbd "]t")
   (lambda () (interactive) (find-tag last-tag t)))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (find-file-in-project ffip rg dumb-jump nyan-mode evil flymake-python-pyflakes evil-leader evil-surround evil-commentary monokai-theme))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
