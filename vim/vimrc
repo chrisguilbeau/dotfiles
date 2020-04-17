@@ -5,41 +5,24 @@ let $VIMHOME=expand('~/dotfiles/')
 
 " plugins
 call plug#begin($VIMHOME.'/vim/plugged')
-" Plug 'vim-airline/vim-airline'
-Plug 'andymass/vim-matchup'
-Plug 'bronson/vim-trailing-whitespace'
 Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'lifepillar/vim-solarized8'
-Plug 'liuchengxu/vim-which-key'
+Plug 'justinmk/vim-sneak'
 Plug 'ludovicchabant/vim-lawrencium'
 Plug 'majutsushi/tagbar'
+Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'mbbill/undotree'
-Plug 'pechorin/any-jump.vim'
-Plug 'rakr/vim-one'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vimjas/vim-python-pep8-indent'
-Plug 'bounceme/dim-jump'
 call plug#end()
 
 set bg=light
-
-" match-up
-let g:loaded_matchit = 1
-" let g:matchup_matchparen_timeout = 500
-" let g:matchup_matchparen_insert_timeout = 100
-" let g:matchparen_timeout = 500
-" let g:matchup_matchparen_deferred_show_delay = 10000
-" let g:matchup_matchparen_deferred = 2000
-
-" airline
-let g:airline#extensions#tagbar#flags = 'f'
 
 " ale
 let g:ale_linters = { 'python': ['pyflakes'], 'javascript': ['jshint'] }
@@ -48,6 +31,14 @@ let g:python_pyflakes_executable = 'c:/ZogoTech/src/server/bin/zpyflakes'
 let g:ale_enabled = 0
 nmap <leader>ll :lopen<cr>
 nmap <leader>lc :lclose<cr>
+
+" sneak
+let g:sneak#label = 1
+
+" yankstack
+call yankstack#setup()
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
 
 " lawrencium
 nmap <leader>hg :tabnew %<cr>:Hgvdiff<cr><c-w><c-r>
@@ -87,10 +78,10 @@ set splitbelow
 " set foldmethod=indent
 " set foldlevelstart=20
 set cc=80 " put a line at column 80
-nmap <leader>h :set hlsearch! hlsearch?<CR>
 nmap <leader>i :edit $VIMHOME/vim/vimrc<cr>
 nmap <leader>ig :edit $VIMHOME/vim/gvimrc<cr>
 nmap <leader>ii :so %<cr>
+nmap <leader>h :set hlsearch! hlsearch?<CR>
 nmap <leader>n :set number!<cr>
 nmap <leader>r yiw:,$s/"//gc<left><left><left>
 vmap <leader>r y:,$s/"//gc<left><left><left>
@@ -99,15 +90,11 @@ nmap <leader>v <c-w>v:vertical resize 85<cr><c-w>w
 set fillchars+=vert:\  " remove the vert fill char
 " no folding ever
 au BufRead * set nofen
-au BufRead * set nofen
 " persist the undos
-set undodir=~/.vim/undodir
-set undofile
-" just paste it!
-nmap <leader>p "0p
-" you have many colors... use them!
-set termguicolors
-
+" set undodir=~/.vim/undodir
+" set undofile
+set termguicolors " use all colors in terminal mode
+set formatoptions+=l " dont ever wrap lines
 set formatoptions+=j " Delete comment character when joining commented lines
 
 " grep
@@ -121,22 +108,26 @@ nmap <leader>g :grep -w<Space>
 set laststatus=2                                "always show status line
 set statusline=\                                " start it off
 set statusline+=%f\                             "File+path
+set statusline+=%m\ "
 if match(&runtimepath, 'Tagbar') != -1
-    set statusline+=[
-    " set statusline+=%#TagBarColor#
     set statusline+=%{tagbar#currenttag('%s','','f')}
-    " set statusline+=%#StatusLine#
-    set statusline+=]
 else
     echo "Tagbar Not Installed"
 endif
 set statusline+=%*%=
-set statusline+=%m\ "
 set statusline+=%R%W%Y
 set statusline+=,%{&ff}                       "FileFormat (dos/unix..)
 set statusline +=%5l                          "current line
 set statusline +=/%L                         "total lines
 set statusline +=\                              "just a space
+
+" whitespace
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+autocmd BufWritePre * :call TrimWhitespace() " autotrim whitespace on save
 
 " python stuff
 let g:python_pep8_indent_multiline_string = -2
@@ -165,6 +156,10 @@ vmap <leader>wt <esc>:set textwidth=72<cr>gvgq<esc>:set textwidth=0<cr>gv
 " FZF
 let $FZF_DEFAULT_COMMAND = 'rg --files --follow --path-separator /'
 let $FZF_DEFAULT_OPTS = '--color=bw'
+" let $FZF_DEFAULT_OPTS = '
+"             \ --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
+"             \ --color info:108,prompt:109,spinner:108,pointer:168,marker:168
+"             \'
 let $PYTHONUNBUFFERED = 1
 nmap <leader>e :FZF<cr>
 nmap <leader>b :BTags<cr>
@@ -179,6 +174,8 @@ function! Zinit()
     " tag project files
     term ++close ctags -R --exclude=.hg --exclude=*.min.js --exclude=3p --languages=Python,Javascript --python-kinds=cfmvl appserver server webserver
     let $FZF_DEFAULT_COMMAND = 'rg --files --follow --type=py --type=js --type=txt --type=css --path-separator / appserver server webserver'
+    set undodir=c:\ZogoTech\src\undodir
+    set undofile
 endfunc
 
 function! Zimport()
@@ -235,6 +232,13 @@ nmap <leader>zz :call Zinit()<cr>
 nmap <leader>zi :call Zimport()<cr>
 nmap <leader>si (V):EasyAlign /\<import\>/<cr>gvk:sort i<cr>
 nmap <leader>zg :grep -tpy -tjs -w<Space>
+nmap <leader>u :UndotreeToggle<cr>
+
+" normal hard mode
+" nmap <up> <nop>
+" nmap <down> <nop>
+" nmap <left> <nop>
+" nmap <right> <nop>
 
 " disable things that accidentally get hit...
 imap <NUL> <Space>
