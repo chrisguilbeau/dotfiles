@@ -24,6 +24,19 @@ call plug#end()
 
 set bg=light
 
+" spelling stuff
+highlight clear SpellBad
+highlight SpellBad cterm=reverse
+
+" mercurial help
+autocmd BufRead,BufNewFile commit set filetype=HGCOMMIT
+
+" backup dir
+set backupdir=./backupdir//,/tmp//
+set directory=./backupdir//,/tmp//
+set backup
+set swapfile
+
 " ale
 let g:ale_linters = { 'python': ['pyflakes'], 'javascript': ['jshint'] }
 lef g:ale_jshint_config_loc = '$VIMHOME/dotfiles/jshint.config'
@@ -66,8 +79,6 @@ set autoread " automatically read files when changed by another editor
 set hidden " just hide the buffer till I come back to it
 set ignorecase " ignore case while searching
 set wildignore+=*/.git/*,*/.hg/*,*.pyc,*.DS_Store "don't pick up certain things
-set noswapfile
-" set nobackup
 set complete=.,w,b,u ",t,i
 set completeopt=
 set iskeyword+=\-
@@ -182,19 +193,6 @@ function! Zimport()
     term ++close clipimport.bat
 endfunc
 
-" custom dirdiff
-" function! Zdiff()
-"     execute 'tabnew'
-"     term /ZogoTech/src/python/python.exe /ZogoTech/scripts/zc.py
-"     execute 'setlocal cursorline'
-" endfunc
-
-" set diffopt=
-" if has("patch-8.1.0360")
-"     set diffopt+=internal,algorithm:histogram,indent-heuristic,iblank
-"     " set diffopt+=internal,algorithm:minimal,indent-heuristic,iblank
-" endif
-
 " DirDiff
 set diffopt+=context:9999
 hi DiffAdd ctermfg=15 guifg=NONE ctermbg=10 guibg=darkseagreen1
@@ -209,7 +207,7 @@ endfunc
 
 function! Zdiff()
     execute 'tabnew'
-    call term_start("/ZogoTech/src/python/python.exe /ZogoTech/scripts/zc.py", {'exit_cb':function('ZdiffDone')})
+    call term_start("/ZogoTech/src/python/python.exe /ZogoTech/scripts/zcr2.py", {'exit_cb':function('ZdiffDone')})
 endfunc
 
 function! ZdiffPrompt()
