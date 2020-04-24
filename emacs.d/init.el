@@ -1,46 +1,4 @@
-(require 'package)
-<<<<<<< Updated upstream
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-;; list packages you need here
-(setq package-selected-packages '(
-				  dumb-jump
-				  evil
-				  evil-commentary
-				  evil-leader
-				  evil-surround
-				  flycheck
-				  flycheck-pyflakes
-				  nyan-mode
-				  ))
-=======
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
->>>>>>> Stashed changes
-(package-initialize)
-(package-refresh-contents)
-
-(setq package-selected-packages '(
-                                  dumb-jump
-                                  nyan-mode
-                                  ))
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-
-<<<<<<< Updated upstream
-;; windows stuff
-(if (eq system-type 'windows-nt)
-    (setq find-program "c:\\Users\\cguilbeau.ZTAUSTIN\\scoop\\shims\\find.exe")
-  )
-
-;; inits
-=======
-(package-install-selected-packages)
->>>>>>> Stashed changes
-(global-flycheck-mode)
-(nyan-mode)
-;; (evil-mode)
-;; (evil-commentary-mode)
-;; (global-evil-surround-mode)
-
+;; emacs configure
 (setq-default
  whitespace-line-column 80
  whitespace-style       '(face lines-tail))
@@ -52,7 +10,10 @@
 (setq indent-tabs-mode nil)
 ;; (highlight-tabs)
 (setq mode-require-final-newline t) ;; newline at end of document
-(which-func-mode 1)
+(which-func-mode 1) ;; show current function and class
+
+;; python stuff
+(setenv "PYTHONUNBUFFERED" "1")
 
 ;; Emacs annoyances
 (setq backup-inhibited t);disable backup
@@ -66,7 +27,7 @@
 (show-paren-mode 1)
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq javascript-indent-level 2)
-(setq inhibit-splash-screen t) ;; don't show welcome string
+;; (setq inhibit-splash-screen t) ;; don't show welcome string
 (setq dabbrev-case-replace nil)
 
 ;; Emacs important things!
@@ -75,27 +36,163 @@
       (list (format "%s %%S: %%j " (system-name))
             '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
-;; My functions
-(defun zinit ()
-  (message "Initing the z...")
+;; packages
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+;; list packages you need here
+(setq package-selected-packages '(
+				  dumb-jump
+				  evil
+				  evil-commentary
+				  evil-leader
+				  evil-surround
+				  nyan-mode
+				  ztree
+				  rg
+				  ))
+(package-initialize)
+(package-refresh-contents)
+(package-install-selected-packages)
+
+;; evil
+
+;; rg
+(setq grep-find-command
+ '((concat "rg -n -H --no-heading -e '' " my-project-root) . 27)
+ )
+(setq rg-command-line-flags '(
+                              "--follow"
+                              ))
+
+;; ztree
+(setq ztree-diff-filter-list '(
+                               "^.*\\.pyc"
+                               ))
+
+;; dumb jump
+
+;; nyan-mode
+(nyan-mode)
+
+;; evil
+(evil-mode)
+(evil-commentary-mode)
+(global-evil-surround-mode)
+(global-evil-leader-mode)
+(eval-after-load "vc-hooks"
+  '(define-key vc-prefix-map "=" 'vc-ediff))
+
+(defun evil-edit-init-file ()
   (interactive)
-  (cd "~/z")
+  (evil-edit "~/.emacs.d/init.el"))
+
+(defun evil-vsplit ()
+  (interactive)
+  (evil-window-vsplit)
+  (evil-set-80-columns)
+  (evil-window-next nil))
+
+(defun evil-query-replace-word-under-cursor()
+  (interactive)
+  (if (use-region-p)
+      (let (
+	    (selection
+	     (buffer-substring-no-properties (region-beginning) (region-end))))
+	(if (= (length selection) 0)
+	    (message "empty string")
+	  (evil-ex (concat "'<,'>s/" selection "/"))
+	  ))
+    (evil-ex (concat "%s/" (thing-at-point 'word) "/"))))
+
+(defun evil-set-80-columns ()
+  "Set the selected window to 80 columns."
+  (interactive)
+  (set-window-width 80))
+
+(define-key evil-normal-state-map (kbd "C-]")
+  (lambda () (interactive) (dumb-jump-go)))
+
+(define-key evil-normal-state-map (kbd "]]") 'pop-tag-mark)
+
+(define-key evil-normal-state-map (kbd "]t")
+  (lambda () (interactive) (find-tag last-tag t)))
+
+
+(evil-leader/set-key
+  "e" 'my-ido-project-files
+  "b" 'my-ido-buffer-tag-search
+  "k" 'ibuffer
+  "f" 'evilem-motion-find-char
+  "t" 'my-project-tag-search
+  "zz" 'zinit
+  "i" 'evil-edit-init-file
+  "o" 'edit-work-org
+  "=" 'evil-set-80-columns
+  "n" 'linum-mode
+  "v" 'evil-vsplit
+  "hg" 'vc-ediff
+  "zc" 'vc-dir
+  "r" 'evil-query-replace-word-under-cursor
+  "g]" 'rg-forward-history
+  "g[" 'rg-back-history
+  "w" 'my-insert-week-for-org
   )
 
-(defun edit-work-org ()
+;; my-proj
+(setq my-project-root (getenv "pwd"))
+(setq my-project-types "")
+(setq my-ctags-bin "ctags.exe")
+(setq my-project-folders ".")
+(setq my-ctags-excludes " ")
+(setq my-ctags-languages " ")
+(setq my-ctags-kinds " ")
+
+(defun zinit ()
   (interactive)
-  (evil-edit "/ssh:cg@austin.zogotech.com:/home/cg/work.org"))
+  (setq my-project-root "/ZogoTech/src/")
+  (setq my-project-types " -tpy -tjs -tcss -ttxt")
+  (setq my-ctags-excludes "--exclude=.hg --exclude=*.min.js --exclude=3p")
+  (setq my-ctags-languages "--languages=Python,Javascript")
+  (setq my-ctags-kinds "--python-kinds=cfmvl")
+  (setq my-project-folders "server webserver appserver")
+  (evil-edit my-project-root)
+  )
 
-(defun edit-etsy-org ()
+(defun my-project-tag-search()
+  "Use ido to jump to a tag in the current project."
   (interactive)
-  (evil-edit "~/icloud/etsy.txt"))
-
-(setq completion-case-ignore t)
-
-;; (setq my-project-root "~/")
-(setq my-project-root "~/z/")
-(setq my-project-types " -tpy -tjs -tcss -ttxt")
-(setq my-ctags-bin "/usr/local/bin/ctags")
+  (let (
+        (file-lines
+         (split-string
+          (shell-command-to-string
+           (concat my-ctags-bin
+                   " -R -x -f- "  ;; recursive to standard output, no file
+                   my-ctags-excludes " "
+                   my-ctags-languages " "
+                   my-ctags-kinds " "
+                   my-project-folders
+                   )) "\n"))
+        (tbl (make-hash-table :test 'equal))
+        (ido-list))
+    (mapc (lambda (line)
+            "Put each line in a hash table as well as ido-list."
+            (let ((spl (split-string line " +")))
+              (puthash (nth 0 spl)
+                       (concat "[["
+			       my-project-root
+			       "/"
+                               (nth 3 spl)
+                               "::"
+                               (nth 2 spl)
+                               "]]"
+                               )
+                       tbl)
+              (push
+               (nth 0 spl)
+               ido-list)
+              ))
+          file-lines)
+    (org-open-link-from-string (gethash (ido-completing-read "? " ido-list) tbl))))
 
 (defun my-ido-buffer-tag-search()
   "Use ido to jump to a tag in the current buffer."
@@ -128,6 +225,7 @@
                   my-project-root " && "
                   "rg --follow --files --path-separator / "
                   my-project-types " "
+		  my-project-folders " "
                   " )"
 		      )) "\n"))
       ;; populate hash table (display repr => path)
@@ -141,136 +239,6 @@
 	    )
       (find-file (gethash (ido-completing-read "project-files: " ido-list) tbl))))
 
-(defun my-insert-week-for-org ()
-  (interactive)
-  (insert (concat "* Week " (shell-command-to-string "date +%V"))))
-
-(defun zfiles ()
-  (interactive)
-  (start-process "zfiles" nil "zfiles.cmd")
-  )
-
-(defun zbuffertags ()
-  (interactive)
-  (let ((proc (start-process "cmd" nil "cmd.exe" "/C" "start" "zbuffertags"
-                             (buffer-file-name)))))
-    (set-process-query-on-exit-flag proc nil))
-
-(defun ztagsall ()
-  (interactive)
-  (let ((proc (start-process "cmd" nil "cmd.exe" "/C" "start" "ztagsall"
-                             ))))
-    (set-process-query-on-exit-flag proc nil))
-
-(defun edit-init-file ()
-  (interactive)
-  (evil-edit "~/.emacs.d/init.el"))
-
-(defun my-ido-list-tags ()
-  "list tags in current file only"
-  (interactive)
-  (list-tags (buffer-file-name)))
-
-(setq ido-enable-flex-matching t) ;; allow fuzzy matches
-(defun my-ido-find-tag ()
-  "Find a tag using ido"
-  (interactive)
-  (tags-completion-table)
-  (let (tag-names)
-    (mapc (lambda (x)
-            (unless (integerp x)
-              (push (prin1-to-string x t) tag-names)))
-          tags-completion-table)
-    (find-tag (ido-completing-read "Tag: " tag-names))))
-
-;; fzf
-'(add-to-list 'load-path "~/.fzf")
-(when (memq window-system '(mac ns))
-  (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-  (setq exec-path (append exec-path '("/usr/local/bin"))))
-
-(defun set-window-width (n)
-  "Set the selected window's width."
-  (adjust-window-trailing-edge (selected-window) (- n (window-width)) t))
-
-(defun set-80-columns ()
-  "Set the selected window to 80 columns."
-  (interactive)
-  (set-window-width 80))
-
-(defun cg-vsplit()
-  (interactive)
-  (evil-window-vsplit)
-  (set-80-columns)
-  (evil-window-next nil)
-  )
-
-;; replace current word or selection using vim style for evil mode
-(defun query-replace-word-under-cursor()
-  (interactive)
-  (if (use-region-p)
-      (let (
-	    (selection
-	     (buffer-substring-no-properties (region-beginning) (region-end))))
-	(if (= (length selection) 0)
-	    (message "empty string")
-	  (evil-ex (concat "'<,'>s/" selection "/"))
-	  ))
-    (evil-ex (concat "%s/" (thing-at-point 'word) "/"))))
-
-;; Evil Leader Keybindings!!!
-(global-evil-leader-mode)
-(evil-leader/set-key
-  "e" 'my-ido-project-files
-  "b" 'my-ido-buffer-tag-search
-  "k" 'ibuffer
-  "f" 'evilem-motion-find-char
-  "t" 'helm-etags-select
-  "zz" 'zinit
-  "i" 'edit-init-file
-  "o" 'edit-work-org
-  "=" 'set-80-columns
-  "n" 'linum-mode
-  "v" 'cg-vsplit
-  "hg" 'vc-ediff
-  "zc" 'vc-dir
-  "r" 'query-replace-word-under-cursor
-  "g]" 'rg-forward-history
-  "g[" 'rg-back-history
-  "w" 'my-insert-week-for-org
-  )
-
-;; Python things
-(require 'python)
-
-(defun my-shell-mode-hook ()
-  (add-hook 'comint-output-filter-functions 'python-pdbtrack-comint-output-filter-function t))
-
-(add-hook 'shell-mode-hook 'my-shell-mode-hook)
-
-;; Start the server
-;; (server-start)
-
-;; tagging things
-(define-key evil-normal-state-map (kbd "C-]")
-  (lambda () (interactive) (dumb-jump-go)))
-
-(define-key evil-normal-state-map (kbd "]]") 'pop-tag-mark)
-
-(define-key evil-normal-state-map (kbd "]t")
-  (lambda () (interactive) (find-tag last-tag t)))
-
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (find-file-in-project ffip rg dumb-jump nyan-mode evil flymake-python-pyflakes evil-leader evil-surround evil-commentary monokai-theme))))
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "Cascadia Code" :foundry "outline" :slant normal :weight normal :height 98 :width normal))))))
