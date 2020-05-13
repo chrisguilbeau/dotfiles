@@ -5,6 +5,7 @@ let $VIMHOME=expand('~/dotfiles/')
 
 " plugins
 call plug#begin($VIMHOME.'/vim/plugged')
+Plug 'chrisguilbeau/dim-jump'
 Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -182,11 +183,15 @@ nmap <leader>t :Tags<cr>
 function! Zinit()
     " change the root directory
     cd c:/ZogoTech/src
+    edit .
     " tag project files
-    term ++close ctags -R --exclude=.hg --exclude=*.min.js --exclude=3p --languages=Python,Javascript --python-kinds=cfmvl appserver server webserver
+    " term ++close ctags -R --exclude=.hg --exclude=*.min.js --exclude=3p --languages=Python,Javascript --python-kinds=cfmvl appserver server webserver
     let $FZF_DEFAULT_COMMAND = 'rg --files --follow --type=py --type=js --type=txt --type=css --path-separator / appserver server webserver'
     set undodir=c:\ZogoTech\src\undodir
     set undofile
+    " nmap <leader>d :call MyDumbJumpAtPoint()<return>
+    command! -nargs=1 Dj call MyDumbJump(<f-args>)
+    cnoreabbrev dj Dj
 endfunc
 
 function! Zimport()
@@ -200,28 +205,85 @@ hi DiffChange ctermfg=15 guifg=black ctermbg=11 guibg=lightcyan1
 hi DiffText ctermfg=15 guifg=black ctermbg=1 guibg=cadetblue1
 hi DiffDelete ctermfg=15 guifg=mistyrose ctermbg=12 guibg=mistyrose
 
-function! ZdiffDone(...)
+function! DirDiffDone(...)
     execute 'setlocal cursorline'
-    nmap <buffer> <return> :on<cr>0/Z<cr><C-w>f<C-w>r<C-w><C-w>/c:<cr>v/differ<cr>hhy<C-w><C-w>:setlocal number<cr>:vert diffsplit "<cr>:setlocal number<cr><C-w><C-r>
+    nmap <buffer> <return> :call DirDiffEnter()<cr>
 endfunc
 
 function! Zdiff()
     execute 'tabnew'
-    call term_start("/ZogoTech/src/python/python.exe /ZogoTech/scripts/zcr2.py", {'exit_cb':function('ZdiffDone')})
+    call term_start("/ZogoTech/src/python/python.exe /ZogoTech/scripts/zcr2.py", {'exit_cb':function('DirDiffDone')})
 endfunc
 
-function! ZdiffPrompt()
-    let curline = getline('.')
+function! DirDiff()
+    " get the dirs you want to diff
     call inputsave()
-    let left = input('left: ')
-    let right = input('left: ' . left . '; ' . 'right: ')
+    let left = input('left: ', '', 'dir')
+    let right = input('left: ' . left . '; ' . 'right: ', '', 'dir')
     call inputrestore()
     execute 'tabnew'
-    call term_start("/ZogoTech/src/python/python.exe /ZogoTech/scripts/zc.py " . left . ' ' . right, {'exit_cb':function('ZdiffDone')})
+    " do the terminal bit
+    let command = 'diff -qr -xbackupdir -xundodir -x.hg -x__pycache__ ' . left . ' ' . right
+    call term_start(command, {'exit_cb':function('DirDiffDone')})
 endfunc
 
-nmap <leader>dj :bufdo diffoff<cr><C-w>jj<return>
-nmap <leader>dk :bufdo diffoff<cr><C-w>jk<return>
+command! DirDiff call DirDiff()
+
+function! DirDiffEnter()
+    let parts = split(getline('.'))
+    if parts[0] != 'Files'
+        echo 'Not diffable!'
+        return
+    endif
+    " get the filenames to diff
+    let left = parts[1]
+    let right = parts[3]
+    " make sure I'm the only window
+    exec 'on'
+    " set up the window into three panes
+    exec 'spl'
+    exec 'wincmd t'
+    exec 'vspl'
+    " open the files
+    exec 'edit ' . left
+    exec 'diffthis'
+    exec 'wincmd l'
+    exec 'edit ' . right
+    exec 'diffthis'
+    " diff the files!
+endfunc
+
+" the dumbest of jumps
+function! MyDumbJump(term)
+    let command = 'echo Which Adhoc? && rg --vimgrep --follow -g!.hg -tpy -e "^(class|def)\s+\b' . a:term . '\b" -e "^\b' . a:term . '\b\s+=" appserver\c\adhoc.py appserver server webserver'
+    let raw = systemlist(command)
+    " unduplicate things
+    let matches = filter(copy(raw), 'index(raw, v:val, v:key+1)==-1')
+    if len(matches)==1
+        echo 'Not found!'
+        return
+    elseif len(matches)==2
+        let choice = 1
+    else
+        let choice = inputlist(matches)
+    endif
+    let parts = split(matches[choice], ':')
+    execute 'edit +' . parts[1] . ' ' . parts[0]
+endfunc
+
+function! MyDumbJumpAtPoint()
+    call MyDumbJump(expand("<cword>"))
+endfunc
+
+function! MyDumbJumpPrompt()
+    call inputsave()
+    let what = input('Find what? ')
+    call inputrestore()
+    call MyDumbJump(what)
+endfunc
+
+" nmap <leader>dj :bufdo diffoff<cr><C-w>jj<return>
+" nmap <leader>dk :bufdo diffoff<cr><C-w>jk<return>
 
 nmap <leader>07 :%s/<c-r>=substitute(substitute(substitute(substitute(substitute(substitute(substitute(@0, 'ALVIN', '.*', 'g'), '\\', '\\\\', 'g'), '\]', '\\]', 'g'), '\[', '\\[', 'g'), '[0-9]\+', '\[0-9\]\\+', 'g'), '\n','\\n','g'), '/', '\\/', 'g')<CR>//gc
 nmap <leader>zc :call Zdiff()<cr>
