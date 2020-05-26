@@ -11,6 +11,7 @@
 ;; (highlight-tabs)
 (setq mode-require-final-newline t) ;; newline at end of document
 (which-func-mode 1) ;; show current function and class
+(setq echo-keystrokes .1) ;; show the keys I'm pressing
 
 ;; python stuff
 (setenv "PYTHONUNBUFFERED" "1")
@@ -26,6 +27,9 @@
 (scroll-bar-mode -1)
 (show-paren-mode 1)
 (setq ediff-split-window-function 'split-window-horizontally)
+(winner-mode)
+(add-hook 'ediff-after-quit-hook-internal 'winner-undo)
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq javascript-indent-level 2)
 ;; (setq inhibit-splash-screen t) ;; don't show welcome string
 (setq dabbrev-case-replace nil)
@@ -51,10 +55,8 @@
 				  rg
 				  ))
 (package-initialize)
-(package-refresh-contents)
+;; (package-refresh-contents)
 (package-install-selected-packages)
-
-;; evil
 
 ;; rg
 (setq grep-find-command
@@ -69,8 +71,6 @@
                                "^.*\\.pyc"
                                ))
 
-;; dumb jump
-
 ;; nyan-mode
 (nyan-mode)
 
@@ -81,6 +81,10 @@
 (global-evil-leader-mode)
 (eval-after-load "vc-hooks"
   '(define-key vc-prefix-map "=" 'vc-ediff))
+
+(defun evil-edit-work-org ()
+  (interactive)
+  (evil-edit "/plink:cg@austin.zogotech.com:/home/cg/work.org"))
 
 (defun evil-edit-init-file ()
   (interactive)
@@ -126,7 +130,7 @@
   "t" 'my-project-tag-search
   "zz" 'zinit
   "i" 'evil-edit-init-file
-  "o" 'edit-work-org
+  "o" 'evil-edit-work-org
   "=" 'evil-set-80-columns
   "n" 'linum-mode
   "v" 'evil-vsplit
@@ -136,12 +140,13 @@
   "g]" 'rg-forward-history
   "g[" 'rg-back-history
   "w" 'my-insert-week-for-org
+  "d" 'my-open-diff
   )
 
 ;; my-proj
 (setq my-project-root (getenv "pwd"))
 (setq my-project-types "")
-(setq my-ctags-bin "ctags.exe")
+(setq my-ctags-bin "ctags")
 (setq my-project-folders ".")
 (setq my-ctags-excludes " ")
 (setq my-ctags-languages " ")
@@ -158,6 +163,14 @@
   (evil-edit my-project-root)
   )
 
+(defun my-open-diff()
+  (interactive)
+  (let (
+	(parts (split-string (thing-at-point 'line) " "))
+	)
+    (ediff (nth 1 parts) (nth 3 parts))
+    ))
+
 (defun my-project-tag-search()
   "Use ido to jump to a tag in the current project."
   (interactive)
@@ -165,8 +178,8 @@
         (file-lines
          (split-string
           (shell-command-to-string
-           (concat my-ctags-bin
-                   " -R -x -f- "  ;; recursive to standard output, no file
+           (concat "cd " my-project-root " & "
+		   my-ctags-bin " -R -x -f- "
                    my-ctags-excludes " "
                    my-ctags-languages " "
                    my-ctags-kinds " "
@@ -240,5 +253,16 @@
       (find-file (gethash (ido-completing-read "project-files: " ido-list) tbl))))
 
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(nil nil t)
+ '(show-paren-mode t)
+ '(tool-bar-mode nil))
 (custom-set-faces
- '(default ((t (:family "Cascadia Code" :foundry "outline" :slant normal :weight normal :height 98 :width normal))))))
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Cascadia Code" :foundry "outline" :slant normal :weight normal :height 98 :width normal)))))

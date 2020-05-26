@@ -32,7 +32,13 @@ set guicursor+=a:blinkon0
 " set guifont=Space_Mono_for_Powerline:h9
 " set guifont=Space_Mono_for_Powerline:h9
 " set guifont=Cascadia_Code:h9
-set guifont=SF_Mono:h10:W500:cANSI:qDRAFT
+set guifont=Cascadia_Code:h8:cANSI:qDRAFT
+set guifont=Courier:cANSI:qPROOF
+set guifont=Courier_New:cANSI:qPROOF
+set guifont=LispM_Monospace:h10:cANSI:qNONANTIALIASED
+set guifont=NSimSun:h10:cANSI:qNONANTIALIASED
+set guifont=Courier_New:h8:cANSI:qNONANTIALIASED
+set guifont=Consolas:h10:cANSI:qPROOF
 
 set go-=m  "remove menu bar
 set go-=T  "remove toolbar

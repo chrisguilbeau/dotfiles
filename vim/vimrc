@@ -146,7 +146,7 @@ let g:python_pep8_indent_multiline_string = -2
 let g:python_pep8_indent_hang_closing = 1
 au BufNewFile,BufRead *.py set cc=73,80
 au BufNewFile,BufRead *.py call ale#toggle#Enable()
-ab pdb breakpoint() # TODO: remove this!!!
+au BufNewFile,BufRead *.py ab pdb breakpoint() # TODO: remove this pdb like line!!!
 vmap <leader>wc <esc>:set textwidth=79<cr>gvgq<esc>:set textwidth=0<cr>gv
 vmap <leader>wt <esc>:set textwidth=72<cr>gvgq<esc>:set textwidth=0<cr>gv
 
@@ -183,15 +183,14 @@ nmap <leader>t :Tags<cr>
 function! Zinit()
     " change the root directory
     cd c:/ZogoTech/src
-    edit .
     " tag project files
-    " term ++close ctags -R --exclude=.hg --exclude=*.min.js --exclude=3p --languages=Python,Javascript --python-kinds=cfmvl appserver server webserver
+    term ++close ctags -R --exclude=.hg --exclude=*.min.js --exclude=3p --languages=Python,Javascript --python-kinds=cfmvl appserver server webserver
     let $FZF_DEFAULT_COMMAND = 'rg --files --follow --type=py --type=js --type=txt --type=css --path-separator / appserver server webserver'
     set undodir=c:\ZogoTech\src\undodir
     set undofile
     " nmap <leader>d :call MyDumbJumpAtPoint()<return>
-    command! -nargs=1 Dj call MyDumbJump(<f-args>)
-    cnoreabbrev dj Dj
+    " command! -nargs=1 Dj call MyDumbJump(<f-args>)
+    " cnoreabbrev dj Dj
 endfunc
 
 function! Zimport()
